@@ -1,0 +1,77 @@
+<UserControl x:Class="VirtualController.App.Views.MappingEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="800">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Button Mapping" FontSize="26" FontWeight="Bold"/>
+                <TextBlock Text="Configure physical keyboard keys and mouse buttons for each virtual Xbox 360 button" 
+                           FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="BtnResetDefault" Content="Reset to Defaults" Background="#334155" Margin="0,0,10,0" Click="BtnResetDefault_Click"/>
+                <Button x:Name="BtnSave" Content="Save Mappings" Background="{StaticResource AccentGreenBrush}" Click="BtnSave_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Mapping List / Table -->
+        <Border Grid.Row="1" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="16" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="MappingItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#16161A" CornerRadius="6" Padding="14,10" Margin="0,0,0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Virtual Button Name -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Border CornerRadius="4" Background="#282838" Padding="8,4" Margin="0,0,10,0" MinWidth="42">
+                                            <TextBlock Text="{Binding VirtualButton}" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#38BDF8"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding Description}" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
+                                    </StackPanel>
+
+                                    <!-- Current Physical Input -->
+                                    <TextBlock Grid.Column="1" Text="{Binding PhysicalInput}" VerticalAlignment="Center" 
+                                               FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+
+                                    <!-- Rebind Action Button -->
+                                    <Button Grid.Column="2" Content="{Binding ActionText}" Tag="{Binding VirtualButton}" 
+                                            Background="{Binding ActionBackground}" Click="BtnRebind_Click" HorizontalAlignment="Right" Width="100"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Status / Rebind prompt -->
+        <Border Grid.Row="2" Margin="0,12,0,0" Background="#1E1E28" CornerRadius="6" Padding="12">
+            <TextBlock x:Name="StatusInfoText" Text="Tip: Click 'Rebind', then press any key or mouse button to assign it." 
+                       Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
+        </Border>
+    </Grid>
+</UserControl>

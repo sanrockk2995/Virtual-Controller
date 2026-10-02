@@ -1,0 +1,93 @@
+<UserControl x:Class="VirtualController.App.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,24">
+            <TextBlock Text="Dashboard" FontSize="26" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+            <TextBlock Text="Manage virtual Xbox 360 controller state and active profile" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <!-- Main Card Grid -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Card: Controller Status & Actions -->
+            <Border Grid.Column="0" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="24" Margin="0,0,12,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Virtual Controller Status" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,16"/>
+
+                    <!-- Status Indicator -->
+                    <Border CornerRadius="8" Background="#16161A" Padding="16" Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse x:Name="StatusDot" Width="14" Height="14" Fill="{StaticResource AccentRedBrush}" Margin="0,0,12,0"/>
+                            <StackPanel>
+                                <TextBlock x:Name="StatusText" Text="Status: Disconnected" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock x:Name="DriverStatusText" Text="ViGEmBus: Checking..." FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Enable / Disable Controller Buttons -->
+                    <StackPanel Margin="0,0,0,20">
+                        <Button x:Name="BtnToggleController" Content="Enable Controller" Height="44" FontSize="15" 
+                                Background="{StaticResource AccentGreenBrush}" Click="BtnToggleController_Click"/>
+                        <Button x:Name="BtnInstallDriver" Content="Install ViGEmBus Driver" Height="38" FontSize="13" 
+                                Background="{StaticResource AccentBlueBrush}" Margin="0,10,0,0" Visibility="Collapsed" Click="BtnInstallDriver_Click"/>
+                    </StackPanel>
+
+                    <!-- Emergency Hotkey Info -->
+                    <Border CornerRadius="6" Background="#242430" Padding="12" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Safety / Emergency Hotkey:" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextSecondaryBrush}"/>
+                            <TextBlock Text="Ctrl + Alt + F10" FontSize="14" FontWeight="Bold" Foreground="#38BDF8" Margin="0,2,0,0"/>
+                            <TextBlock Text="Instantly disables controller and releases all inputs." FontSize="11" Foreground="#94A3B8" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Right Card: Active Profile & Quick Launch -->
+            <Border Grid.Column="1" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="24" Margin="12,0,0,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Active Profile" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Current Profile:" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+                    <ComboBox x:Name="ProfileComboBox" Height="38" Margin="0,0,0,20" SelectionChanged="ProfileComboBox_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" Foreground="{StaticResource TextPrimaryBrush}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <!-- Profile Details Overview -->
+                    <Border CornerRadius="8" Background="#16161A" Padding="16" Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock x:Name="ProfileSummaryTitle" Text="Default Keyboard + Mouse" FontSize="14" FontWeight="Bold" Margin="0,0,0,8"/>
+                            <TextBlock Text="• Left Stick: W / A / S / D (Normalized Analog)" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                            <TextBlock Text="• Right Stick: Relative Mouse Movement" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="• Action: Space (A), Shift (B), E (X), Q (Y)" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="• Triggers: Left Mouse (RT), Right Mouse (LT)" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Button x:Name="BtnTestController" Content="Test Controller Live" Height="40" Background="{StaticResource AccentBlueBrush}" 
+                            Click="BtnTestController_Click"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

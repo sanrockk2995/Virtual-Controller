@@ -1,0 +1,39 @@
+{
+  "Name": "Default Keyboard + Mouse",
+  "LeftStick": {
+    "Up": "W",
+    "Down": "S",
+    "Left": "A",
+    "Right": "D",
+    "Deadzone": 0.1,
+    "Sensitivity": 1.0,
+    "ResponseCurve": "Linear"
+  },
+  "RightStick": {
+    "Sensitivity": 1.2,
+    "Deadzone": 0.05,
+    "Smoothing": 0.25,
+    "MaxMagnitude": 1.0,
+    "InvertX": false,
+    "InvertY": false,
+    "Acceleration": 1.0,
+    "DecayRate": 0.8
+  },
+  "Buttons": {
+    "A": "Space",
+    "B": "LeftShift",
+    "X": "E",
+    "Y": "Q",
+    "LB": "F",
+    "RB": "R",
+    "LT": "RightMouse",
+    "RT": "LeftMouse",
+    "Back": "Tab",
+    "Start": "Enter",
+    "RS": "MiddleMouse",
+    "LS": "C"
+  },
+  "ExtraMappings": {
+    "Escape": "Start"
+  }
+}

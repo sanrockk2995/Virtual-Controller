@@ -1,0 +1,96 @@
+<UserControl x:Class="VirtualController.App.Views.ProfilesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="850">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Profiles Management" FontSize="26" FontWeight="Bold"/>
+            <TextBlock Text="Create, duplicate, export, import and customize configurations for different games" 
+                       FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <!-- Main Layout -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="340"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Profiles List & Actions -->
+            <Border Grid.Column="0" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="16" Margin="0,0,12,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox x:Name="ProfilesListBox" Background="#16161A" BorderThickness="0" Foreground="{StaticResource TextPrimaryBrush}" 
+                             SelectionChanged="ProfilesListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Padding="8,6" FontSize="14"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!-- Profile List Buttons -->
+                    <StackPanel Grid.Row="1" Margin="0,14,0,0">
+                        <Button x:Name="BtnSetActive" Content="Set as Active Profile" Background="{StaticResource AccentGreenBrush}" Margin="0,0,0,8" Click="BtnSetActive_Click"/>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" x:Name="BtnNewProfile" Content="New Profile" Background="{StaticResource AccentBlueBrush}" Margin="0,0,4,0" Click="BtnNewProfile_Click"/>
+                            <Button Grid.Column="1" x:Name="BtnDuplicate" Content="Duplicate" Background="#334155" Margin="4,0,0,0" Click="BtnDuplicate_Click"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" x:Name="BtnRename" Content="Rename" Background="#334155" Margin="0,0,4,0" Click="BtnRename_Click"/>
+                            <Button Grid.Column="1" x:Name="BtnDelete" Content="Delete" Background="{StaticResource AccentRedBrush}" Margin="4,0,0,0" Click="BtnDelete_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Right: Profile JSON Inspector & Import/Export -->
+            <Border Grid.Column="1" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="20" Margin="12,0,0,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,12">
+                        <TextBlock Text="JSON Profile Structure" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="BtnExport" Content="Export JSON..." Background="#334155" Margin="0,0,8,0" Click="BtnExport_Click"/>
+                            <Button x:Name="BtnImport" Content="Import JSON..." Background="#334155" Click="BtnImport_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Readonly JSON display -->
+                    <TextBox Grid.Row="1" x:Name="TxtJsonPreview" IsReadOnly="True" AcceptsReturn="True" 
+                             FontFamily="Consolas, Cascadia Code, Courier New" FontSize="12" 
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="#121216"/>
+
+                    <TextBlock Grid.Row="2" Text="Profiles are saved as readable JSON files in the /profiles directory." 
+                               Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="0,10,0,0"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

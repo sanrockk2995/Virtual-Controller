@@ -1,0 +1,80 @@
+<Window x:Class="VirtualController.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Virtual Xbox 360 Controller" 
+        Height="720" Width="1100" MinHeight="640" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BgDarkBrush}"
+        Foreground="{StaticResource TextPrimaryBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar Navigation -->
+        <Border Grid.Column="0" Background="#16161A" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="0,0,1,0">
+            <Grid Margin="16,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- App Brand / Header -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,24">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Background="#2563EB" CornerRadius="8" Width="36" Height="36" Margin="0,0,10,0">
+                            <TextBlock Text="🎮" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Virtual Xbox" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text="KBM to Controller" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Navigation Buttons -->
+                <StackPanel Grid.Row="1">
+                    <Button x:Name="NavDashboard" Content="Dashboard" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                            Background="#22222B" Foreground="White" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
+                            BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
+
+                    <Button x:Name="NavMapping" Content="Button Mapping" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                            Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
+                            BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
+
+                    <Button x:Name="NavAnalog" Content="Analog Configuration" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                            Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
+                            BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
+
+                    <Button x:Name="NavTester" Content="Controller Live Test" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                            Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
+                            BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
+
+                    <Button x:Name="NavProfiles" Content="Profiles" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                            Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
+                            BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
+
+                    <Button x:Name="NavSettings" Content="Settings &amp; Driver" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                            Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
+                            BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
+                </StackPanel>
+
+                <!-- Sidebar Footer Status -->
+                <Border Grid.Row="2" Background="#1C1C24" CornerRadius="8" Padding="12">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse x:Name="SidebarStatusDot" Width="10" Height="10" Fill="{StaticResource AccentRedBrush}" Margin="0,0,8,0"/>
+                            <TextBlock x:Name="SidebarStatusText" Text="Disabled" FontWeight="SemiBold" FontSize="13"/>
+                        </StackPanel>
+                        <TextBlock Text="Hotkey: Ctrl+Alt+F10" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <ContentControl Grid.Column="1" x:Name="MainContentHost"/>
+    </Grid>
+</Window>

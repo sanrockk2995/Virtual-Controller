@@ -1,0 +1,21 @@
+# Visual Studio / .NET Build Artifacts
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+TestResults/
+
+# Published packages & Release Archives
+dist/
+*.zip
+
+# Runtime Logs
+logs/
+*.log
+
+# Code Analysis & Local Tooling
+.codegraph/
+.gemini/
