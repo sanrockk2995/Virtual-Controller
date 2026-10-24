@@ -13,8 +13,8 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,24">
-            <TextBlock Text="Dashboard" FontSize="26" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
-            <TextBlock Text="Manage virtual Xbox 360 controller state and active profile" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+            <TextBlock Text="{DynamicResource Dash_Title}" FontSize="26" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+            <TextBlock Text="{DynamicResource Dash_Subtitle}" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
         </StackPanel>
 
         <!-- Main Card Grid -->
@@ -27,33 +27,33 @@
             <!-- Left Card: Controller Status & Actions -->
             <Border Grid.Column="0" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="24" Margin="0,0,12,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
                 <StackPanel>
-                    <TextBlock Text="Virtual Controller Status" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,16"/>
+                    <TextBlock Text="{DynamicResource Dash_CardStatus}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,16"/>
 
                     <!-- Status Indicator -->
                     <Border CornerRadius="8" Background="#16161A" Padding="16" Margin="0,0,0,20">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Ellipse x:Name="StatusDot" Width="14" Height="14" Fill="{StaticResource AccentRedBrush}" Margin="0,0,12,0"/>
                             <StackPanel>
-                                <TextBlock x:Name="StatusText" Text="Status: Disconnected" FontSize="16" FontWeight="Bold"/>
-                                <TextBlock x:Name="DriverStatusText" Text="ViGEmBus: Checking..." FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,0"/>
+                                <TextBlock x:Name="StatusText" Text="{DynamicResource Dash_StatusDisconnected}" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock x:Name="DriverStatusText" Text="{DynamicResource Dash_DriverChecking}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,0"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
 
                     <!-- Enable / Disable Controller Buttons -->
                     <StackPanel Margin="0,0,0,20">
-                        <Button x:Name="BtnToggleController" Content="Enable Controller" Height="44" FontSize="15" 
+                        <Button x:Name="BtnToggleController" Content="{DynamicResource Dash_BtnEnable}" Height="44" FontSize="15" 
                                 Background="{StaticResource AccentGreenBrush}" Click="BtnToggleController_Click"/>
-                        <Button x:Name="BtnInstallDriver" Content="Install ViGEmBus Driver" Height="38" FontSize="13" 
+                        <Button x:Name="BtnInstallDriver" Content="{DynamicResource Dash_BtnInstallDriver}" Height="38" FontSize="13" 
                                 Background="{StaticResource AccentBlueBrush}" Margin="0,10,0,0" Visibility="Collapsed" Click="BtnInstallDriver_Click"/>
                     </StackPanel>
 
                     <!-- Emergency Hotkey Info -->
                     <Border CornerRadius="6" Background="#242430" Padding="12" Margin="0,0,0,10">
                         <StackPanel>
-                            <TextBlock Text="Safety / Emergency Hotkey:" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextSecondaryBrush}"/>
+                            <TextBlock Text="{DynamicResource Dash_HotkeyTitle}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextSecondaryBrush}"/>
                             <TextBlock Text="Ctrl + Alt + F10" FontSize="14" FontWeight="Bold" Foreground="#38BDF8" Margin="0,2,0,0"/>
-                            <TextBlock Text="Instantly disables controller and releases all inputs." FontSize="11" Foreground="#94A3B8" Margin="0,2,0,0"/>
+                            <TextBlock Text="{DynamicResource Dash_HotkeyDesc}" FontSize="11" Foreground="#94A3B8" Margin="0,2,0,0"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -62,9 +62,9 @@
             <!-- Right Card: Active Profile & Quick Launch -->
             <Border Grid.Column="1" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="24" Margin="12,0,0,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
                 <StackPanel>
-                    <TextBlock Text="Active Profile" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,16"/>
+                    <TextBlock Text="{DynamicResource Dash_CardProfile}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,16"/>
 
-                    <TextBlock Text="Current Profile:" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+                    <TextBlock Text="{DynamicResource Dash_ProfileDesc}" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
                     <ComboBox x:Name="ProfileComboBox" Height="38" Margin="0,0,0,20" SelectionChanged="ProfileComboBox_SelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -84,7 +84,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Button x:Name="BtnTestController" Content="Test Controller Live" Height="40" Background="{StaticResource AccentBlueBrush}" 
+                    <Button x:Name="BtnTestController" Content="{DynamicResource Dash_BtnLiveTester}" Height="40" Background="{StaticResource AccentBlueBrush}" 
                             Click="BtnTestController_Click"/>
                 </StackPanel>
             </Border>

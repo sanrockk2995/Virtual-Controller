@@ -13,8 +13,8 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="Profiles Management" FontSize="26" FontWeight="Bold"/>
-            <TextBlock Text="Create, duplicate, export, import and customize configurations for different games" 
+            <TextBlock Text="{DynamicResource Prof_Title}" FontSize="26" FontWeight="Bold"/>
+            <TextBlock Text="{DynamicResource Prof_Subtitle}" 
                        FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
         </StackPanel>
 
@@ -44,22 +44,22 @@
 
                     <!-- Profile List Buttons -->
                     <StackPanel Grid.Row="1" Margin="0,14,0,0">
-                        <Button x:Name="BtnSetActive" Content="Set as Active Profile" Background="{StaticResource AccentGreenBrush}" Margin="0,0,0,8" Click="BtnSetActive_Click"/>
+                        <Button x:Name="BtnSetActive" Content="{DynamicResource Prof_BtnSetActive}" Background="{StaticResource AccentGreenBrush}" Margin="0,0,0,8" Click="BtnSetActive_Click"/>
                         <Grid Margin="0,0,0,8">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="BtnNewProfile" Content="New Profile" Background="{StaticResource AccentBlueBrush}" Margin="0,0,4,0" Click="BtnNewProfile_Click"/>
-                            <Button Grid.Column="1" x:Name="BtnDuplicate" Content="Duplicate" Background="#334155" Margin="4,0,0,0" Click="BtnDuplicate_Click"/>
+                            <Button Grid.Column="0" x:Name="BtnNewProfile" Content="{DynamicResource Prof_BtnNew}" Background="{StaticResource AccentBlueBrush}" Margin="0,0,4,0" Click="BtnNewProfile_Click"/>
+                            <Button Grid.Column="1" x:Name="BtnDuplicate" Content="{DynamicResource Prof_BtnDuplicate}" Background="#334155" Margin="4,0,0,0" Click="BtnDuplicate_Click"/>
                         </Grid>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="BtnRename" Content="Rename" Background="#334155" Margin="0,0,4,0" Click="BtnRename_Click"/>
-                            <Button Grid.Column="1" x:Name="BtnDelete" Content="Delete" Background="{StaticResource AccentRedBrush}" Margin="4,0,0,0" Click="BtnDelete_Click"/>
+                            <Button Grid.Column="0" x:Name="BtnRename" Content="{DynamicResource Prof_BtnRename}" Background="#334155" Margin="0,0,4,0" Click="BtnRename_Click"/>
+                            <Button Grid.Column="1" x:Name="BtnDelete" Content="{DynamicResource Prof_BtnDelete}" Background="{StaticResource AccentRedBrush}" Margin="4,0,0,0" Click="BtnDelete_Click"/>
                         </Grid>
                     </StackPanel>
                 </Grid>
@@ -75,10 +75,10 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="0,0,0,12">
-                        <TextBlock Text="JSON Profile Structure" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource Prof_Summary}" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button x:Name="BtnExport" Content="Export JSON..." Background="#334155" Margin="0,0,8,0" Click="BtnExport_Click"/>
-                            <Button x:Name="BtnImport" Content="Import JSON..." Background="#334155" Click="BtnImport_Click"/>
+                            <Button x:Name="BtnExport" Content="{DynamicResource Prof_BtnExport}" Background="#334155" Margin="0,0,8,0" Click="BtnExport_Click"/>
+                            <Button x:Name="BtnImport" Content="{DynamicResource Prof_BtnImport}" Background="#334155" Click="BtnImport_Click"/>
                         </StackPanel>
                     </Grid>
 

@@ -20,12 +20,12 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
-                <TextBlock Text="Analog Configuration" FontSize="26" FontWeight="Bold"/>
-                <TextBlock Text="Choose Keyboard or Mouse for either thumbstick with fully independent deadzones and sensitivity" 
+                <TextBlock Text="{DynamicResource Analog_Title}" FontSize="26" FontWeight="Bold"/>
+                <TextBlock Text="{DynamicResource Analog_Subtitle}" 
                            FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
             </StackPanel>
 
-            <Button Grid.Column="1" x:Name="BtnSaveAnalog" Content="Save Analog Settings" 
+            <Button Grid.Column="1" x:Name="BtnSaveAnalog" Content="{DynamicResource Analog_BtnSave}" 
                     Background="{StaticResource AccentGreenBrush}" VerticalAlignment="Center" Click="BtnSaveAnalog_Click"/>
         </Grid>
 
@@ -40,19 +40,19 @@
                 <!-- ================= LEFT STICK ================= -->
                 <Border Grid.Column="0" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="20" Margin="0,0,10,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
                     <StackPanel>
-                        <TextBlock Text="Left Thumbstick" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <TextBlock Text="{DynamicResource Analog_LeftStick}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
 
                         <!-- Input Source Selector -->
-                        <TextBlock Text="Input Source:" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBlock Text="{DynamicResource Analog_InputSource}" FontWeight="SemiBold" Margin="0,0,0,6"/>
                         <ComboBox x:Name="ComboLeftSource" Height="36" Margin="0,0,0,16" SelectionChanged="ComboLeftSource_SelectionChanged">
-                            <ComboBoxItem Content="Keyboard (Keys)" IsSelected="True"/>
-                            <ComboBoxItem Content="Mouse (Movement)"/>
-                            <ComboBoxItem Content="None (Disabled)"/>
+                            <ComboBoxItem Content="{DynamicResource Analog_SourceKeyboard}" IsSelected="True"/>
+                            <ComboBoxItem Content="{DynamicResource Analog_SourceMouse}"/>
+                            <ComboBoxItem Content="{DynamicResource Analog_SourceDisabled}"/>
                         </ComboBox>
 
                         <!-- LEFT STICK: KEYBOARD PANEL -->
                         <StackPanel x:Name="PanelLeftKeyboard">
-                            <TextBlock Text="Directional Keys (Click to rebind):" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                            <TextBlock Text="{DynamicResource Analog_DirKeys}" FontWeight="SemiBold" Margin="0,0,0,8"/>
                             <Border Background="#16161A" CornerRadius="8" Padding="12" Margin="0,0,0,16">
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -197,14 +197,14 @@
                 <!-- ================= RIGHT STICK ================= -->
                 <Border Grid.Column="1" Background="{StaticResource BgCardBrush}" CornerRadius="10" Padding="20" Margin="10,0,0,0" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
                     <StackPanel>
-                        <TextBlock Text="Right Thumbstick" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <TextBlock Text="{DynamicResource Analog_RightStick}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
 
                         <!-- Input Source Selector -->
-                        <TextBlock Text="Input Source:" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBlock Text="{DynamicResource Analog_InputSource}" FontWeight="SemiBold" Margin="0,0,0,6"/>
                         <ComboBox x:Name="ComboRightSource" Height="36" Margin="0,0,0,16" SelectionChanged="ComboRightSource_SelectionChanged">
-                            <ComboBoxItem Content="Mouse (Movement)" IsSelected="True"/>
-                            <ComboBoxItem Content="Keyboard (Keys)"/>
-                            <ComboBoxItem Content="None (Disabled)"/>
+                            <ComboBoxItem Content="{DynamicResource Analog_SourceMouse}" IsSelected="True"/>
+                            <ComboBoxItem Content="{DynamicResource Analog_SourceKeyboard}"/>
+                            <ComboBoxItem Content="{DynamicResource Analog_SourceDisabled}"/>
                         </ComboBox>
 
                         <!-- RIGHT STICK: MOUSE PANEL -->

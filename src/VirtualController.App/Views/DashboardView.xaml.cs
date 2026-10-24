@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using VirtualController.App.Services;
 using VirtualController.Input;
 using VirtualController.Profiles;
 using VirtualController.Backend;
@@ -50,17 +51,17 @@ namespace VirtualController.App.Views
             if (_inputManager.IsEnabled)
             {
                 StatusDot.Fill = (Brush)FindResource("AccentGreenBrush");
-                StatusText.Text = "Status: Connected (Active)";
+                StatusText.Text = LocalizationService.GetString("Dash_StatusActive", "Status: Active & Connected");
                 StatusText.Foreground = (Brush)FindResource("AccentGreenBrush");
-                BtnToggleController.Content = "Disable Controller";
+                BtnToggleController.Content = LocalizationService.GetString("Dash_BtnDisable", "Disable Controller");
                 BtnToggleController.Background = (Brush)FindResource("AccentRedBrush");
             }
             else
             {
                 StatusDot.Fill = (Brush)FindResource("AccentRedBrush");
-                StatusText.Text = "Status: Disconnected";
+                StatusText.Text = LocalizationService.GetString("Dash_StatusDisconnected", "Status: Disconnected");
                 StatusText.Foreground = (Brush)FindResource("TextPrimaryBrush");
-                BtnToggleController.Content = "Enable Controller";
+                BtnToggleController.Content = LocalizationService.GetString("Dash_BtnEnable", "Enable Controller");
                 BtnToggleController.Background = (Brush)FindResource("AccentGreenBrush");
             }
 

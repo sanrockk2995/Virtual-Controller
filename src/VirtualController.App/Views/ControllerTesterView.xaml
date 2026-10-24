@@ -13,8 +13,8 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,16">
-            <TextBlock Text="Controller Live Visualizer &amp; Tester" FontSize="26" FontWeight="Bold"/>
-            <TextBlock Text="Verify your keyboard and mouse conversion into virtual Xbox 360 controller inputs in real-time" 
+            <TextBlock Text="{DynamicResource Tester_Title}" FontSize="26" FontWeight="Bold"/>
+            <TextBlock Text="{DynamicResource Tester_Subtitle}" 
                        FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
         </StackPanel>
 

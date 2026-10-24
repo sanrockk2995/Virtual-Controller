@@ -28,35 +28,35 @@
                             <TextBlock Text="🎮" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Virtual Xbox" FontSize="16" FontWeight="Bold"/>
-                            <TextBlock Text="KBM to Controller" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                            <TextBlock Text="{DynamicResource App_Title}" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text="{DynamicResource App_Subtitle}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Navigation Buttons -->
                 <StackPanel Grid.Row="1">
-                    <Button x:Name="NavDashboard" Content="Dashboard" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                    <Button x:Name="NavDashboard" Content="{DynamicResource Nav_Dashboard}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
                             Background="#22222B" Foreground="White" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
 
-                    <Button x:Name="NavMapping" Content="Button Mapping" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                    <Button x:Name="NavMapping" Content="{DynamicResource Nav_Mapping}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
                             Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
 
-                    <Button x:Name="NavAnalog" Content="Analog Configuration" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                    <Button x:Name="NavAnalog" Content="{DynamicResource Nav_Analog}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
                             Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
 
-                    <Button x:Name="NavTester" Content="Controller Live Test" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                    <Button x:Name="NavTester" Content="{DynamicResource Nav_Tester}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
                             Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
 
-                    <Button x:Name="NavProfiles" Content="Profiles" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                    <Button x:Name="NavProfiles" Content="{DynamicResource Nav_Profiles}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
                             Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
 
-                    <Button x:Name="NavSettings" Content="Settings &amp; Driver" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                    <Button x:Name="NavSettings" Content="{DynamicResource Nav_Settings}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
                             Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
                 </StackPanel>
@@ -66,9 +66,9 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Ellipse x:Name="SidebarStatusDot" Width="10" Height="10" Fill="{StaticResource AccentRedBrush}" Margin="0,0,8,0"/>
-                            <TextBlock x:Name="SidebarStatusText" Text="Disabled" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock x:Name="SidebarStatusText" Text="{DynamicResource Status_Disabled}" FontWeight="SemiBold" FontSize="13"/>
                         </StackPanel>
-                        <TextBlock Text="Hotkey: Ctrl+Alt+F10" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                        <TextBlock Text="{DynamicResource Status_Hotkey}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
                     </StackPanel>
                 </Border>
             </Grid>

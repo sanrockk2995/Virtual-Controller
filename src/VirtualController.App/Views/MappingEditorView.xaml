@@ -20,14 +20,14 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
-                <TextBlock Text="Button Mapping" FontSize="26" FontWeight="Bold"/>
-                <TextBlock Text="Configure physical keyboard keys and mouse buttons for each virtual Xbox 360 button" 
+                <TextBlock Text="{DynamicResource Map_Title}" FontSize="26" FontWeight="Bold"/>
+                <TextBlock Text="{DynamicResource Map_Subtitle}" 
                            FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button x:Name="BtnResetDefault" Content="Reset to Defaults" Background="#334155" Margin="0,0,10,0" Click="BtnResetDefault_Click"/>
-                <Button x:Name="BtnSave" Content="Save Mappings" Background="{StaticResource AccentGreenBrush}" Click="BtnSave_Click"/>
+                <Button x:Name="BtnResetDefault" Content="{DynamicResource Map_BtnReset}" Background="#334155" Margin="0,0,10,0" Click="BtnResetDefault_Click"/>
+                <Button x:Name="BtnSave" Content="{DynamicResource Map_BtnSave}" Background="{StaticResource AccentGreenBrush}" Click="BtnSave_Click"/>
             </StackPanel>
         </Grid>
 

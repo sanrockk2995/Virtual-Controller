@@ -15,6 +15,7 @@ namespace VirtualController.Services
         public bool AutoEnableController { get; set; } = false;
         public string ActiveProfileName { get; set; } = "Default Keyboard + Mouse";
         public string Hotkey { get; set; } = "Ctrl + Alt + F10";
+        public string Language { get; set; } = "vi";
 
         private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
         private static string SettingsFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "settings.json");

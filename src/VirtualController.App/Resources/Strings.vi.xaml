@@ -1,0 +1,125 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- App Brand & Navigation -->
+    <sys:String x:Key="App_Title">Tay cầm Xbox 360 ảo</sys:String>
+    <sys:String x:Key="App_Subtitle">Bàn phím &amp; Chuột sang Tay cầm</sys:String>
+    <sys:String x:Key="Nav_Dashboard">Bảng điều khiển</sys:String>
+    <sys:String x:Key="Nav_Mapping">Gán nút bấm</sys:String>
+    <sys:String x:Key="Nav_Analog">Cấu hình Analog</sys:String>
+    <sys:String x:Key="Nav_Tester">Kiểm tra tay cầm</sys:String>
+    <sys:String x:Key="Nav_Profiles">Cấu hình (Profiles)</sys:String>
+    <sys:String x:Key="Nav_Settings">Cài đặt &amp; Driver</sys:String>
+    <sys:String x:Key="Status_Active">Đang hoạt động (Đã kết nối)</sys:String>
+    <sys:String x:Key="Status_Disabled">Đã tắt</sys:String>
+    <sys:String x:Key="Status_Connecting">Đang kết nối...</sys:String>
+    <sys:String x:Key="Status_Hotkey">Phím tắt: Ctrl+Alt+F10</sys:String>
+
+    <!-- Dashboard -->
+    <sys:String x:Key="Dash_Title">Bảng điều khiển</sys:String>
+    <sys:String x:Key="Dash_Subtitle">Quản lý trạng thái tay cầm Xbox 360 ảo và cấu hình đang hoạt động</sys:String>
+    <sys:String x:Key="Dash_CardStatus">Trạng thái tay cầm ảo</sys:String>
+    <sys:String x:Key="Dash_StatusDisconnected">Trạng thái: Chưa kết nối</sys:String>
+    <sys:String x:Key="Dash_StatusActive">Trạng thái: Đang hoạt động &amp; Kết nối</sys:String>
+    <sys:String x:Key="Dash_DriverChecking">ViGEmBus: Đang kiểm tra...</sys:String>
+    <sys:String x:Key="Dash_BtnEnable">Bật tay cầm</sys:String>
+    <sys:String x:Key="Dash_BtnDisable">Tắt tay cầm</sys:String>
+    <sys:String x:Key="Dash_BtnInstallDriver">Cài đặt Driver ViGEmBus</sys:String>
+    <sys:String x:Key="Dash_HotkeyTitle">Phím tắt khẩn cấp (An toàn):</sys:String>
+    <sys:String x:Key="Dash_HotkeyDesc">Lập tức ngắt tay cầm và giải phóng toàn bộ phím bấm bất cứ lúc nào.</sys:String>
+    <sys:String x:Key="Dash_CardProfile">Cấu hình đang kích hoạt</sys:String>
+    <sys:String x:Key="Dash_ProfileDesc">Cấu hình này điều khiển chuyển đổi phím và chuột theo thời gian thực.</sys:String>
+    <sys:String x:Key="Dash_BtnManageProfiles">Quản lý &amp; Tạo cấu hình</sys:String>
+    <sys:String x:Key="Dash_QuickMapping">Tóm tắt thiết lập nhanh</sys:String>
+    <sys:String x:Key="Dash_LeftStick">Cần xoay trái:</sys:String>
+    <sys:String x:Key="Dash_RightStick">Cần xoay phải:</sys:String>
+    <sys:String x:Key="Dash_BtnLiveTester">Mở trình kiểm tra &amp; Mô phỏng tay cầm</sys:String>
+
+    <!-- Button Mapping -->
+    <sys:String x:Key="Map_Title">Gán nút điều khiển</sys:String>
+    <sys:String x:Key="Map_Subtitle">Cấu hình phím bàn phím và nút chuột cho từng nút trên tay cầm Xbox 360</sys:String>
+    <sys:String x:Key="Map_BtnReset">Khôi phục mặc định</sys:String>
+    <sys:String x:Key="Map_BtnSave">Lưu gán phím</sys:String>
+    <sys:String x:Key="Map_BtnRebind">Đổi phím</sys:String>
+    <sys:String x:Key="Map_PressKey">Bấm phím...</sys:String>
+    <sys:String x:Key="Map_SavedSuccess">Đã lưu cấu hình gán phím thành công.</sys:String>
+
+    <!-- Analog Settings -->
+    <sys:String x:Key="Analog_Title">Cấu hình cần xoay Analog</sys:String>
+    <sys:String x:Key="Analog_Subtitle">Tinh chỉnh chuyển đổi chuột sang cần xoay, deadzone, độ nhạy, đường cong và dạng cần</sys:String>
+    <sys:String x:Key="Analog_BtnSave">Lưu cài đặt Analog</sys:String>
+    <sys:String x:Key="Analog_LeftStick">Cần xoay trái (Left Stick)</sys:String>
+    <sys:String x:Key="Analog_RightStick">Cần xoay phải (Right Stick)</sys:String>
+    <sys:String x:Key="Analog_InputSource">Nguồn điều khiển:</sys:String>
+    <sys:String x:Key="Analog_SourceKeyboard">Bàn phím (Phím bấm)</sys:String>
+    <sys:String x:Key="Analog_SourceMouse">Chuột (Di chuyển)</sys:String>
+    <sys:String x:Key="Analog_SourceDisabled">Không (Vô hiệu hóa)</sys:String>
+    <sys:String x:Key="Analog_DirKeys">Phím điều hướng (Nhấp để gán lại):</sys:String>
+    <sys:String x:Key="Analog_Deadzone">Vùng chết (Deadzone):</sys:String>
+    <sys:String x:Key="Analog_Sensitivity">Độ nhạy tổng thể:</sys:String>
+    <sys:String x:Key="Analog_SensitivityX">Độ nhạy ngang (X):</sys:String>
+    <sys:String x:Key="Analog_SensitivityY">Độ nhạy dọc (Y):</sys:String>
+    <sys:String x:Key="Analog_AntiDeadzone">Bù Deadzone game (Anti-Deadzone):</sys:String>
+    <sys:String x:Key="Analog_ResponseCurve">Đường cong phản hồi:</sys:String>
+    <sys:String x:Key="Analog_Smoothing">Độ mượt (Lọc rung):</sys:String>
+    <sys:String x:Key="Analog_Acceleration">Gia tốc chuột:</sys:String>
+    <sys:String x:Key="Analog_InvertX">Đảo trục ngang (X)</sys:String>
+    <sys:String x:Key="Analog_InvertY">Đảo trục dọc (Y)</sys:String>
+    <sys:String x:Key="Analog_StickShape">Dạng vùng xoay cần:</sys:String>
+    <sys:String x:Key="Analog_ShapeRadial">Hình tròn (Radial)</sys:String>
+    <sys:String x:Key="Analog_ShapeSquare">Hình vuông (Đầy góc chéo)</sys:String>
+    <sys:String x:Key="Analog_ReturnToCenter">Hành vi trở về tâm khi dừng chuột:</sys:String>
+    <sys:String x:Key="Analog_ReturnInstant">Tức thì (Dừng ngay lập tức)</sys:String>
+    <sys:String x:Key="Analog_ReturnDecay">Giảm dần (Dừng mượt mà)</sys:String>
+    <sys:String x:Key="Analog_BtnResetMouse">Khôi phục thiết lập chuột về mặc định</sys:String>
+    <sys:String x:Key="Analog_SavedSuccess">Đã lưu cài đặt cần xoay Analog thành công.</sys:String>
+
+    <!-- Profiles Management -->
+    <sys:String x:Key="Prof_Title">Quản lý cấu hình (Profiles)</sys:String>
+    <sys:String x:Key="Prof_Subtitle">Tạo, nhân bản, xuất, nhập và tùy biến cấu hình cho từng tựa game</sys:String>
+    <sys:String x:Key="Prof_BtnSetActive">Đặt làm cấu hình kích hoạt</sys:String>
+    <sys:String x:Key="Prof_BtnNew">Tạo mới</sys:String>
+    <sys:String x:Key="Prof_BtnDuplicate">Nhân bản</sys:String>
+    <sys:String x:Key="Prof_BtnRename">Đổi tên</sys:String>
+    <sys:String x:Key="Prof_BtnDelete">Xóa</sys:String>
+    <sys:String x:Key="Prof_BtnExport">Xuất file</sys:String>
+    <sys:String x:Key="Prof_BtnImport">Nhập file</sys:String>
+    <sys:String x:Key="Prof_ActiveBadge">ĐANG KÍCH HOẠT</sys:String>
+    <sys:String x:Key="Prof_Summary">Tóm tắt thông số cấu hình</sys:String>
+
+    <!-- Controller Tester -->
+    <sys:String x:Key="Tester_Title">Kiểm tra &amp; Mô phỏng tay cầm trực tiếp</sys:String>
+    <sys:String x:Key="Tester_Subtitle">Kiểm tra chuyển đổi bàn phím và chuột sang tay cầm Xbox 360 ảo theo thời gian thực</sys:String>
+    <sys:String x:Key="Tester_LeftTrigger">LT (Cò trái)</sys:String>
+    <sys:String x:Key="Tester_LeftBumper">LB (Nút vai trái)</sys:String>
+    <sys:String x:Key="Tester_RightTrigger">RT (Cò phải)</sys:String>
+    <sys:String x:Key="Tester_RightBumper">RB (Nút vai phải)</sys:String>
+    <sys:String x:Key="Tester_LeftStick">Cần trái (LS)</sys:String>
+    <sys:String x:Key="Tester_RightStick">Cần phải (RS)</sys:String>
+    <sys:String x:Key="Tester_DPad">Phím điều hướng (D-Pad)</sys:String>
+
+    <!-- Settings & Driver -->
+    <sys:String x:Key="Settings_Title">Cài đặt &amp; Môi trường</sys:String>
+    <sys:String x:Key="Settings_Subtitle">Cấu hình tùy chọn khởi động, ngôn ngữ, phím tắt và driver tay cầm ảo</sys:String>
+    <sys:String x:Key="Settings_AppPrefs">Tùy chọn ứng dụng</sys:String>
+    <sys:String x:Key="Settings_Language">Ngôn ngữ giao diện (Language):</sys:String>
+    <sys:String x:Key="Settings_StartWithWindows">Khởi động cùng Windows</sys:String>
+    <sys:String x:Key="Settings_StartWithWindowsDesc">Tự động khởi động VirtualController khi mở máy tính.</sys:String>
+    <sys:String x:Key="Settings_StartMinimized">Thu nhỏ xuống khay hệ thống khi mở</sys:String>
+    <sys:String x:Key="Settings_StartMinimizedDesc">Ẩn cửa sổ chính khi mở và chạy nền ở khay hệ thống.</sys:String>
+    <sys:String x:Key="Settings_AutoEnable">Tự động bật tay cầm khi mở</sys:String>
+    <sys:String x:Key="Settings_AutoEnableDesc">Tự động kích hoạt chuyển đổi tay cầm ngay khi khởi động phần mềm.</sys:String>
+    <sys:String x:Key="Settings_HotkeyTitle">Phím tắt khẩn cấp &amp; Bật/Tắt nhanh</sys:String>
+    <sys:String x:Key="Settings_HotkeyDesc">Phím tắt hook hệ thống: nhấn bất kỳ lúc nào để ngắt ngay tay cầm và nhả mọi phím.</sys:String>
+    <sys:String x:Key="Settings_DriverHealth">Tình trạng Driver &amp; Hệ thống</sys:String>
+    <sys:String x:Key="Settings_DriverViGEm">Driver tay cầm ảo (ViGEmBus):</sys:String>
+    <sys:String x:Key="Settings_BtnRecheck">Kiểm tra lại Driver</sys:String>
+    <sys:String x:Key="Settings_BtnInstall">Cài đặt Driver ViGEmBus</sys:String>
+    <sys:String x:Key="Settings_DriverInfoTitle">Thông tin Driver:</sys:String>
+    <sys:String x:Key="Settings_DriverInfoDesc">Phần mềm sử dụng driver Nefarius ViGEmBus chuẩn để cung cấp tín hiệu phần cứng tay cầm Xbox 360 cho game PC và Steam.</sys:String>
+    <sys:String x:Key="Settings_DriverInfoSafe">Không can thiệp hoặc sửa đổi bất kỳ file game nào.</sys:String>
+    <sys:String x:Key="Settings_BtnSave">Lưu cài đặt ứng dụng</sys:String>
+    <sys:String x:Key="Settings_SavedSuccess">Đã lưu cài đặt ứng dụng thành công.</sys:String>
+
+</ResourceDictionary>

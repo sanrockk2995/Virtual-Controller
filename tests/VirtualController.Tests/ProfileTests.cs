@@ -137,5 +137,19 @@ namespace VirtualController.Tests
             Assert.NotNull(imported);
             Assert.StartsWith("Custom Profile Renamed", imported.Name);
         }
+
+        [Fact]
+        public void AppSettings_Language_DefaultsToVietnamese_AndPersistsCorrectly()
+        {
+            var settings = new VirtualController.Services.AppSettings();
+            Assert.Equal("vi", settings.Language);
+
+            settings.Language = "en";
+            string json = System.Text.Json.JsonSerializer.Serialize(settings);
+            var deserialized = System.Text.Json.JsonSerializer.Deserialize<VirtualController.Services.AppSettings>(json);
+
+            Assert.NotNull(deserialized);
+            Assert.Equal("en", deserialized.Language);
+        }
     }
 }

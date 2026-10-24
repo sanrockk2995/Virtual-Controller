@@ -59,6 +59,7 @@ namespace VirtualController.App
 
             // Initialize configuration and core services
             Settings = AppSettings.Load();
+            LocalizationService.Initialize(Settings);
             ProfileManager = new ProfileManager();
             if (!string.IsNullOrWhiteSpace(Settings.ActiveProfileName))
             {

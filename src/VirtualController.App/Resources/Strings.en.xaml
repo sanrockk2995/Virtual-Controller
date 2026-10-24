@@ -1,0 +1,125 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- App Brand & Navigation -->
+    <sys:String x:Key="App_Title">Virtual Xbox 360 Controller</sys:String>
+    <sys:String x:Key="App_Subtitle">KBM to Controller</sys:String>
+    <sys:String x:Key="Nav_Dashboard">Dashboard</sys:String>
+    <sys:String x:Key="Nav_Mapping">Button Mapping</sys:String>
+    <sys:String x:Key="Nav_Analog">Analog Configuration</sys:String>
+    <sys:String x:Key="Nav_Tester">Controller Live Test</sys:String>
+    <sys:String x:Key="Nav_Profiles">Profiles</sys:String>
+    <sys:String x:Key="Nav_Settings">Settings &amp; Driver</sys:String>
+    <sys:String x:Key="Status_Active">Active (Connected)</sys:String>
+    <sys:String x:Key="Status_Disabled">Disabled</sys:String>
+    <sys:String x:Key="Status_Connecting">Connecting...</sys:String>
+    <sys:String x:Key="Status_Hotkey">Hotkey: Ctrl+Alt+F10</sys:String>
+
+    <!-- Dashboard -->
+    <sys:String x:Key="Dash_Title">Dashboard</sys:String>
+    <sys:String x:Key="Dash_Subtitle">Manage virtual Xbox 360 controller state and active profile</sys:String>
+    <sys:String x:Key="Dash_CardStatus">Virtual Controller Status</sys:String>
+    <sys:String x:Key="Dash_StatusDisconnected">Status: Disconnected</sys:String>
+    <sys:String x:Key="Dash_StatusActive">Status: Active &amp; Connected</sys:String>
+    <sys:String x:Key="Dash_DriverChecking">ViGEmBus: Checking...</sys:String>
+    <sys:String x:Key="Dash_BtnEnable">Enable Controller</sys:String>
+    <sys:String x:Key="Dash_BtnDisable">Disable Controller</sys:String>
+    <sys:String x:Key="Dash_BtnInstallDriver">Install ViGEmBus Driver</sys:String>
+    <sys:String x:Key="Dash_HotkeyTitle">Safety / Emergency Hotkey:</sys:String>
+    <sys:String x:Key="Dash_HotkeyDesc">Instantly disables controller and releases all inputs.</sys:String>
+    <sys:String x:Key="Dash_CardProfile">Active Profile</sys:String>
+    <sys:String x:Key="Dash_ProfileDesc">Selected profile drives keyboard and mouse input mappings in real-time.</sys:String>
+    <sys:String x:Key="Dash_BtnManageProfiles">Manage &amp; Create Profiles</sys:String>
+    <sys:String x:Key="Dash_QuickMapping">Quick Mapping Summary</sys:String>
+    <sys:String x:Key="Dash_LeftStick">Left Stick:</sys:String>
+    <sys:String x:Key="Dash_RightStick">Right Stick:</sys:String>
+    <sys:String x:Key="Dash_BtnLiveTester">Launch Live Visualizer &amp; Tester</sys:String>
+
+    <!-- Button Mapping -->
+    <sys:String x:Key="Map_Title">Button Mapping</sys:String>
+    <sys:String x:Key="Map_Subtitle">Configure physical keyboard keys and mouse buttons for each virtual Xbox 360 button</sys:String>
+    <sys:String x:Key="Map_BtnReset">Reset to Defaults</sys:String>
+    <sys:String x:Key="Map_BtnSave">Save Mappings</sys:String>
+    <sys:String x:Key="Map_BtnRebind">Rebind</sys:String>
+    <sys:String x:Key="Map_PressKey">Press key...</sys:String>
+    <sys:String x:Key="Map_SavedSuccess">Mappings saved successfully.</sys:String>
+
+    <!-- Analog Settings -->
+    <sys:String x:Key="Analog_Title">Analog Thumbsticks Configuration</sys:String>
+    <sys:String x:Key="Analog_Subtitle">Fine-tune mouse-to-stick translation, deadzones, sensitivity curves, and stick geometry</sys:String>
+    <sys:String x:Key="Analog_BtnSave">Save Analog Settings</sys:String>
+    <sys:String x:Key="Analog_LeftStick">Left Thumbstick</sys:String>
+    <sys:String x:Key="Analog_RightStick">Right Thumbstick</sys:String>
+    <sys:String x:Key="Analog_InputSource">Input Source:</sys:String>
+    <sys:String x:Key="Analog_SourceKeyboard">Keyboard (Keys)</sys:String>
+    <sys:String x:Key="Analog_SourceMouse">Mouse (Movement)</sys:String>
+    <sys:String x:Key="Analog_SourceDisabled">None (Disabled)</sys:String>
+    <sys:String x:Key="Analog_DirKeys">Directional Keys (Click to rebind):</sys:String>
+    <sys:String x:Key="Analog_Deadzone">Deadzone:</sys:String>
+    <sys:String x:Key="Analog_Sensitivity">Overall Sensitivity:</sys:String>
+    <sys:String x:Key="Analog_SensitivityX">Horizontal Sensitivity (X):</sys:String>
+    <sys:String x:Key="Analog_SensitivityY">Vertical Sensitivity (Y):</sys:String>
+    <sys:String x:Key="Analog_AntiDeadzone">Anti-Deadzone (Game Offset):</sys:String>
+    <sys:String x:Key="Analog_ResponseCurve">Response Curve:</sys:String>
+    <sys:String x:Key="Analog_Smoothing">Smoothing (Jitter filter):</sys:String>
+    <sys:String x:Key="Analog_Acceleration">Acceleration:</sys:String>
+    <sys:String x:Key="Analog_InvertX">Invert Horizontal Axis (X)</sys:String>
+    <sys:String x:Key="Analog_InvertY">Invert Vertical Axis (Y)</sys:String>
+    <sys:String x:Key="Analog_StickShape">Stick Perimeter Geometry:</sys:String>
+    <sys:String x:Key="Analog_ShapeRadial">Radial (Circular Clamping)</sys:String>
+    <sys:String x:Key="Analog_ShapeSquare">Square (Full Diagonal Reach)</sys:String>
+    <sys:String x:Key="Analog_ReturnToCenter">Return to Center Behavior:</sys:String>
+    <sys:String x:Key="Analog_ReturnInstant">Instant (Snappy center)</sys:String>
+    <sys:String x:Key="Analog_ReturnDecay">Decay (Smooth deceleration)</sys:String>
+    <sys:String x:Key="Analog_BtnResetMouse">Reset Mouse Settings to Defaults</sys:String>
+    <sys:String x:Key="Analog_SavedSuccess">Analog stick settings saved successfully.</sys:String>
+
+    <!-- Profiles Management -->
+    <sys:String x:Key="Prof_Title">Profiles Management</sys:String>
+    <sys:String x:Key="Prof_Subtitle">Create, duplicate, export, import and customize configurations for different games</sys:String>
+    <sys:String x:Key="Prof_BtnSetActive">Set as Active Profile</sys:String>
+    <sys:String x:Key="Prof_BtnNew">New Profile</sys:String>
+    <sys:String x:Key="Prof_BtnDuplicate">Duplicate</sys:String>
+    <sys:String x:Key="Prof_BtnRename">Rename</sys:String>
+    <sys:String x:Key="Prof_BtnDelete">Delete</sys:String>
+    <sys:String x:Key="Prof_BtnExport">Export Profile</sys:String>
+    <sys:String x:Key="Prof_BtnImport">Import Profile</sys:String>
+    <sys:String x:Key="Prof_ActiveBadge">ACTIVE PROFILE</sys:String>
+    <sys:String x:Key="Prof_Summary">Profile Configuration Summary</sys:String>
+
+    <!-- Controller Tester -->
+    <sys:String x:Key="Tester_Title">Controller Live Visualizer &amp; Tester</sys:String>
+    <sys:String x:Key="Tester_Subtitle">Verify your keyboard and mouse conversion into virtual Xbox 360 controller inputs in real-time</sys:String>
+    <sys:String x:Key="Tester_LeftTrigger">LT (Left Trigger)</sys:String>
+    <sys:String x:Key="Tester_LeftBumper">LB (Left Bumper)</sys:String>
+    <sys:String x:Key="Tester_RightTrigger">RT (Right Trigger)</sys:String>
+    <sys:String x:Key="Tester_RightBumper">RB (Right Bumper)</sys:String>
+    <sys:String x:Key="Tester_LeftStick">Left Stick (LS)</sys:String>
+    <sys:String x:Key="Tester_RightStick">Right Stick (RS)</sys:String>
+    <sys:String x:Key="Tester_DPad">D-Pad</sys:String>
+
+    <!-- Settings & Driver -->
+    <sys:String x:Key="Settings_Title">Settings &amp; Environment</sys:String>
+    <sys:String x:Key="Settings_Subtitle">Configure startup preferences, hotkeys and verify virtual controller driver status</sys:String>
+    <sys:String x:Key="Settings_AppPrefs">Application Preferences</sys:String>
+    <sys:String x:Key="Settings_Language">Interface Language / Ngôn ngữ:</sys:String>
+    <sys:String x:Key="Settings_StartWithWindows">Start with Windows</sys:String>
+    <sys:String x:Key="Settings_StartWithWindowsDesc">Automatically launches VirtualController when Windows starts.</sys:String>
+    <sys:String x:Key="Settings_StartMinimized">Start Minimized to System Tray</sys:String>
+    <sys:String x:Key="Settings_StartMinimizedDesc">Hides the main window on startup and runs in system tray.</sys:String>
+    <sys:String x:Key="Settings_AutoEnable">Auto-Enable Controller on Startup</sys:String>
+    <sys:String x:Key="Settings_AutoEnableDesc">Instantly activates virtual controller mapping upon launching.</sys:String>
+    <sys:String x:Key="Settings_HotkeyTitle">Emergency &amp; Toggle Hotkey</sys:String>
+    <sys:String x:Key="Settings_HotkeyDesc">Global system hook hotkey: press anywhere to instantly freeze/disable virtual gamepad and release all inputs.</sys:String>
+    <sys:String x:Key="Settings_DriverHealth">Driver &amp; System Health</sys:String>
+    <sys:String x:Key="Settings_DriverViGEm">Virtual Controller Driver (ViGEmBus):</sys:String>
+    <sys:String x:Key="Settings_BtnRecheck">Re-Check Driver Status</sys:String>
+    <sys:String x:Key="Settings_BtnInstall">Install ViGEmBus Driver</sys:String>
+    <sys:String x:Key="Settings_DriverInfoTitle">Driver Information:</sys:String>
+    <sys:String x:Key="Settings_DriverInfoDesc">This software utilizes the Nefarius ViGEmBus driver to present genuine Xbox 360 controller hardware reports to PC games and Steam titles.</sys:String>
+    <sys:String x:Key="Settings_DriverInfoSafe">No game files or executables are modified.</sys:String>
+    <sys:String x:Key="Settings_BtnSave">Save Application Settings</sys:String>
+    <sys:String x:Key="Settings_SavedSuccess">Settings saved successfully.</sys:String>
+
+</ResourceDictionary>

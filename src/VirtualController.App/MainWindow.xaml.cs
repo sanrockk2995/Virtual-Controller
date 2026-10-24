@@ -54,6 +54,7 @@ namespace VirtualController.App
             _settingsView = new SettingsView(_settings);
 
             _inputManager.EnabledChanged += (s, enabled) => Dispatcher.Invoke(UpdateSidebarStatus);
+            LocalizationService.LanguageChanged += (s, e) => Dispatcher.Invoke(UpdateSidebarStatus);
 
             // Default view
             SelectNavigation(NavDashboard, _dashboardView);
@@ -99,13 +100,13 @@ namespace VirtualController.App
             if (_inputManager.IsEnabled)
             {
                 SidebarStatusDot.Fill = (Brush)FindResource("AccentGreenBrush");
-                SidebarStatusText.Text = "Active (Connected)";
+                SidebarStatusText.Text = LocalizationService.GetString("Status_Active", "Active (Connected)");
                 SidebarStatusText.Foreground = (Brush)FindResource("AccentGreenBrush");
             }
             else
             {
                 SidebarStatusDot.Fill = (Brush)FindResource("AccentRedBrush");
-                SidebarStatusText.Text = "Disabled";
+                SidebarStatusText.Text = LocalizationService.GetString("Status_Disabled", "Disabled");
                 SidebarStatusText.Foreground = (Brush)FindResource("TextSecondaryBrush");
             }
         }
