@@ -35,6 +35,11 @@ namespace VirtualController.Tests
         public void Profile_JsonSerializationRoundTrip()
         {
             var original = Profile.CreateDefaultProfile();
+            original.RightStick.SensitivityX = 1.25;
+            original.RightStick.SensitivityY = 0.85;
+            original.RightStick.AntiDeadzone = 0.18;
+            original.RightStick.ResponseCurve = "Aggressive";
+            original.RightStick.IsRadial = false;
 
             string json = JsonSerializer.Serialize(original, new JsonSerializerOptions { WriteIndented = true });
             var deserialized = JsonSerializer.Deserialize<Profile>(json);
@@ -43,8 +48,57 @@ namespace VirtualController.Tests
             Assert.Equal(original.Name, deserialized.Name);
             Assert.Equal(original.LeftStick.Up, deserialized.LeftStick.Up);
             Assert.Equal(original.RightStick.Sensitivity, deserialized.RightStick.Sensitivity);
+            Assert.Equal(1.25, deserialized.RightStick.SensitivityX);
+            Assert.Equal(0.85, deserialized.RightStick.SensitivityY);
+            Assert.Equal(0.18, deserialized.RightStick.AntiDeadzone);
+            Assert.Equal("Aggressive", deserialized.RightStick.ResponseCurve);
+            Assert.False(deserialized.RightStick.IsRadial);
             Assert.Equal(original.Buttons["A"], deserialized.Buttons["A"]);
             Assert.Equal(original.ExtraMappings["Escape"], deserialized.ExtraMappings["Escape"]);
+        }
+
+        [Fact]
+        public void LegacyProfile_WithoutNewProperties_LoadsWithSafeDefaults()
+        {
+            // Legacy JSON strictly lacking SensitivityX, SensitivityY, AntiDeadzone, IsRadial
+            string legacyJson = @"
+            {
+              ""Name"": ""Old Legacy Profile"",
+              ""LeftStick"": {
+                ""Up"": ""W"",
+                ""Down"": ""S"",
+                ""Left"": ""A"",
+                ""Right"": ""D"",
+                ""Deadzone"": 0.1,
+                ""Sensitivity"": 1.0,
+                ""ResponseCurve"": ""Linear""
+              },
+              ""RightStick"": {
+                ""InputSource"": ""Mouse"",
+                ""Sensitivity"": 1.2,
+                ""Deadzone"": 0.05,
+                ""Smoothing"": 0.25,
+                ""MaxMagnitude"": 1.0,
+                ""InvertX"": false,
+                ""InvertY"": false,
+                ""Acceleration"": 1.0,
+                ""DecayRate"": 0.8
+              },
+              ""Buttons"": {
+                ""A"": ""Space""
+              }
+            }";
+
+            var profile = JsonSerializer.Deserialize<Profile>(legacyJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            Assert.NotNull(profile);
+            Assert.Equal("Old Legacy Profile", profile.Name);
+            // Verify safe defaults assigned for missing new properties
+            Assert.Equal(1.0, profile.RightStick.SensitivityX);
+            Assert.Equal(1.0, profile.RightStick.SensitivityY);
+            Assert.True(profile.RightStick.AntiDeadzone >= 0.0);
+            Assert.True(profile.RightStick.IsRadial);
+            Assert.True(profile.RightStick.IsMouse);
         }
 
         [Fact]

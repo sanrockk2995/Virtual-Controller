@@ -55,6 +55,17 @@ namespace VirtualController.App.Views
                 SliderLeftMouseSens.Value = profile.LeftStick.Sensitivity;
                 TxtLeftMouseSens.Text = profile.LeftStick.Sensitivity.ToString("0.00");
 
+                SliderLeftSensX.Value = profile.LeftStick.SensitivityX;
+                TxtLeftSensX.Text = profile.LeftStick.SensitivityX.ToString("0.00");
+
+                SliderLeftSensY.Value = profile.LeftStick.SensitivityY;
+                TxtLeftSensY.Text = profile.LeftStick.SensitivityY.ToString("0.00");
+
+                SliderLeftAntiDeadzone.Value = profile.LeftStick.AntiDeadzone;
+                TxtLeftAntiDeadzone.Text = profile.LeftStick.AntiDeadzone.ToString("0.00");
+
+                ComboLeftMouseCurve.SelectedIndex = CurveNameToIndex(profile.LeftStick.ResponseCurve);
+
                 SliderLeftMouseDeadzone.Value = profile.LeftStick.Deadzone;
                 TxtLeftMouseDeadzone.Text = profile.LeftStick.Deadzone.ToString("0.00");
 
@@ -66,6 +77,8 @@ namespace VirtualController.App.Views
 
                 ChkLeftInvertX.IsChecked = profile.LeftStick.InvertX;
                 ChkLeftInvertY.IsChecked = profile.LeftStick.InvertY;
+                ChkLeftIsRadial.IsChecked = profile.LeftStick.IsRadial;
+                ComboLeftReturnToCenter.SelectedIndex = (profile.LeftStick.DecayRate > 0.01) ? 1 : 0;
 
                 // --- 2. RIGHT STICK ---
                 bool rightIsMouse = profile.RightStick.IsMouse;
@@ -76,6 +89,17 @@ namespace VirtualController.App.Views
                 // Right Mouse controls
                 SliderRightMouseSens.Value = profile.RightStick.Sensitivity;
                 TxtRightMouseSens.Text = profile.RightStick.Sensitivity.ToString("0.00");
+
+                SliderRightSensX.Value = profile.RightStick.SensitivityX;
+                TxtRightSensX.Text = profile.RightStick.SensitivityX.ToString("0.00");
+
+                SliderRightSensY.Value = profile.RightStick.SensitivityY;
+                TxtRightSensY.Text = profile.RightStick.SensitivityY.ToString("0.00");
+
+                SliderRightAntiDeadzone.Value = profile.RightStick.AntiDeadzone;
+                TxtRightAntiDeadzone.Text = profile.RightStick.AntiDeadzone.ToString("0.00");
+
+                ComboRightMouseCurve.SelectedIndex = CurveNameToIndex(profile.RightStick.ResponseCurve);
 
                 SliderRightMouseDeadzone.Value = profile.RightStick.Deadzone;
                 TxtRightMouseDeadzone.Text = profile.RightStick.Deadzone.ToString("0.00");
@@ -88,6 +112,8 @@ namespace VirtualController.App.Views
 
                 ChkRightInvertX.IsChecked = profile.RightStick.InvertX;
                 ChkRightInvertY.IsChecked = profile.RightStick.InvertY;
+                ChkRightIsRadial.IsChecked = profile.RightStick.IsRadial;
+                ComboRightReturnToCenter.SelectedIndex = (profile.RightStick.DecayRate > 0.01) ? 1 : 0;
 
                 // Right Keyboard controls
                 BtnRightKeyUp.Content = string.IsNullOrEmpty(profile.RightStick.Up) ? "Up" : profile.RightStick.Up;
@@ -138,6 +164,18 @@ namespace VirtualController.App.Views
         {
             if (!_isUpdatingUi && TxtLeftMouseSens != null) TxtLeftMouseSens.Text = e.NewValue.ToString("0.00");
         }
+        private void SliderLeftSensX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!_isUpdatingUi && TxtLeftSensX != null) TxtLeftSensX.Text = e.NewValue.ToString("0.00");
+        }
+        private void SliderLeftSensY_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!_isUpdatingUi && TxtLeftSensY != null) TxtLeftSensY.Text = e.NewValue.ToString("0.00");
+        }
+        private void SliderLeftAntiDeadzone_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!_isUpdatingUi && TxtLeftAntiDeadzone != null) TxtLeftAntiDeadzone.Text = e.NewValue.ToString("0.00");
+        }
         private void SliderLeftMouseDeadzone_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (!_isUpdatingUi && TxtLeftMouseDeadzone != null) TxtLeftMouseDeadzone.Text = e.NewValue.ToString("0.00");
@@ -154,6 +192,18 @@ namespace VirtualController.App.Views
         private void SliderRightMouseSens_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (!_isUpdatingUi && TxtRightMouseSens != null) TxtRightMouseSens.Text = e.NewValue.ToString("0.00");
+        }
+        private void SliderRightSensX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!_isUpdatingUi && TxtRightSensX != null) TxtRightSensX.Text = e.NewValue.ToString("0.00");
+        }
+        private void SliderRightSensY_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!_isUpdatingUi && TxtRightSensY != null) TxtRightSensY.Text = e.NewValue.ToString("0.00");
+        }
+        private void SliderRightAntiDeadzone_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!_isUpdatingUi && TxtRightAntiDeadzone != null) TxtRightAntiDeadzone.Text = e.NewValue.ToString("0.00");
         }
         private void SliderRightMouseDeadzone_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -174,6 +224,31 @@ namespace VirtualController.App.Views
         private void SliderRightKbdSens_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (!_isUpdatingUi && TxtRightKbdSens != null) TxtRightKbdSens.Text = e.NewValue.ToString("0.00");
+        }
+
+        private static int CurveNameToIndex(string? curve)
+        {
+            if (string.IsNullOrWhiteSpace(curve)) return 0;
+            return curve.ToLowerInvariant() switch
+            {
+                "delay" or "exponential" => 1,
+                "aggressive" => 2,
+                "instant" => 3,
+                "smooth" => 4,
+                _ => 0
+            };
+        }
+
+        private static string IndexToCurveName(int index)
+        {
+            return index switch
+            {
+                1 => "Delay",
+                2 => "Aggressive",
+                3 => "Instant",
+                4 => "Smooth",
+                _ => "Linear"
+            };
         }
         #endregion
 
@@ -259,11 +334,17 @@ namespace VirtualController.App.Views
             if (leftIsMouse)
             {
                 profile.LeftStick.Sensitivity = Math.Round(SliderLeftMouseSens.Value, 2);
+                profile.LeftStick.SensitivityX = Math.Round(SliderLeftSensX.Value, 2);
+                profile.LeftStick.SensitivityY = Math.Round(SliderLeftSensY.Value, 2);
+                profile.LeftStick.AntiDeadzone = Math.Round(SliderLeftAntiDeadzone.Value, 2);
+                profile.LeftStick.ResponseCurve = IndexToCurveName(ComboLeftMouseCurve.SelectedIndex);
                 profile.LeftStick.Deadzone = Math.Round(SliderLeftMouseDeadzone.Value, 2);
                 profile.LeftStick.Smoothing = Math.Round(SliderLeftMouseSmoothing.Value, 2);
                 profile.LeftStick.Acceleration = Math.Round(SliderLeftMouseAccel.Value, 2);
                 profile.LeftStick.InvertX = ChkLeftInvertX.IsChecked == true;
                 profile.LeftStick.InvertY = ChkLeftInvertY.IsChecked == true;
+                profile.LeftStick.IsRadial = ChkLeftIsRadial.IsChecked == true;
+                profile.LeftStick.DecayRate = (ComboLeftReturnToCenter.SelectedIndex == 1) ? 0.70 : 0.0;
             }
             else
             {
@@ -283,11 +364,17 @@ namespace VirtualController.App.Views
             if (rightIsMouse)
             {
                 profile.RightStick.Sensitivity = Math.Round(SliderRightMouseSens.Value, 2);
+                profile.RightStick.SensitivityX = Math.Round(SliderRightSensX.Value, 2);
+                profile.RightStick.SensitivityY = Math.Round(SliderRightSensY.Value, 2);
+                profile.RightStick.AntiDeadzone = Math.Round(SliderRightAntiDeadzone.Value, 2);
+                profile.RightStick.ResponseCurve = IndexToCurveName(ComboRightMouseCurve.SelectedIndex);
                 profile.RightStick.Deadzone = Math.Round(SliderRightMouseDeadzone.Value, 2);
                 profile.RightStick.Smoothing = Math.Round(SliderRightMouseSmoothing.Value, 2);
                 profile.RightStick.Acceleration = Math.Round(SliderRightMouseAccel.Value, 2);
                 profile.RightStick.InvertX = ChkRightInvertX.IsChecked == true;
                 profile.RightStick.InvertY = ChkRightInvertY.IsChecked == true;
+                profile.RightStick.IsRadial = ChkRightIsRadial.IsChecked == true;
+                profile.RightStick.DecayRate = (ComboRightReturnToCenter.SelectedIndex == 1) ? 0.70 : 0.0;
             }
             else
             {
@@ -302,6 +389,28 @@ namespace VirtualController.App.Views
 
             _profileManager.SaveProfile(profile);
             MessageBox.Show("Analog stick settings saved successfully.", "Settings Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BtnLeftResetMouseDefaults_Click(object sender, RoutedEventArgs e)
+        {
+            var profile = _profileManager.ActiveProfile;
+            if (profile == null) return;
+
+            var def = StickConfig.CreateDefaultRight(); // standard mouse defaults
+            def.InputSource = "Mouse";
+            profile.LeftStick = def;
+            LoadSettingsFromProfile();
+            StatusInfoText.Text = "Left stick mouse settings reset to recommended defaults. Click 'Save Analog Settings' to persist.";
+        }
+
+        private void BtnRightResetMouseDefaults_Click(object sender, RoutedEventArgs e)
+        {
+            var profile = _profileManager.ActiveProfile;
+            if (profile == null) return;
+
+            profile.RightStick = StickConfig.CreateDefaultRight();
+            LoadSettingsFromProfile();
+            StatusInfoText.Text = "Right stick mouse settings reset to recommended defaults. Click 'Save Analog Settings' to persist.";
         }
     }
 }

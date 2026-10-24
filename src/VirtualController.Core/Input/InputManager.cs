@@ -14,6 +14,7 @@ namespace VirtualController.Input
         private readonly MappingEngine _mappingEngine = new();
         private readonly InputState _inputState = new();
         private readonly WindowsHookManager _hookManager;
+        private readonly RawInputReceiver _rawInputReceiver;
 
         private readonly ControllerState _liveState = new();
         private Thread? _workerThread;
@@ -34,6 +35,10 @@ namespace VirtualController.Input
             _hookManager = new WindowsHookManager(_inputState);
             _hookManager.EmergencyDisableRequested += OnEmergencyDisable;
             _hookManager.ToggleRequested += OnToggleRequested;
+
+            _profileManager.ActiveProfileChanged += OnActiveProfileChanged;
+
+            _rawInputReceiver = new RawInputReceiver(_inputState);
 
             StartProcessingThread();
         }
@@ -108,6 +113,7 @@ namespace VirtualController.Input
                 }
 
                 _hookManager.Start();
+                _rawInputReceiver.Start();
                 IsEnabled = true;
                 AppLogger.Info("Virtual controller input processing enabled.");
                 EnabledChanged?.Invoke(this, true);
@@ -126,6 +132,7 @@ namespace VirtualController.Input
 
             try
             {
+                _rawInputReceiver.Stop();
                 _hookManager.Stop();
                 _inputState.Clear();
                 _mappingEngine.Reset();
@@ -145,6 +152,16 @@ namespace VirtualController.Input
             catch (Exception ex)
             {
                 AppLogger.Error("Error disabling virtual controller.", ex);
+            }
+        }
+
+        private void OnActiveProfileChanged(object? sender, Profile profile)
+        {
+            lock (_stateLock)
+            {
+                _mappingEngine.Reset();
+                _inputState.HarvestMouseDelta();
+                _liveState.Reset();
             }
         }
 
@@ -190,6 +207,8 @@ namespace VirtualController.Input
             _cts.Cancel();
             Disable();
 
+            _profileManager.ActiveProfileChanged -= OnActiveProfileChanged;
+            _rawInputReceiver.Dispose();
             _hookManager.Dispose();
             _controller.Dispose();
 

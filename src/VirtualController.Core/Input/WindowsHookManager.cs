@@ -113,6 +113,12 @@ namespace VirtualController.Input
         private POINT _lastMousePoint;
         private bool _disposed;
 
+        /// <summary>
+        /// When true, low-level mouse hook calculates deltas from cursor positions.
+        /// Disabled by default in favor of high-precision Raw Input.
+        /// </summary>
+        public bool CaptureMouseMovement { get; set; } = false;
+
         public event Action? EmergencyDisableRequested;
         public event Action? ToggleRequested;
 
@@ -300,6 +306,7 @@ namespace VirtualController.Input
                         break;
 
                     case WM_MOUSEMOVE:
+                        if (!CaptureMouseMovement) break;
                         if (_isFirstMousePoint)
                         {
                             _lastMousePoint = hookStruct.pt;

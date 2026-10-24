@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using VirtualController.Profiles;
 
 namespace VirtualController.Core
@@ -7,18 +8,18 @@ namespace VirtualController.Core
     /// Converts raw physical InputState into normalized ControllerState
     /// according to the active Profile rules (analog normalization, deadzones, curves, mappings).
     /// Supports assigning Keyboard or Mouse to Left Stick, Right Stick, or both.
+    /// Uses dedicated MouseToStickTranslator instances for high-fidelity mouse-to-stick conversion.
     /// </summary>
     public class MappingEngine
     {
-        private double _leftMouseStickX = 0.0;
-        private double _leftMouseStickY = 0.0;
-        private double _rightMouseStickX = 0.0;
-        private double _rightMouseStickY = 0.0;
+        private readonly MouseToStickTranslator _leftTranslator = new();
+        private readonly MouseToStickTranslator _rightTranslator = new();
+        private long _lastTimestamp;
 
         /// <summary>
         /// Transforms raw physical input into an Xbox 360 controller state.
         /// </summary>
-        public ControllerState Process(InputState input, Profile profile, ControllerState? existingState = null)
+        public ControllerState Process(InputState input, Profile profile, ControllerState? existingState = null, double? explicitDt = null)
         {
             var output = existingState ?? new ControllerState();
             output.Reset();
@@ -29,15 +30,32 @@ namespace VirtualController.Core
                 return output;
             }
 
+            long now = Stopwatch.GetTimestamp();
+            double dt;
+            if (explicitDt.HasValue && explicitDt.Value > 0)
+            {
+                dt = explicitDt.Value;
+            }
+            else if (_lastTimestamp == 0)
+            {
+                dt = 0.008;
+            }
+            else
+            {
+                dt = (double)(now - _lastTimestamp) / Stopwatch.Frequency;
+                if (dt <= 0.0001 || dt > 0.1) dt = 0.008;
+            }
+            _lastTimestamp = now;
+
             var (mouseDx, mouseDy) = input.HarvestMouseDelta();
 
             // 1. Process Left Stick (Keyboard or Mouse)
-            var (lx, ly) = ProcessStick(profile.LeftStick, input, mouseDx, mouseDy, ref _leftMouseStickX, ref _leftMouseStickY);
+            var (lx, ly) = ProcessStick(profile.LeftStick, input, mouseDx, mouseDy, _leftTranslator, dt);
             output.LeftThumbX = lx;
             output.LeftThumbY = ly;
 
             // 2. Process Right Stick (Keyboard or Mouse)
-            var (rx, ry) = ProcessStick(profile.RightStick, input, mouseDx, mouseDy, ref _rightMouseStickX, ref _rightMouseStickY);
+            var (rx, ry) = ProcessStick(profile.RightStick, input, mouseDx, mouseDy, _rightTranslator, dt);
             output.RightThumbX = rx;
             output.RightThumbY = ry;
 
@@ -103,12 +121,12 @@ namespace VirtualController.Core
             InputState input,
             int mouseDx,
             int mouseDy,
-            ref double currentMouseX,
-            ref double currentMouseY)
+            MouseToStickTranslator translator,
+            double dt)
         {
             if (config.IsMouse)
             {
-                return ProcessMouseStick(config, mouseDx, mouseDy, ref currentMouseX, ref currentMouseY);
+                return translator.Process(mouseDx, mouseDy, config, dt);
             }
             else
             {
@@ -121,72 +139,6 @@ namespace VirtualController.Core
                     up, down, left, right,
                     config.Deadzone, config.Sensitivity, config.ResponseCurve);
             }
-        }
-
-        private (double x, double y) ProcessMouseStick(
-            StickConfig settings,
-            int dx,
-            int dy,
-            ref double currentMouseX,
-            ref double currentMouseY)
-        {
-            // Screen mouse Y is down-positive; gamepad Y is up-positive
-            double mouseX = dx;
-            double mouseY = -dy;
-
-            if (settings.InvertX) mouseX = -mouseX;
-            if (settings.InvertY) mouseY = -mouseY;
-
-            double mouseMag = Math.Sqrt(mouseX * mouseX + mouseY * mouseY);
-
-            if (mouseMag > 0.0001)
-            {
-                // Optional acceleration
-                double accelMultiplier = 1.0;
-                if (settings.Acceleration > 1.0)
-                {
-                    accelMultiplier = Math.Pow(mouseMag, settings.Acceleration - 1.0);
-                }
-
-                // Sensitivity factor (normalized against typical 10-50 delta range)
-                double factor = 0.05 * settings.Sensitivity * accelMultiplier;
-                double targetX = mouseX * factor;
-                double targetY = mouseY * factor;
-
-                double targetMag = Math.Sqrt(targetX * targetX + targetY * targetY);
-                if (targetMag > settings.MaxMagnitude)
-                {
-                    targetX = (targetX / targetMag) * settings.MaxMagnitude;
-                    targetY = (targetY / targetMag) * settings.MaxMagnitude;
-                    targetMag = settings.MaxMagnitude;
-                }
-
-                if (targetMag < settings.Deadzone)
-                {
-                    targetX = 0;
-                    targetY = 0;
-                }
-
-                // Apply smoothing
-                double s = Math.Clamp(settings.Smoothing, 0.0, 0.95);
-                currentMouseX = (currentMouseX * s) + (targetX * (1.0 - s));
-                currentMouseY = (currentMouseY * s) + (targetY * (1.0 - s));
-            }
-            else
-            {
-                // Mouse is stationary: apply decay to smoothly return to center
-                double decay = Math.Clamp(settings.DecayRate, 0.0, 1.0);
-                currentMouseX *= decay;
-                currentMouseY *= decay;
-
-                if (Math.Abs(currentMouseX) < 0.01) currentMouseX = 0.0;
-                if (Math.Abs(currentMouseY) < 0.01) currentMouseY = 0.0;
-            }
-
-            currentMouseX = Math.Clamp(currentMouseX, -1.0, 1.0);
-            currentMouseY = Math.Clamp(currentMouseY, -1.0, 1.0);
-
-            return (currentMouseX, currentMouseY);
         }
 
         private void ProcessButtons(InputState input, Profile profile, ControllerState output)
@@ -244,10 +196,9 @@ namespace VirtualController.Core
 
         public void Reset()
         {
-            _leftMouseStickX = 0.0;
-            _leftMouseStickY = 0.0;
-            _rightMouseStickX = 0.0;
-            _rightMouseStickY = 0.0;
+            _lastTimestamp = 0;
+            _leftTranslator.Reset();
+            _rightTranslator.Reset();
         }
     }
 }

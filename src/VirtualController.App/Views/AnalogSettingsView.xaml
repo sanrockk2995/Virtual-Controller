@@ -107,37 +107,88 @@
                         <StackPanel x:Name="PanelLeftMouse" Visibility="Collapsed">
                             <!-- Mouse Sensitivity -->
                             <Grid Margin="0,0,0,4">
-                                <TextBlock Text="Mouse Sensitivity:" FontWeight="SemiBold"/>
+                                <TextBlock Text="Overall Sensitivity:" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="TxtLeftMouseSens" Text="1.2" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderLeftMouseSens" Minimum="0.1" Maximum="4.0" Value="1.2" SmallChange="0.05" LargeChange="0.2" Margin="0,0,0,12" ValueChanged="SliderLeftMouseSens_ValueChanged"/>
+                            <Slider x:Name="SliderLeftMouseSens" Minimum="0.1" Maximum="4.0" Value="1.2" SmallChange="0.05" LargeChange="0.2" Margin="0,0,0,10" ValueChanged="SliderLeftMouseSens_ValueChanged"/>
 
-                            <!-- Mouse Deadzone -->
+                            <!-- X/Y Independent Sensitivity -->
                             <Grid Margin="0,0,0,4">
-                                <TextBlock Text="Mouse Deadzone:" FontWeight="SemiBold"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                                    <Grid Margin="0,0,0,2">
+                                        <TextBlock Text="X Sensitivity:" FontSize="12" FontWeight="SemiBold"/>
+                                        <TextBlock x:Name="TxtLeftSensX" Text="1.00" HorizontalAlignment="Right" Foreground="#38BDF8" FontSize="12" FontWeight="Bold"/>
+                                    </Grid>
+                                    <Slider x:Name="SliderLeftSensX" Minimum="0.2" Maximum="3.0" Value="1.0" SmallChange="0.05" LargeChange="0.1" ValueChanged="SliderLeftSensX_ValueChanged"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                                    <Grid Margin="0,0,0,2">
+                                        <TextBlock Text="Y Sensitivity:" FontSize="12" FontWeight="SemiBold"/>
+                                        <TextBlock x:Name="TxtLeftSensY" Text="1.00" HorizontalAlignment="Right" Foreground="#38BDF8" FontSize="12" FontWeight="Bold"/>
+                                    </Grid>
+                                    <Slider x:Name="SliderLeftSensY" Minimum="0.2" Maximum="3.0" Value="1.0" SmallChange="0.05" LargeChange="0.1" ValueChanged="SliderLeftSensY_ValueChanged"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Anti-Deadzone (Initial Deflection) -->
+                            <Grid Margin="0,4,0,2">
+                                <TextBlock Text="Anti-Deadzone (Initial Deflection):" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="TxtLeftAntiDeadzone" Text="0.15" HorizontalAlignment="Right" Foreground="#4ADE80" FontWeight="Bold"/>
+                            </Grid>
+                            <TextBlock Text="Offsets game deadzone for instant stick movement" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <Slider x:Name="SliderLeftAntiDeadzone" Minimum="0.0" Maximum="0.40" Value="0.15" SmallChange="0.01" LargeChange="0.05" Margin="0,0,0,10" ValueChanged="SliderLeftAntiDeadzone_ValueChanged"/>
+
+                            <!-- Response Curve -->
+                            <TextBlock Text="Response Curve:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboLeftMouseCurve" Margin="0,0,0,10">
+                                <ComboBoxItem Content="Linear" IsSelected="True"/>
+                                <ComboBoxItem Content="Delay (Ease-in)"/>
+                                <ComboBoxItem Content="Aggressive (Ease-out)"/>
+                                <ComboBoxItem Content="Instant"/>
+                                <ComboBoxItem Content="Smooth (S-Curve)"/>
+                            </ComboBox>
+
+                            <!-- Mouse Deadzone (Noise Gate) -->
+                            <Grid Margin="0,0,0,4">
+                                <TextBlock Text="Mouse Deadzone (Noise Gate):" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="TxtLeftMouseDeadzone" Text="0.05" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderLeftMouseDeadzone" Minimum="0.0" Maximum="0.3" Value="0.05" SmallChange="0.01" LargeChange="0.05" Margin="0,0,0,12" ValueChanged="SliderLeftMouseDeadzone_ValueChanged"/>
+                            <Slider x:Name="SliderLeftMouseDeadzone" Minimum="0.0" Maximum="0.2" Value="0.05" SmallChange="0.01" LargeChange="0.02" Margin="0,0,0,10" ValueChanged="SliderLeftMouseDeadzone_ValueChanged"/>
 
                             <!-- Mouse Smoothing -->
                             <Grid Margin="0,0,0,4">
-                                <TextBlock Text="Mouse Smoothing:" FontWeight="SemiBold"/>
-                                <TextBlock x:Name="TxtLeftMouseSmoothing" Text="0.25" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
+                                <TextBlock Text="Mouse Smoothing (EMA):" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="TxtLeftMouseSmoothing" Text="0.15" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderLeftMouseSmoothing" Minimum="0.0" Maximum="0.9" Value="0.25" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,12" ValueChanged="SliderLeftMouseSmoothing_ValueChanged"/>
+                            <Slider x:Name="SliderLeftMouseSmoothing" Minimum="0.0" Maximum="0.8" Value="0.15" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,10" ValueChanged="SliderLeftMouseSmoothing_ValueChanged"/>
 
                             <!-- Mouse Acceleration -->
                             <Grid Margin="0,0,0,4">
                                 <TextBlock Text="Mouse Acceleration:" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="TxtLeftMouseAccel" Text="1.0" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderLeftMouseAccel" Minimum="1.0" Maximum="2.5" Value="1.0" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,12" ValueChanged="SliderLeftMouseAccel_ValueChanged"/>
+                            <Slider x:Name="SliderLeftMouseAccel" Minimum="1.0" Maximum="2.5" Value="1.0" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,10" ValueChanged="SliderLeftMouseAccel_ValueChanged"/>
 
-                            <!-- Invert X & Y -->
+                            <!-- Invert X & Y & Radial Normalization -->
                             <StackPanel Orientation="Horizontal" Margin="0,4,0,8">
-                                <CheckBox x:Name="ChkLeftInvertX" Content="Invert X" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,24,0"/>
-                                <CheckBox x:Name="ChkLeftInvertY" Content="Invert Y" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                <CheckBox x:Name="ChkLeftInvertX" Content="Invert X" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,16,0"/>
+                                <CheckBox x:Name="ChkLeftInvertY" Content="Invert Y" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,16,0"/>
+                                <CheckBox x:Name="ChkLeftIsRadial" Content="Radial Stick (Circle)" IsChecked="True" Foreground="{StaticResource TextPrimaryBrush}"/>
                             </StackPanel>
+
+                            <!-- Return to Center Behavior -->
+                            <TextBlock Text="Return to Center Dynamics:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboLeftReturnToCenter" Margin="0,0,0,10">
+                                <ComboBoxItem Content="Instant / Snappy (Zero Drift)" IsSelected="True"/>
+                                <ComboBoxItem Content="Smooth Decay"/>
+                            </ComboBox>
+
+                            <!-- Reset Defaults Button -->
+                            <Button x:Name="BtnLeftResetMouseDefaults" Content="Reset Mouse Settings to Defaults" Background="#282838" Height="28" Margin="0,0,0,4" Click="BtnLeftResetMouseDefaults_Click"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -158,37 +209,88 @@
                         <StackPanel x:Name="PanelRightMouse">
                             <!-- Mouse Sensitivity -->
                             <Grid Margin="0,0,0,4">
-                                <TextBlock Text="Mouse Sensitivity:" FontWeight="SemiBold"/>
+                                <TextBlock Text="Overall Sensitivity:" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="TxtRightMouseSens" Text="1.2" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderRightMouseSens" Minimum="0.1" Maximum="4.0" Value="1.2" SmallChange="0.05" LargeChange="0.2" Margin="0,0,0,12" ValueChanged="SliderRightMouseSens_ValueChanged"/>
+                            <Slider x:Name="SliderRightMouseSens" Minimum="0.1" Maximum="4.0" Value="1.2" SmallChange="0.05" LargeChange="0.2" Margin="0,0,0,10" ValueChanged="SliderRightMouseSens_ValueChanged"/>
 
-                            <!-- Mouse Deadzone -->
+                            <!-- X/Y Independent Sensitivity -->
                             <Grid Margin="0,0,0,4">
-                                <TextBlock Text="Mouse Deadzone:" FontWeight="SemiBold"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                                    <Grid Margin="0,0,0,2">
+                                        <TextBlock Text="X Sensitivity:" FontSize="12" FontWeight="SemiBold"/>
+                                        <TextBlock x:Name="TxtRightSensX" Text="1.00" HorizontalAlignment="Right" Foreground="#38BDF8" FontSize="12" FontWeight="Bold"/>
+                                    </Grid>
+                                    <Slider x:Name="SliderRightSensX" Minimum="0.2" Maximum="3.0" Value="1.0" SmallChange="0.05" LargeChange="0.1" ValueChanged="SliderRightSensX_ValueChanged"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                                    <Grid Margin="0,0,0,2">
+                                        <TextBlock Text="Y Sensitivity:" FontSize="12" FontWeight="SemiBold"/>
+                                        <TextBlock x:Name="TxtRightSensY" Text="1.00" HorizontalAlignment="Right" Foreground="#38BDF8" FontSize="12" FontWeight="Bold"/>
+                                    </Grid>
+                                    <Slider x:Name="SliderRightSensY" Minimum="0.2" Maximum="3.0" Value="1.0" SmallChange="0.05" LargeChange="0.1" ValueChanged="SliderRightSensY_ValueChanged"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Anti-Deadzone (Initial Deflection) -->
+                            <Grid Margin="0,4,0,2">
+                                <TextBlock Text="Anti-Deadzone (Initial Deflection):" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="TxtRightAntiDeadzone" Text="0.15" HorizontalAlignment="Right" Foreground="#4ADE80" FontWeight="Bold"/>
+                            </Grid>
+                            <TextBlock Text="Offsets game deadzone for instant stick movement" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <Slider x:Name="SliderRightAntiDeadzone" Minimum="0.0" Maximum="0.40" Value="0.15" SmallChange="0.01" LargeChange="0.05" Margin="0,0,0,10" ValueChanged="SliderRightAntiDeadzone_ValueChanged"/>
+
+                            <!-- Response Curve -->
+                            <TextBlock Text="Response Curve:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboRightMouseCurve" Margin="0,0,0,10">
+                                <ComboBoxItem Content="Linear" IsSelected="True"/>
+                                <ComboBoxItem Content="Delay (Ease-in)"/>
+                                <ComboBoxItem Content="Aggressive (Ease-out)"/>
+                                <ComboBoxItem Content="Instant"/>
+                                <ComboBoxItem Content="Smooth (S-Curve)"/>
+                            </ComboBox>
+
+                            <!-- Mouse Deadzone (Noise Gate) -->
+                            <Grid Margin="0,0,0,4">
+                                <TextBlock Text="Mouse Deadzone (Noise Gate):" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="TxtRightMouseDeadzone" Text="0.05" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderRightMouseDeadzone" Minimum="0.0" Maximum="0.3" Value="0.05" SmallChange="0.01" LargeChange="0.05" Margin="0,0,0,12" ValueChanged="SliderRightMouseDeadzone_ValueChanged"/>
+                            <Slider x:Name="SliderRightMouseDeadzone" Minimum="0.0" Maximum="0.2" Value="0.05" SmallChange="0.01" LargeChange="0.02" Margin="0,0,0,10" ValueChanged="SliderRightMouseDeadzone_ValueChanged"/>
 
                             <!-- Mouse Smoothing -->
                             <Grid Margin="0,0,0,4">
-                                <TextBlock Text="Mouse Smoothing:" FontWeight="SemiBold"/>
-                                <TextBlock x:Name="TxtRightMouseSmoothing" Text="0.25" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
+                                <TextBlock Text="Mouse Smoothing (EMA):" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="TxtRightMouseSmoothing" Text="0.15" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderRightMouseSmoothing" Minimum="0.0" Maximum="0.9" Value="0.25" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,12" ValueChanged="SliderRightMouseSmoothing_ValueChanged"/>
+                            <Slider x:Name="SliderRightMouseSmoothing" Minimum="0.0" Maximum="0.8" Value="0.15" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,10" ValueChanged="SliderRightMouseSmoothing_ValueChanged"/>
 
                             <!-- Mouse Acceleration -->
                             <Grid Margin="0,0,0,4">
                                 <TextBlock Text="Mouse Acceleration:" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="TxtRightMouseAccel" Text="1.0" HorizontalAlignment="Right" Foreground="#38BDF8" FontWeight="Bold"/>
                             </Grid>
-                            <Slider x:Name="SliderRightMouseAccel" Minimum="1.0" Maximum="2.5" Value="1.0" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,12" ValueChanged="SliderRightMouseAccel_ValueChanged"/>
+                            <Slider x:Name="SliderRightMouseAccel" Minimum="1.0" Maximum="2.5" Value="1.0" SmallChange="0.05" LargeChange="0.1" Margin="0,0,0,10" ValueChanged="SliderRightMouseAccel_ValueChanged"/>
 
-                            <!-- Invert X & Y -->
+                            <!-- Invert X & Y & Radial Normalization -->
                             <StackPanel Orientation="Horizontal" Margin="0,4,0,8">
-                                <CheckBox x:Name="ChkRightInvertX" Content="Invert X" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,24,0"/>
-                                <CheckBox x:Name="ChkRightInvertY" Content="Invert Y" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                <CheckBox x:Name="ChkRightInvertX" Content="Invert X" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,16,0"/>
+                                <CheckBox x:Name="ChkRightInvertY" Content="Invert Y" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,16,0"/>
+                                <CheckBox x:Name="ChkRightIsRadial" Content="Radial Stick (Circle)" IsChecked="True" Foreground="{StaticResource TextPrimaryBrush}"/>
                             </StackPanel>
+
+                            <!-- Return to Center Behavior -->
+                            <TextBlock Text="Return to Center Dynamics:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboRightReturnToCenter" Margin="0,0,0,10">
+                                <ComboBoxItem Content="Instant / Snappy (Zero Drift)" IsSelected="True"/>
+                                <ComboBoxItem Content="Smooth Decay"/>
+                            </ComboBox>
+
+                            <!-- Reset Defaults Button -->
+                            <Button x:Name="BtnRightResetMouseDefaults" Content="Reset Mouse Settings to Defaults" Background="#282838" Height="28" Margin="0,0,0,4" Click="BtnRightResetMouseDefaults_Click"/>
                         </StackPanel>
 
                         <!-- RIGHT STICK: KEYBOARD PANEL -->

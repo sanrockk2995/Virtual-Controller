@@ -1,0 +1,86 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore VirtualController.sln
+
+    - name: Build solution
+      run: dotnet build VirtualController.sln --configuration Release --no-restore
+
+    - name: Run unit tests
+      run: dotnet test tests/VirtualController.Tests/VirtualController.Tests.csproj --configuration Release --no-build --verbosity normal
+
+    - name: Publish application
+      shell: pwsh
+      run: |
+        dotnet publish src/VirtualController.App/VirtualController.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=false -o dist/VirtualController
+        New-Item -ItemType Directory -Path dist/VirtualController/profiles -Force | Out-Null
+        New-Item -ItemType Directory -Path dist/VirtualController/config -Force | Out-Null
+        New-Item -ItemType Directory -Path dist/VirtualController/logs -Force | Out-Null
+        if (Test-Path "profiles") { Copy-Item -Path "profiles/*" -Destination "dist/VirtualController/profiles" -Recurse -Force }
+        if (Test-Path "config") { Copy-Item -Path "config/*" -Destination "dist/VirtualController/config" -Recurse -Force }
+
+    - name: Package Release ZIP
+      shell: pwsh
+      run: |
+        $version = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.1.0" }
+        $zipName = "VirtualController-$version-win-x64.zip"
+        Compress-Archive -Path "dist/VirtualController/*" -DestinationPath $zipName -Force
+        "RELEASE_ZIP=$zipName" | Out-File -FilePath $env:GITHUB_ENV -Append
+        "RELEASE_TAG=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: VirtualController-win-x64
+        path: ${{ env.RELEASE_ZIP }}
+
+    - name: Create GitHub Release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ${{ env.RELEASE_ZIP }}
+        name: VirtualController ${{ env.RELEASE_TAG }}
+        tag_name: ${{ env.RELEASE_TAG }}
+        body: |
+          ## VirtualController ${{ env.RELEASE_TAG }}
+          
+          ### What's Changed
+          - **Advanced Mouse-to-Gamepad Translation**: Native rate-of-turn velocity modeling with high-resolution delta-time ($\Delta t$) calibration.
+          - **Windows Raw Input Capture**: Added `RawInputReceiver` utilizing `WM_INPUT` with `RIDEV_INPUTSINK` on a dedicated message-only window thread, bypassing cursor bounds and screen edge clipping.
+          - **Anti-Deadzone (Initial Deflection)**: Baseline offset injection to overcome in-game stick deadzones.
+          - **Response Curves**: Added support for Linear, Delay (quadratic ease-in), Aggressive (square-root snap), Smooth (cubic Hermite smoothstep), and Instant curves.
+          - **Stick Geometry Normalization**: Toggle between Radial circular clamping and Square circle-to-square projection for full diagonal saturation.
+          - **Independent Sensitivity**: Configurable X and Y sensitivity axes.
+          - **WPF UI Updates**: Extended `AnalogSettingsView` with sliders, response curve selector, geometry mode toggle, and "Reset to Defaults".
+          - **Automated CI/CD**: Full unit test coverage (42/42 tests passing) and automated release pipeline.
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
