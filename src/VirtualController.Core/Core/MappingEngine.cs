@@ -124,6 +124,12 @@ namespace VirtualController.Core
             MouseToStickTranslator translator,
             double dt)
         {
+            if (config.IsDisabled)
+            {
+                translator.Reset();
+                return (0.0, 0.0);
+            }
+
             if (config.IsMouse)
             {
                 return translator.Process(mouseDx, mouseDy, config, dt);

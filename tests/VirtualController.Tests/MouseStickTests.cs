@@ -387,5 +387,20 @@ namespace VirtualController.Tests
             Assert.Equal(0.0, translator.CurrentX);
             Assert.Equal(0.0, translator.CurrentY);
         }
+
+        [Fact]
+        public void StickConfig_CanBeDisabled_AndMappingEngineReturnsNeutral()
+        {
+            var engine = new MappingEngine();
+            var input = new InputState();
+            var profile = Profile.CreateDefaultProfile();
+            profile.RightStick.InputSource = "None"; // Disabled
+
+            input.AddMouseDelta(50, -50);
+            var state = engine.Process(input, profile);
+
+            Assert.Equal(0.0, state.RightThumbX);
+            Assert.Equal(0.0, state.RightThumbY);
+        }
     }
 }

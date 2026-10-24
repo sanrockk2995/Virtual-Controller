@@ -32,10 +32,24 @@ namespace VirtualController.App.Views
             try
             {
                 // --- 1. LEFT STICK ---
-                bool leftIsMouse = profile.LeftStick.IsMouse;
-                ComboLeftSource.SelectedIndex = leftIsMouse ? 1 : 0;
-                PanelLeftKeyboard.Visibility = leftIsMouse ? Visibility.Collapsed : Visibility.Visible;
-                PanelLeftMouse.Visibility = leftIsMouse ? Visibility.Visible : Visibility.Collapsed;
+                if (profile.LeftStick.IsDisabled)
+                {
+                    ComboLeftSource.SelectedIndex = 2;
+                    PanelLeftKeyboard.Visibility = Visibility.Collapsed;
+                    PanelLeftMouse.Visibility = Visibility.Collapsed;
+                }
+                else if (profile.LeftStick.IsMouse)
+                {
+                    ComboLeftSource.SelectedIndex = 1;
+                    PanelLeftKeyboard.Visibility = Visibility.Collapsed;
+                    PanelLeftMouse.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ComboLeftSource.SelectedIndex = 0;
+                    PanelLeftKeyboard.Visibility = Visibility.Visible;
+                    PanelLeftMouse.Visibility = Visibility.Collapsed;
+                }
 
                 // Left Keyboard controls
                 BtnLeftKeyUp.Content = profile.LeftStick.Up;
@@ -81,10 +95,24 @@ namespace VirtualController.App.Views
                 ComboLeftReturnToCenter.SelectedIndex = (profile.LeftStick.DecayRate > 0.01) ? 1 : 0;
 
                 // --- 2. RIGHT STICK ---
-                bool rightIsMouse = profile.RightStick.IsMouse;
-                ComboRightSource.SelectedIndex = rightIsMouse ? 0 : 1;
-                PanelRightMouse.Visibility = rightIsMouse ? Visibility.Visible : Visibility.Collapsed;
-                PanelRightKeyboard.Visibility = rightIsMouse ? Visibility.Collapsed : Visibility.Visible;
+                if (profile.RightStick.IsDisabled)
+                {
+                    ComboRightSource.SelectedIndex = 2;
+                    PanelRightMouse.Visibility = Visibility.Collapsed;
+                    PanelRightKeyboard.Visibility = Visibility.Collapsed;
+                }
+                else if (profile.RightStick.IsMouse)
+                {
+                    ComboRightSource.SelectedIndex = 0;
+                    PanelRightMouse.Visibility = Visibility.Visible;
+                    PanelRightKeyboard.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ComboRightSource.SelectedIndex = 1;
+                    PanelRightMouse.Visibility = Visibility.Collapsed;
+                    PanelRightKeyboard.Visibility = Visibility.Visible;
+                }
 
                 // Right Mouse controls
                 SliderRightMouseSens.Value = profile.RightStick.Sensitivity;
@@ -138,17 +166,17 @@ namespace VirtualController.App.Views
         private void ComboLeftSource_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_isUpdatingUi || PanelLeftKeyboard == null || PanelLeftMouse == null) return;
-            bool isMouse = ComboLeftSource.SelectedIndex == 1;
-            PanelLeftKeyboard.Visibility = isMouse ? Visibility.Collapsed : Visibility.Visible;
-            PanelLeftMouse.Visibility = isMouse ? Visibility.Visible : Visibility.Collapsed;
+            int idx = ComboLeftSource.SelectedIndex;
+            PanelLeftKeyboard.Visibility = (idx == 0) ? Visibility.Visible : Visibility.Collapsed;
+            PanelLeftMouse.Visibility = (idx == 1) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void ComboRightSource_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_isUpdatingUi || PanelRightKeyboard == null || PanelRightMouse == null) return;
-            bool isMouse = ComboRightSource.SelectedIndex == 0;
-            PanelRightMouse.Visibility = isMouse ? Visibility.Visible : Visibility.Collapsed;
-            PanelRightKeyboard.Visibility = isMouse ? Visibility.Collapsed : Visibility.Visible;
+            int idx = ComboRightSource.SelectedIndex;
+            PanelRightMouse.Visibility = (idx == 0) ? Visibility.Visible : Visibility.Collapsed;
+            PanelRightKeyboard.Visibility = (idx == 1) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         #region Slider Handlers
@@ -328,11 +356,14 @@ namespace VirtualController.App.Views
             if (profile == null) return;
 
             // 1. Save Left Stick
-            bool leftIsMouse = ComboLeftSource.SelectedIndex == 1;
-            profile.LeftStick.InputSource = leftIsMouse ? "Mouse" : "Keyboard";
-
-            if (leftIsMouse)
+            int leftIdx = ComboLeftSource.SelectedIndex;
+            if (leftIdx == 2)
             {
+                profile.LeftStick.InputSource = "None";
+            }
+            else if (leftIdx == 1)
+            {
+                profile.LeftStick.InputSource = "Mouse";
                 profile.LeftStick.Sensitivity = Math.Round(SliderLeftMouseSens.Value, 2);
                 profile.LeftStick.SensitivityX = Math.Round(SliderLeftSensX.Value, 2);
                 profile.LeftStick.SensitivityY = Math.Round(SliderLeftSensY.Value, 2);
@@ -348,6 +379,7 @@ namespace VirtualController.App.Views
             }
             else
             {
+                profile.LeftStick.InputSource = "Keyboard";
                 profile.LeftStick.Up = BtnLeftKeyUp.Content?.ToString() ?? "W";
                 profile.LeftStick.Down = BtnLeftKeyDown.Content?.ToString() ?? "S";
                 profile.LeftStick.Left = BtnLeftKeyLeft.Content?.ToString() ?? "A";
@@ -358,11 +390,14 @@ namespace VirtualController.App.Views
             }
 
             // 2. Save Right Stick
-            bool rightIsMouse = ComboRightSource.SelectedIndex == 0;
-            profile.RightStick.InputSource = rightIsMouse ? "Mouse" : "Keyboard";
-
-            if (rightIsMouse)
+            int rightIdx = ComboRightSource.SelectedIndex;
+            if (rightIdx == 2)
             {
+                profile.RightStick.InputSource = "None";
+            }
+            else if (rightIdx == 0)
+            {
+                profile.RightStick.InputSource = "Mouse";
                 profile.RightStick.Sensitivity = Math.Round(SliderRightMouseSens.Value, 2);
                 profile.RightStick.SensitivityX = Math.Round(SliderRightSensX.Value, 2);
                 profile.RightStick.SensitivityY = Math.Round(SliderRightSensY.Value, 2);
@@ -378,6 +413,7 @@ namespace VirtualController.App.Views
             }
             else
             {
+                profile.RightStick.InputSource = "Keyboard";
                 profile.RightStick.Up = BtnRightKeyUp.Content?.ToString() ?? "Up";
                 profile.RightStick.Down = BtnRightKeyDown.Content?.ToString() ?? "Down";
                 profile.RightStick.Left = BtnRightKeyLeft.Content?.ToString() ?? "Left";

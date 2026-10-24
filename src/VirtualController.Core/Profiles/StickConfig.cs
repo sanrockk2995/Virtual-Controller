@@ -14,19 +14,32 @@ namespace VirtualController.Profiles
         private string _inputSource = "Keyboard";
 
         /// <summary>
-        /// Input source: "Keyboard" or "Mouse"
+        /// Input source: "Keyboard", "Mouse", or "None" (Disabled)
         /// </summary>
         public string InputSource
         {
             get => _inputSource;
-            set => _inputSource = string.Equals(value, "Mouse", StringComparison.OrdinalIgnoreCase) ? "Mouse" : "Keyboard";
+            set
+            {
+                if (string.Equals(value, "Mouse", StringComparison.OrdinalIgnoreCase))
+                    _inputSource = "Mouse";
+                else if (string.Equals(value, "None", StringComparison.OrdinalIgnoreCase) ||
+                         string.Equals(value, "Disabled", StringComparison.OrdinalIgnoreCase))
+                    _inputSource = "None";
+                else
+                    _inputSource = "Keyboard";
+            }
         }
 
         [JsonIgnore]
         public bool IsMouse => string.Equals(InputSource, "Mouse", StringComparison.OrdinalIgnoreCase);
 
         [JsonIgnore]
-        public bool IsKeyboard => !IsMouse;
+        public bool IsKeyboard => string.Equals(InputSource, "Keyboard", StringComparison.OrdinalIgnoreCase);
+
+        [JsonIgnore]
+        public bool IsDisabled => string.Equals(InputSource, "None", StringComparison.OrdinalIgnoreCase) ||
+                                  string.Equals(InputSource, "Disabled", StringComparison.OrdinalIgnoreCase);
 
         // --- Keyboard Settings ---
         public string Up { get; set; } = "W";

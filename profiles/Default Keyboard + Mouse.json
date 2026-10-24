@@ -10,6 +10,7 @@
     "ResponseCurve": "Linear"
   },
   "RightStick": {
+    "InputSource": "Mouse",
     "Sensitivity": 1.2,
     "Deadzone": 0.05,
     "Smoothing": 0.25,

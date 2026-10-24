@@ -54,25 +54,32 @@ namespace VirtualController.Input
             public IntPtr wParam;
         }
 
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Explicit)]
         private struct RAWMOUSE
         {
-            public ushort usFlags;
-            public ushort usButtonFlags;
-            public ushort usButtonData;
-            public uint ulRawButtons;
-            public int lLastX;
-            public int lLastY;
-            public uint ulExtraInformation;
-        }
-
-        [StructLayout(LayoutKind.Explicit)]
-        private struct RAWINPUT
-        {
             [FieldOffset(0)]
-            public RAWINPUTHEADER header;
-            [FieldOffset(16)] // 64-bit alignment for x64
-            public RAWMOUSE mouse;
+            public ushort usFlags;
+
+            [FieldOffset(4)]
+            public uint ulButtons;
+
+            [FieldOffset(4)]
+            public ushort usButtonFlags;
+
+            [FieldOffset(6)]
+            public ushort usButtonData;
+
+            [FieldOffset(8)]
+            public uint ulRawButtons;
+
+            [FieldOffset(12)]
+            public int lLastX;
+
+            [FieldOffset(16)]
+            public int lLastY;
+
+            [FieldOffset(20)]
+            public uint ulExtraInformation;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -294,10 +301,11 @@ namespace VirtualController.Input
             {
                 if (GetRawInputData(hRawInput, RID_INPUT, buffer, ref dwSize, headerSize) == dwSize)
                 {
-                    var raw = Marshal.PtrToStructure<RAWINPUT>(buffer);
-                    if (raw.header.dwType == RIM_TYPEMOUSE)
+                    var header = Marshal.PtrToStructure<RAWINPUTHEADER>(buffer);
+                    if (header.dwType == RIM_TYPEMOUSE)
                     {
-                        var mouse = raw.mouse;
+                        IntPtr mousePtr = IntPtr.Add(buffer, (int)headerSize);
+                        var mouse = Marshal.PtrToStructure<RAWMOUSE>(mousePtr);
 
                         // Process relative displacement
                         if (mouse.lLastX != 0 || mouse.lLastY != 0)

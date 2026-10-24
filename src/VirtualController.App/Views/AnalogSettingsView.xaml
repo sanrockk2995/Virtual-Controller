@@ -47,6 +47,7 @@
                         <ComboBox x:Name="ComboLeftSource" Height="36" Margin="0,0,0,16" SelectionChanged="ComboLeftSource_SelectionChanged">
                             <ComboBoxItem Content="Keyboard (Keys)" IsSelected="True"/>
                             <ComboBoxItem Content="Mouse (Movement)"/>
+                            <ComboBoxItem Content="None (Disabled)"/>
                         </ComboBox>
 
                         <!-- LEFT STICK: KEYBOARD PANEL -->
@@ -203,6 +204,7 @@
                         <ComboBox x:Name="ComboRightSource" Height="36" Margin="0,0,0,16" SelectionChanged="ComboRightSource_SelectionChanged">
                             <ComboBoxItem Content="Mouse (Movement)" IsSelected="True"/>
                             <ComboBoxItem Content="Keyboard (Keys)"/>
+                            <ComboBoxItem Content="None (Disabled)"/>
                         </ComboBox>
 
                         <!-- RIGHT STICK: MOUSE PANEL -->
