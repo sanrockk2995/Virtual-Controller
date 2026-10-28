@@ -71,14 +71,14 @@ jobs:
         body: |
           ## VirtualController ${{ env.RELEASE_TAG }}
           
-          ### What's New in v1.3.0
-          - **Physical Keyboard Input Blocking (Chặn phím bàn phím vật lý)**: Eliminates dual-input collision in games by selectively swallowing mapped keys (`W, A, S, D, Space, Shift, E, Q...`) via low-level hook (`WH_KEYBOARD_LL`).
-          - **Anti-Stuck Key Engine**: Precise down/up state tracking ensures no keys get stuck in-game when toggling blocking or during focus transitions.
-          - **Safety Whitelists**: Full protection for emergency kill-switch (`Ctrl + Alt + F10`), Windows task navigation (`Alt + Tab`, `Ctrl + Shift + Esc`), and system keys (`LWin`, `RWin`).
-          - **UI Quick-Toggle & Settings**: Added keyboard blocking toggle directly on the Dashboard and persistent configuration in Settings.
-          - **Runtime Bilingual Localization**: Seamless on-the-fly switching between Vietnamese 🇻🇳 and English 🇬🇧.
-          - **Advanced Mouse-to-Stick Translator**: Windows Raw Input (`WM_INPUT`), anti-deadzone, 5 response curves, radial/square geometry.
-          - **Comprehensive Automated CI/CD**: 51/51 unit tests passed.
+          ### What's New
+          - **GitHub Releases Auto-Update Checker**: Automatic update check on startup and manual check from Settings with full release notes and direct download links.
+          - **Customizable Emergency Kill-Switch Hotkey**: Fully configurable global hotkey (e.g. `Ctrl + Alt + F10`, `Ctrl + Shift + F12`, `F11`...) with interactive recording in Settings.
+          - **Physical Keyboard Input Blocking**: Selectively swallows mapped physical keys in games to eliminate dual-input collisions.
+          - **Anti-Stuck Key Engine**: Ensures seamless key-down / key-up transitions with zero stuck keys.
+          - **Safety Whitelists**: Full protection for emergency hotkey, Windows shortcuts (`Alt + Tab`, `Ctrl + Shift + Esc`), and system keys.
+          - **Runtime Bilingual Localization**: Instant switching between Vietnamese 🇻🇳 and English 🇬🇧.
+          - **Comprehensive Test Suite**: 71/71 unit tests passed.
         draft: false
         prerelease: false
       env:
