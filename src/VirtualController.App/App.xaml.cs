@@ -118,6 +118,35 @@ namespace VirtualController.App
             {
                 InputManager.Enable();
             }
+
+            // Automatic background update check on startup
+            if (Settings.AutoCheckUpdates)
+            {
+                _ = System.Threading.Tasks.Task.Run(async () =>
+                {
+                    try
+                    {
+                        await System.Threading.Tasks.Task.Delay(2500);
+                        var checker = new UpdateChecker();
+                        var info = await checker.CheckForUpdatesAsync();
+                        if (info.IsUpdateAvailable)
+                        {
+                            _mainWindow?.Dispatcher.InvokeAsync(() =>
+                            {
+                                if (_mainWindow != null && _mainWindow.IsVisible)
+                                {
+                                    var dialog = new Views.UpdateDialog(info) { Owner = _mainWindow };
+                                    dialog.ShowDialog();
+                                }
+                            });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        AppLogger.Warning("Automatic update check encountered an error.", ex);
+                    }
+                });
+            }
         }
 
         public void ShowWindow()

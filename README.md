@@ -52,8 +52,9 @@ Hệ điều hành Windows và trò chơi nhận diện thiết bị như một 
 - **Hỗ trợ Đa ngôn ngữ Runtime (Localization):** Chuyển đổi linh hoạt giữa **Tiếng Việt 🇻🇳** và **Tiếng Anh 🇬🇧** trực tiếp trong cài đặt, cập nhật giao diện ngay lập tức mà không cần khởi động lại ứng dụng.
 - **Quản lý Profile toàn diện:** Lưu trữ, xuất (Export), nhập (Import), tạo mới và nhân bản profile cấu hình dưới dạng JSON.
 - **Trình kiểm tra trực quan thời gian thực (Controller Tester):** Màn hình mô phỏng phản hồi tay cầm thời gian thực với tọa độ cần analog và độ nhạy trigger.
-- **Khay hệ thống & Hotkey an toàn:** Chạy ngầm tại System Tray, phím nóng khẩn cấp `Ctrl + Alt + F10` ngắt tín hiệu tay cầm ngay lập tức.
-- **CI/CD Tự Động:** Tích hợp GitHub Actions tự động kiểm thử 44 bộ test và đóng gói bản phát hành release x64.
+- **Khay hệ thống & Hotkey an toàn:** Chạy ngầm tại System Tray, phím nóng khẩn cấp `Ctrl + Alt + F10` (tùy biến tự do trong Cài đặt) ngắt tín hiệu tay cầm ngay lập tức.
+- **Tự động kiểm tra Cập nhật (GitHub Releases Auto-Update):** Tự động phát hiện phiên bản mới khi khởi động hoặc kiểm tra thủ công, hiển thị chi tiết Release Notes và liên kết tải file ZIP trực tiếp.
+- **CI/CD Tự Động:** Tích hợp GitHub Actions tự động kiểm thử 71 bộ test và đóng gói bản phát hành release x64.
 
 ---
 
@@ -321,8 +322,9 @@ Windows and games detect the device as an authentic physical Xbox 360 controller
 - **Runtime UI Localization:** Seamless on-the-fly switching between **Tiếng Việt 🇻🇳** and **English 🇬🇧** without restarting the application.
 - **Robust Profile Management:** Create, clone, rename, delete, import, and export profiles serialized as clean JSON files.
 - **Real-Time Controller Tester:** Visual diagnostic view showing real-time thumbstick coordinates, trigger pressures, and button presses.
-- **System Tray & Emergency Kill-Switch:** Minimizes to the notification area; instant failsafe shortcut (`Ctrl + Alt + F10`) releases all inputs immediately.
-- **Automated CI/CD Pipeline:** Fully configured GitHub Actions workflow running 44 automated unit tests and publishing standalone win-x64 release packages.
+- **System Tray & Emergency Kill-Switch:** Minimizes to the notification area; customizable failsafe shortcut (defaults to `Ctrl + Alt + F10`) releases all inputs immediately.
+- **Automatic GitHub Releases Update Checker:** Proactively checks for new releases on startup or on-demand from Settings, presenting release notes and direct download links.
+- **Automated CI/CD Pipeline:** Fully configured GitHub Actions workflow running 71 automated unit tests and publishing standalone win-x64 release packages.
 
 ---
 

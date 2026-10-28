@@ -129,4 +129,20 @@
     <sys:String x:Key="Settings_BtnSave">Save Application Settings</sys:String>
     <sys:String x:Key="Settings_SavedSuccess">Settings saved successfully.</sys:String>
 
+    <!-- Update Checker -->
+    <sys:String x:Key="Update_Title">Software Update</sys:String>
+    <sys:String x:Key="Update_Header">A new version is available!</sys:String>
+    <sys:String x:Key="Update_ReleaseNotes">Release Notes:</sys:String>
+    <sys:String x:Key="Update_BtnDownload">Download Update</sys:String>
+    <sys:String x:Key="Update_BtnViewGitHub">View on GitHub</sys:String>
+    <sys:String x:Key="Update_BtnLater">Remind Me Later</sys:String>
+    <sys:String x:Key="Settings_UpdateTitle">Software Updates</sys:String>
+    <sys:String x:Key="Settings_AutoCheckUpdates">Automatically check for updates on startup</sys:String>
+    <sys:String x:Key="Settings_AutoCheckUpdatesDesc">Queries GitHub Releases on startup to notify you about new features and bug fixes.</sys:String>
+    <sys:String x:Key="Settings_BtnCheckUpdate">Check for Updates Now</sys:String>
+    <sys:String x:Key="Settings_UpdateChecking">Checking for updates on GitHub...</sys:String>
+    <sys:String x:Key="Settings_UpdateLatest">You are running the latest version.</sys:String>
+    <sys:String x:Key="Settings_UpdateAvailable">New version available:</sys:String>
+    <sys:String x:Key="Settings_UpdateFailed">Failed to check for updates (Network error or API limit).</sys:String>
+
 </ResourceDictionary>

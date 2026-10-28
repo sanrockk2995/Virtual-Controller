@@ -97,6 +97,28 @@
                             <TextBlock Text="{DynamicResource Settings_DriverInfoSafe}" FontSize="11" Foreground="#4ADE80" Margin="0,4,0,0"/>
                         </StackPanel>
                     </Border>
+
+                    <!-- Software Updates Card -->
+                    <Border Background="#16161A" CornerRadius="8" Padding="14" Margin="0,16,0,0">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource Settings_UpdateTitle}" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
+                            
+                            <CheckBox x:Name="ChkAutoCheckUpdates" Content="{DynamicResource Settings_AutoCheckUpdates}" Margin="0,0,0,6" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <TextBlock Text="{DynamicResource Settings_AutoCheckUpdatesDesc}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="20,0,0,10" TextWrapping="Wrap"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Version:" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="TxtCurrentAppVersion" Text="v1.3.1" FontSize="12" FontWeight="Bold" Foreground="#38BDF8" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <TextBlock x:Name="TxtUpdateStatus" Text="Ready to check." FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="BtnCheckUpdates" Content="{DynamicResource Settings_BtnCheckUpdate}" Height="30" Padding="12,0" Background="{StaticResource AccentBlueBrush}" FontSize="12" Click="BtnCheckUpdates_Click"/>
+                                <Button x:Name="BtnViewUpdate" Content="{DynamicResource Update_BtnDownload}" Height="30" Padding="12,0" Background="{StaticResource AccentGreenBrush}" FontSize="12" Margin="8,0,0,0" Visibility="Collapsed" Click="BtnViewUpdate_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Border>
         </Grid>

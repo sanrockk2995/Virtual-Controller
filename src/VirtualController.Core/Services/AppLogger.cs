@@ -33,9 +33,10 @@ namespace VirtualController.Services
             Write("INFO", message);
         }
 
-        public static void Warning(string message)
+        public static void Warning(string message, Exception? ex = null)
         {
-            Write("WARN", message);
+            string fullMsg = ex != null ? $"{message} | Exception: {ex.GetType().Name}: {ex.Message}" : message;
+            Write("WARN", fullMsg);
         }
 
         public static void Error(string message, Exception? ex = null)

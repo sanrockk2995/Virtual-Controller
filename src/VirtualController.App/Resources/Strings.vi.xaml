@@ -129,4 +129,20 @@
     <sys:String x:Key="Settings_BtnSave">Lưu cài đặt ứng dụng</sys:String>
     <sys:String x:Key="Settings_SavedSuccess">Đã lưu cài đặt ứng dụng thành công.</sys:String>
 
+    <!-- Update Checker -->
+    <sys:String x:Key="Update_Title">Cập nhật phần mềm</sys:String>
+    <sys:String x:Key="Update_Header">Đã có bản cập nhật mới!</sys:String>
+    <sys:String x:Key="Update_ReleaseNotes">Nội dung cập nhật mới:</sys:String>
+    <sys:String x:Key="Update_BtnDownload">Tải về bản cập nhật</sys:String>
+    <sys:String x:Key="Update_BtnViewGitHub">Xem trên GitHub</sys:String>
+    <sys:String x:Key="Update_BtnLater">Để sau</sys:String>
+    <sys:String x:Key="Settings_UpdateTitle">Cập nhật ứng dụng</sys:String>
+    <sys:String x:Key="Settings_AutoCheckUpdates">Tự động kiểm tra bản cập nhật khi khởi động</sys:String>
+    <sys:String x:Key="Settings_AutoCheckUpdatesDesc">Tự động truy vấn GitHub Releases để thông báo khi có tính năng mới hoặc bản sửa lỗi.</sys:String>
+    <sys:String x:Key="Settings_BtnCheckUpdate">Kiểm tra cập nhật ngay</sys:String>
+    <sys:String x:Key="Settings_UpdateChecking">Đang kiểm tra cập nhật từ GitHub...</sys:String>
+    <sys:String x:Key="Settings_UpdateLatest">Bạn đang sử dụng phiên bản mới nhất.</sys:String>
+    <sys:String x:Key="Settings_UpdateAvailable">Có bản cập nhật mới khả dụng:</sys:String>
+    <sys:String x:Key="Settings_UpdateFailed">Không thể kiểm tra cập nhật (Lỗi mạng hoặc giới hạn API).</sys:String>
+
 </ResourceDictionary>

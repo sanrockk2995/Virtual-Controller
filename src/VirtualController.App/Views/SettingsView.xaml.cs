@@ -15,6 +15,7 @@ namespace VirtualController.App.Views
         private bool _isInitializing = true;
         private bool _isRecordingHotkey = false;
         private string _currentHotkeyText = "Ctrl + Alt + F10";
+        private UpdateInfo? _latestUpdateInfo;
 
         public SettingsView(AppSettings settings)
         {
@@ -34,6 +35,13 @@ namespace VirtualController.App.Views
                 ChkStartMinimized.IsChecked = _settings.StartMinimized;
                 ChkAutoEnable.IsChecked = _settings.AutoEnableController;
                 ChkBlockKeyboard.IsChecked = _settings.BlockPhysicalKeyboard;
+                ChkAutoCheckUpdates.IsChecked = _settings.AutoCheckUpdates;
+
+                var curVer = UpdateChecker.GetCurrentVersion();
+                if (TxtCurrentAppVersion != null)
+                {
+                    TxtCurrentAppVersion.Text = $"v{curVer.Major}.{curVer.Minor}.{curVer.Build}";
+                }
 
                 ComboLanguage.SelectedIndex = (_settings.Language?.ToLowerInvariant() == "en") ? 1 : 0;
 
@@ -169,12 +177,69 @@ namespace VirtualController.App.Views
             TxtHotkeyDisplay.Text = _currentHotkeyText;
         }
 
+        private async void BtnCheckUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            if (BtnCheckUpdates == null) return;
+            BtnCheckUpdates.IsEnabled = false;
+            TxtUpdateStatus.Text = LocalizationService.GetString("Settings_UpdateChecking", "Checking for updates on GitHub...");
+            TxtUpdateStatus.Foreground = (Brush)FindResource("TextSecondaryBrush");
+
+            try
+            {
+                var checker = new UpdateChecker();
+                _latestUpdateInfo = await checker.CheckForUpdatesAsync();
+
+                if (_latestUpdateInfo.IsUpdateAvailable)
+                {
+                    string updateAvail = LocalizationService.GetString("Settings_UpdateAvailable", "New version available:");
+                    TxtUpdateStatus.Text = $"{updateAvail} {_latestUpdateInfo.TagName}";
+                    TxtUpdateStatus.Foreground = (Brush)FindResource("AccentGreenBrush");
+                    BtnViewUpdate.Visibility = Visibility.Visible;
+
+                    var dialog = new UpdateDialog(_latestUpdateInfo) { Owner = Window.GetWindow(this) };
+                    dialog.ShowDialog();
+                }
+                else if (string.IsNullOrEmpty(_latestUpdateInfo.ErrorMessage))
+                {
+                    TxtUpdateStatus.Text = LocalizationService.GetString("Settings_UpdateLatest", "You are running the latest version.");
+                    TxtUpdateStatus.Foreground = (Brush)FindResource("AccentGreenBrush");
+                    BtnViewUpdate.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    string failed = LocalizationService.GetString("Settings_UpdateFailed", "Failed to check for updates.");
+                    TxtUpdateStatus.Text = $"{failed} ({_latestUpdateInfo.ErrorMessage})";
+                    TxtUpdateStatus.Foreground = (Brush)FindResource("AccentRedBrush");
+                    BtnViewUpdate.Visibility = Visibility.Collapsed;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                TxtUpdateStatus.Text = ex.Message;
+                TxtUpdateStatus.Foreground = (Brush)FindResource("AccentRedBrush");
+            }
+            finally
+            {
+                BtnCheckUpdates.IsEnabled = true;
+            }
+        }
+
+        private void BtnViewUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (_latestUpdateInfo != null && _latestUpdateInfo.IsUpdateAvailable)
+            {
+                var dialog = new UpdateDialog(_latestUpdateInfo) { Owner = Window.GetWindow(this) };
+                dialog.ShowDialog();
+            }
+        }
+
         private void BtnSaveSettings_Click(object sender, RoutedEventArgs e)
         {
             _settings.StartWithWindows = ChkStartWithWindows.IsChecked == true;
             _settings.StartMinimized = ChkStartMinimized.IsChecked == true;
             _settings.AutoEnableController = ChkAutoEnable.IsChecked == true;
             _settings.BlockPhysicalKeyboard = ChkBlockKeyboard.IsChecked == true;
+            _settings.AutoCheckUpdates = ChkAutoCheckUpdates.IsChecked == true;
             _settings.Hotkey = _currentHotkeyText;
             _settings.Language = (ComboLanguage.SelectedIndex == 1) ? "en" : "vi";
 
