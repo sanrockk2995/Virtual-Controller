@@ -45,7 +45,10 @@
                     <TextBlock Text="{DynamicResource Settings_StartMinimizedDesc}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="24,-8,0,14"/>
 
                     <CheckBox x:Name="ChkAutoEnable" Content="{DynamicResource Settings_AutoEnable}" Margin="0,0,0,14" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
-                    <TextBlock Text="{DynamicResource Settings_AutoEnableDesc}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="24,-8,0,20"/>
+                    <TextBlock Text="{DynamicResource Settings_AutoEnableDesc}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="24,-8,0,14"/>
+
+                    <CheckBox x:Name="ChkBlockKeyboard" Content="{DynamicResource Settings_BlockKeyboard}" Margin="0,0,0,14" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBlock Text="{DynamicResource Settings_BlockKeyboardDesc}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="24,-8,0,20" TextWrapping="Wrap"/>
 
                     <TextBlock Text="{DynamicResource Settings_HotkeyTitle}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
                     <Border Background="#16161A" CornerRadius="6" Padding="12">

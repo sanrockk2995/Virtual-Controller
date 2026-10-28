@@ -24,6 +24,19 @@ namespace VirtualController.Input
         public bool IsEnabled { get; private set; }
         public bool IsActive => IsEnabled && _controller.IsConnected;
 
+        public bool BlockPhysicalKeyboard
+        {
+            get => _hookManager.BlockPhysicalKeyboard;
+            set
+            {
+                _hookManager.BlockPhysicalKeyboard = value;
+                if (value)
+                {
+                    UpdateBlockedKeysFromActiveProfile();
+                }
+            }
+        }
+
         public event EventHandler<ControllerState>? StateUpdated;
         public event EventHandler<bool>? EnabledChanged;
 
@@ -112,6 +125,11 @@ namespace VirtualController.Input
                     }
                 }
 
+                if (BlockPhysicalKeyboard)
+                {
+                    UpdateBlockedKeysFromActiveProfile();
+                }
+
                 _hookManager.Start();
                 _rawInputReceiver.Start();
                 IsEnabled = true;
@@ -162,6 +180,28 @@ namespace VirtualController.Input
                 _mappingEngine.Reset();
                 _inputState.HarvestMouseDelta();
                 _liveState.Reset();
+            }
+
+            if (BlockPhysicalKeyboard)
+            {
+                UpdateBlockedKeysFromActiveProfile();
+            }
+        }
+
+        public void UpdateBlockedKeysFromActiveProfile()
+        {
+            try
+            {
+                var profile = _profileManager.ActiveProfile;
+                if (profile != null)
+                {
+                    var mappedKeys = profile.GetMappedPhysicalKeyboardKeys();
+                    _hookManager.SetBlockedKeys(mappedKeys);
+                }
+            }
+            catch (Exception ex)
+            {
+                AppLogger.Error("Failed to update blocked keys from active profile.", ex);
             }
         }
 

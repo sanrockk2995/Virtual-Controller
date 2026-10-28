@@ -67,5 +67,65 @@ namespace VirtualController.Profiles
                 ExtraMappings = new Dictionary<string, string>(this.ExtraMappings, StringComparer.OrdinalIgnoreCase)
             };
         }
+
+        /// <summary>
+        /// Returns all physical keyboard key names mapped in this profile (excluding mouse inputs).
+        /// </summary>
+        public HashSet<string> GetMappedPhysicalKeyboardKeys()
+        {
+            var keys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            void AddIfKeyboard(string? input)
+            {
+                if (string.IsNullOrWhiteSpace(input)) return;
+                if (input.Equals("LeftMouse", StringComparison.OrdinalIgnoreCase) ||
+                    input.Equals("RightMouse", StringComparison.OrdinalIgnoreCase) ||
+                    input.Equals("MiddleMouse", StringComparison.OrdinalIgnoreCase) ||
+                    input.Equals("XButton1", StringComparison.OrdinalIgnoreCase) ||
+                    input.Equals("XButton2", StringComparison.OrdinalIgnoreCase))
+                {
+                    return;
+                }
+                keys.Add(input);
+            }
+
+            // Left Stick
+            if (LeftStick != null && !LeftStick.IsDisabled && !LeftStick.IsMouse)
+            {
+                AddIfKeyboard(LeftStick.Up);
+                AddIfKeyboard(LeftStick.Down);
+                AddIfKeyboard(LeftStick.Left);
+                AddIfKeyboard(LeftStick.Right);
+            }
+
+            // Right Stick
+            if (RightStick != null && !RightStick.IsDisabled && !RightStick.IsMouse)
+            {
+                AddIfKeyboard(RightStick.Up);
+                AddIfKeyboard(RightStick.Down);
+                AddIfKeyboard(RightStick.Left);
+                AddIfKeyboard(RightStick.Right);
+            }
+
+            // Buttons
+            if (Buttons != null)
+            {
+                foreach (var physical in Buttons.Values)
+                {
+                    AddIfKeyboard(physical);
+                }
+            }
+
+            // Extra mappings (Key is physical input)
+            if (ExtraMappings != null)
+            {
+                foreach (var physical in ExtraMappings.Keys)
+                {
+                    AddIfKeyboard(physical);
+                }
+            }
+
+            return keys;
+        }
     }
 }

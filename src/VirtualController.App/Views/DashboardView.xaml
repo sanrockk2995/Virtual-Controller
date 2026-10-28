@@ -41,12 +41,28 @@
                     </Border>
 
                     <!-- Enable / Disable Controller Buttons -->
-                    <StackPanel Margin="0,0,0,20">
+                    <StackPanel Margin="0,0,0,14">
                         <Button x:Name="BtnToggleController" Content="{DynamicResource Dash_BtnEnable}" Height="44" FontSize="15" 
                                 Background="{StaticResource AccentGreenBrush}" Click="BtnToggleController_Click"/>
                         <Button x:Name="BtnInstallDriver" Content="{DynamicResource Dash_BtnInstallDriver}" Height="38" FontSize="13" 
                                 Background="{StaticResource AccentBlueBrush}" Margin="0,10,0,0" Visibility="Collapsed" Click="BtnInstallDriver_Click"/>
                     </StackPanel>
+
+                    <!-- Block Physical Keyboard Status & Toggle -->
+                    <Border CornerRadius="8" Background="#16161A" Padding="12" Margin="0,0,0,16" BorderBrush="{StaticResource BorderDarkBrush}" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{DynamicResource Settings_BlockKeyboard}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                <TextBlock x:Name="TxtBlockStatus" Text="{DynamicResource Dash_BlockKeyboardOff}" FontSize="11" Foreground="#94A3B8" Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <Button Grid.Column="1" x:Name="BtnToggleBlock" Content="Toggle" FontSize="11" Height="28" Padding="12,0" 
+                                    Background="#334155" Click="BtnToggleBlock_Click"/>
+                        </Grid>
+                    </Border>
 
                     <!-- Emergency Hotkey Info -->
                     <Border CornerRadius="6" Background="#242430" Padding="12" Margin="0,0,0,10">

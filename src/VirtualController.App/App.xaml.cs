@@ -68,6 +68,7 @@ namespace VirtualController.App
 
             VirtualController = new ViGEmController();
             InputManager = new InputManager(VirtualController, ProfileManager);
+            InputManager.BlockPhysicalKeyboard = Settings.BlockPhysicalKeyboard;
 
             // Tray Service
             TrayService = new TrayService(

@@ -110,6 +110,10 @@
     <sys:String x:Key="Settings_StartMinimizedDesc">Ẩn cửa sổ chính khi mở và chạy nền ở khay hệ thống.</sys:String>
     <sys:String x:Key="Settings_AutoEnable">Tự động bật tay cầm khi mở</sys:String>
     <sys:String x:Key="Settings_AutoEnableDesc">Tự động kích hoạt chuyển đổi tay cầm ngay khi khởi động phần mềm.</sys:String>
+    <sys:String x:Key="Settings_BlockKeyboard">Chặn phím bàn phím vật lý khi chơi game</sys:String>
+    <sys:String x:Key="Settings_BlockKeyboardDesc">Chặn các phím (W, A, S, D, Space...) truyền trực tiếp vào game để tránh xung đột điều khiển kép. Chỉ chặn các phím có trong cấu hình đang dùng.</sys:String>
+    <sys:String x:Key="Dash_BlockKeyboardActive">Chặn phím vật lý: BẬT</sys:String>
+    <sys:String x:Key="Dash_BlockKeyboardOff">Chặn phím vật lý: TẮT</sys:String>
     <sys:String x:Key="Settings_HotkeyTitle">Phím tắt khẩn cấp &amp; Bật/Tắt nhanh</sys:String>
     <sys:String x:Key="Settings_HotkeyDesc">Phím tắt hook hệ thống: nhấn bất kỳ lúc nào để ngắt ngay tay cầm và nhả mọi phím.</sys:String>
     <sys:String x:Key="Settings_DriverHealth">Tình trạng Driver &amp; Hệ thống</sys:String>

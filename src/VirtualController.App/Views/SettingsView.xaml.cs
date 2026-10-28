@@ -27,6 +27,7 @@ namespace VirtualController.App.Views
                 ChkStartWithWindows.IsChecked = _settings.StartWithWindows;
                 ChkStartMinimized.IsChecked = _settings.StartMinimized;
                 ChkAutoEnable.IsChecked = _settings.AutoEnableController;
+                ChkBlockKeyboard.IsChecked = _settings.BlockPhysicalKeyboard;
 
                 ComboLanguage.SelectedIndex = (_settings.Language?.ToLowerInvariant() == "en") ? 1 : 0;
 
@@ -73,7 +74,13 @@ namespace VirtualController.App.Views
             _settings.StartWithWindows = ChkStartWithWindows.IsChecked == true;
             _settings.StartMinimized = ChkStartMinimized.IsChecked == true;
             _settings.AutoEnableController = ChkAutoEnable.IsChecked == true;
+            _settings.BlockPhysicalKeyboard = ChkBlockKeyboard.IsChecked == true;
             _settings.Language = (ComboLanguage.SelectedIndex == 1) ? "en" : "vi";
+
+            if (App.InputManager != null)
+            {
+                App.InputManager.BlockPhysicalKeyboard = _settings.BlockPhysicalKeyboard;
+            }
 
             _settings.Save();
 

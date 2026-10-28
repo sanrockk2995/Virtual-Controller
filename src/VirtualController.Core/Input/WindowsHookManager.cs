@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -113,11 +114,21 @@ namespace VirtualController.Input
         private POINT _lastMousePoint;
         private bool _disposed;
 
+        private readonly HashSet<int> _blockedVkCodes = new();
+        private readonly HashSet<int> _blockedVkCodesOnDown = new();
+        private readonly object _blockingLock = new();
+
         /// <summary>
         /// When true, low-level mouse hook calculates deltas from cursor positions.
         /// Disabled by default in favor of high-precision Raw Input.
         /// </summary>
         public bool CaptureMouseMovement { get; set; } = false;
+
+        /// <summary>
+        /// When true, physical keyboard keys that are mapped to virtual controller inputs
+        /// will be blocked from being passed to target game windows via WH_KEYBOARD_LL.
+        /// </summary>
+        public bool BlockPhysicalKeyboard { get; set; } = false;
 
         public event Action? EmergencyDisableRequested;
         public event Action? ToggleRequested;
@@ -203,8 +214,64 @@ namespace VirtualController.Input
             _hookThreadId = 0;
             _isFirstMousePoint = true;
 
+            lock (_blockingLock)
+            {
+                _blockedVkCodesOnDown.Clear();
+            }
+
             _inputState.Clear();
             AppLogger.Info("Windows low-level input hooks removed.");
+        }
+
+        /// <summary>
+        /// Updates the set of Virtual-Key codes to block when BlockPhysicalKeyboard is enabled.
+        /// </summary>
+        public void SetBlockedKeys(IEnumerable<int> vkCodes)
+        {
+            lock (_blockingLock)
+            {
+                _blockedVkCodes.Clear();
+                if (vkCodes != null)
+                {
+                    foreach (var vk in vkCodes)
+                    {
+                        _blockedVkCodes.Add(vk);
+                        // Expand general modifier mappings
+                        if (vk == 0x10) { _blockedVkCodes.Add(0xA0); _blockedVkCodes.Add(0xA1); } // Shift -> L/R Shift
+                        if (vk == 0x11) { _blockedVkCodes.Add(0xA2); _blockedVkCodes.Add(0xA3); } // Ctrl -> L/R Ctrl
+                        if (vk == 0x12) { _blockedVkCodes.Add(0xA4); _blockedVkCodes.Add(0xA5); } // Alt -> L/R Alt
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the set of physical key names to block by resolving them to Virtual-Key codes.
+        /// </summary>
+        public void SetBlockedKeys(IEnumerable<string> keyNames)
+        {
+            var vkList = new List<int>();
+            if (keyNames != null)
+            {
+                foreach (var name in keyNames)
+                {
+                    int? vk = KeyNameHelper.GetVkCode(name);
+                    if (vk.HasValue)
+                    {
+                        vkList.Add(vk.Value);
+                    }
+                }
+            }
+            SetBlockedKeys(vkList);
+        }
+
+        public void ClearBlockedKeys()
+        {
+            lock (_blockingLock)
+            {
+                _blockedVkCodes.Clear();
+                _blockedVkCodesOnDown.Clear();
+            }
         }
 
         private IntPtr KeyboardHookCallback(int nCode, IntPtr wParam, IntPtr lParam)
@@ -242,10 +309,57 @@ namespace VirtualController.Input
                             ToggleRequested?.Invoke();
                         }
                     }
+
+                    // Keyboard input blocking logic: suppress message from passing to target windows
+                    if (BlockPhysicalKeyboard && ShouldBlockKey(vkCode, isDown))
+                    {
+                        return (IntPtr)1;
+                    }
                 }
             }
 
             return CallNextHookEx(_keyboardHook, nCode, wParam, lParam);
+        }
+
+        private bool ShouldBlockKey(int vkCode, bool isDown)
+        {
+            // Safety whitelist: NEVER block Windows keys
+            if (vkCode == 0x5B || vkCode == 0x5C) return false; // VK_LWIN, VK_RWIN
+
+            // Safety whitelist: NEVER block Alt+Tab
+            // If Alt is held, allow Tab (VK_TAB = 0x09) through so user can switch windows
+            if (vkCode == 0x09 && ((GetAsyncKeyState(0x12) & 0x8000) != 0)) return false;
+
+            // Safety whitelist: NEVER block Task Manager shortcut (Ctrl+Shift+Esc)
+            // If Ctrl is held, allow Escape (0x1B) through
+            if (vkCode == 0x1B && ((GetAsyncKeyState(0x11) & 0x8000) != 0)) return false;
+
+            // Safety whitelist: NEVER block F10 if Ctrl and Alt are down (emergency combo)
+            if (vkCode == 0x79 && ((GetAsyncKeyState(0x11) & 0x8000) != 0) && ((GetAsyncKeyState(0x12) & 0x8000) != 0)) return false;
+
+            lock (_blockingLock)
+            {
+                if (isDown)
+                {
+                    // Check if key is configured for blocking
+                    if (_blockedVkCodes.Contains(vkCode))
+                    {
+                        _blockedVkCodesOnDown.Add(vkCode);
+                        return true;
+                    }
+                    return false;
+                }
+                else // isUp
+                {
+                    // If this key was blocked when it was pressed down, swallow the keyup too
+                    if (_blockedVkCodesOnDown.Remove(vkCode))
+                    {
+                        return true;
+                    }
+                    // If it was NOT blocked on down, let the keyup pass so we don't leave stuck keys in Windows/game!
+                    return false;
+                }
+            }
         }
 
         private static string ResolveKeyName(int vkCode)

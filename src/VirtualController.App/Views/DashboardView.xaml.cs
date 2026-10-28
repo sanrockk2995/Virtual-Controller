@@ -78,6 +78,31 @@ namespace VirtualController.App.Views
                 DriverStatusText.Foreground = (Brush)FindResource("TextSecondaryBrush");
                 BtnInstallDriver.Visibility = Visibility.Collapsed;
             }
+
+            // Keyboard blocking status
+            if (_inputManager.BlockPhysicalKeyboard)
+            {
+                TxtBlockStatus.Text = LocalizationService.GetString("Dash_BlockKeyboardActive", "Keyboard Blocking: ON");
+                TxtBlockStatus.Foreground = (Brush)FindResource("AccentGreenBrush");
+                BtnToggleBlock.Content = LocalizationService.GetString("Dash_BtnDisable", "Disable");
+            }
+            else
+            {
+                TxtBlockStatus.Text = LocalizationService.GetString("Dash_BlockKeyboardOff", "Keyboard Blocking: OFF");
+                TxtBlockStatus.Foreground = (Brush)FindResource("TextSecondaryBrush");
+                BtnToggleBlock.Content = LocalizationService.GetString("Dash_BtnEnable", "Enable");
+            }
+        }
+
+        private void BtnToggleBlock_Click(object sender, RoutedEventArgs e)
+        {
+            _inputManager.BlockPhysicalKeyboard = !_inputManager.BlockPhysicalKeyboard;
+            if (App.Settings != null)
+            {
+                App.Settings.BlockPhysicalKeyboard = _inputManager.BlockPhysicalKeyboard;
+                App.Settings.Save();
+            }
+            UpdateStatusUI();
         }
 
         private bool _isUpdatingUi;

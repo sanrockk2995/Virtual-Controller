@@ -110,6 +110,10 @@
     <sys:String x:Key="Settings_StartMinimizedDesc">Hides the main window on startup and runs in system tray.</sys:String>
     <sys:String x:Key="Settings_AutoEnable">Auto-Enable Controller on Startup</sys:String>
     <sys:String x:Key="Settings_AutoEnableDesc">Instantly activates virtual controller mapping upon launching.</sys:String>
+    <sys:String x:Key="Settings_BlockKeyboard">Block physical keyboard input in games</sys:String>
+    <sys:String x:Key="Settings_BlockKeyboardDesc">Prevents mapped keys (W, A, S, D, Space...) from passing to the game window, eliminating dual-input conflicts.</sys:String>
+    <sys:String x:Key="Dash_BlockKeyboardActive">Keyboard Blocking: ON</sys:String>
+    <sys:String x:Key="Dash_BlockKeyboardOff">Keyboard Blocking: OFF</sys:String>
     <sys:String x:Key="Settings_HotkeyTitle">Emergency &amp; Toggle Hotkey</sys:String>
     <sys:String x:Key="Settings_HotkeyDesc">Global system hook hotkey: press anywhere to instantly freeze/disable virtual gamepad and release all inputs.</sys:String>
     <sys:String x:Key="Settings_DriverHealth">Driver &amp; System Health</sys:String>

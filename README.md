@@ -48,6 +48,7 @@ Hệ điều hành Windows và trò chơi nhận diện thiết bị như một 
   - **Chuẩn hóa hình học cần gạt (Stick Geometry):** Hỗ trợ dạng Tròn (*Radial*) và dạng Chiếu vuông (*Square* - giúp đạt 100% deflection khi di chuyển góc chéo).
   - **Bộ lọc nhiễu (Noise Gate) & Làm mượt (Exponential Smoothing):** Lọc rung lắc chuột ở tốc độ cực thấp và làm êm chuyển động.
   - **Tùy chọn tắt cần gạt (`None / Vô hiệu hóa`):** Cho phép tắt hoàn toàn tín hiệu cần gạt phải hoặc trái khi dùng chuột, giữ cần gạt luôn ở tâm $(0.0, 0.0)$ để tránh xoay camera ngoài ý muốn khi chỉ gán nút chuột cho chức năng khác.
+  - **Chặn phím bàn phím vật lý (Keyboard Input Blocking):** Ngăn chặn cửa sổ game nhận trùng lặp các phím vật lý đã được gán (W, A, S, D, Space, Shift, E, Q...), giải quyết triệt để hiện tượng xung đột điều khiển kép (dual-input). Tích hợp thuật toán chống kẹt phím thông minh và tự động whitelist bảo toàn phím khẩn cấp (`Ctrl + Alt + F10`) cùng các phím điều hướng hệ thống (`Alt + Tab`, `LWin`, `RWin`, `Ctrl + Shift + Esc`).
 - **Hỗ trợ Đa ngôn ngữ Runtime (Localization):** Chuyển đổi linh hoạt giữa **Tiếng Việt 🇻🇳** và **Tiếng Anh 🇬🇧** trực tiếp trong cài đặt, cập nhật giao diện ngay lập tức mà không cần khởi động lại ứng dụng.
 - **Quản lý Profile toàn diện:** Lưu trữ, xuất (Export), nhập (Import), tạo mới và nhân bản profile cấu hình dưới dạng JSON.
 - **Trình kiểm tra trực quan thời gian thực (Controller Tester):** Màn hình mô phỏng phản hồi tay cầm thời gian thực với tọa độ cần analog và độ nhạy trigger.
@@ -316,6 +317,7 @@ Windows and games detect the device as an authentic physical Xbox 360 controller
   - **Stick Geometry Normalization:** Toggle between standard Radial clamping and Square projection (enabling full 100% deflection along diagonals).
   - **Noise Gate & Exponential Smoothing:** Filters micro-jitter at low speeds while maintaining responsive flick tracking.
   - **Independent Stick Input Disabling (`None`):** Allows completely disabling the Right Stick or Left Stick while using the mouse, locking the axis at neutral $(0.0, 0.0)$ to prevent accidental camera rotation when using mouse buttons for actions.
+  - **Physical Keyboard Input Blocking:** Eliminates dual-input conflicts by selectively swallowing mapped physical keys (W, A, S, D, Space, Shift, E, Q...) via low-level hook (`WH_KEYBOARD_LL`) so the game only receives virtual Xbox 360 controller telemetry. Features a robust anti-stuck key state machine and safety whitelists for emergency hotkeys (`Ctrl + Alt + F10`) and Windows system navigation (`Alt + Tab`, `LWin`, `RWin`, `Ctrl + Shift + Esc`).
 - **Runtime UI Localization:** Seamless on-the-fly switching between **Tiếng Việt 🇻🇳** and **English 🇬🇧** without restarting the application.
 - **Robust Profile Management:** Create, clone, rename, delete, import, and export profiles serialized as clean JSON files.
 - **Real-Time Controller Tester:** Visual diagnostic view showing real-time thumbstick coordinates, trigger pressures, and button presses.
