@@ -31,7 +31,11 @@ jobs:
       run: dotnet restore VirtualController.sln
 
     - name: Build solution
-      run: dotnet build VirtualController.sln --configuration Release --no-restore
+      shell: pwsh
+      run: |
+        $rawTag = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.4.1" }
+        $semVer = $rawTag.TrimStart('v', 'V')
+        dotnet build VirtualController.sln --configuration Release --no-restore -p:Version=$semVer -p:AssemblyVersion=$semVer.0 -p:FileVersion=$semVer.0
 
     - name: Run unit tests
       run: dotnet test tests/VirtualController.Tests/VirtualController.Tests.csproj --configuration Release --no-build --verbosity normal
@@ -39,7 +43,9 @@ jobs:
     - name: Publish application
       shell: pwsh
       run: |
-        dotnet publish src/VirtualController.App/VirtualController.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=false -o dist/VirtualController
+        $rawTag = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.4.1" }
+        $semVer = $rawTag.TrimStart('v', 'V')
+        dotnet publish src/VirtualController.App/VirtualController.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=false -p:Version=$semVer -p:AssemblyVersion=$semVer.0 -p:FileVersion=$semVer.0 -o dist/VirtualController
         New-Item -ItemType Directory -Path dist/VirtualController/profiles -Force | Out-Null
         New-Item -ItemType Directory -Path dist/VirtualController/config -Force | Out-Null
         New-Item -ItemType Directory -Path dist/VirtualController/logs -Force | Out-Null

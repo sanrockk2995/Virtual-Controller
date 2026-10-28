@@ -16,6 +16,7 @@ namespace VirtualController.Tests
         [InlineData("1.4.0", 1, 4, 0)]
         [InlineData("v2.0", 2, 0, 0)]
         [InlineData("v1.5.0-beta", 1, 5, 0)]
+        [InlineData("1.4.1+9ad5e6b82311ce67f79c65d9535079eaea9a2f21", 1, 4, 1)]
         [InlineData("V3.1.2.4", 3, 1, 2)]
         public void UpdateChecker_ParseVersion_ValidInputs_ParsedCorrectly(
             string input, int expectedMajor, int expectedMinor, int expectedBuild)
@@ -120,6 +121,14 @@ namespace VirtualController.Tests
             Assert.False(info.IsUpdateAvailable);
             Assert.NotNull(info.ErrorMessage);
             Assert.Contains("404", info.ErrorMessage);
+        }
+
+        [Fact]
+        public void UpdateChecker_GetCurrentVersion_ReturnsValidNonEmptyVersion()
+        {
+            var ver = UpdateChecker.GetCurrentVersion();
+            Assert.NotNull(ver);
+            Assert.True(ver.Major >= 1);
         }
 
         [Fact]

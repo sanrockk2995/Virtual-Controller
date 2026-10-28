@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -13,7 +14,7 @@ namespace VirtualController.Services
     public class UpdateInfo
     {
         public bool IsUpdateAvailable { get; set; }
-        public Version CurrentVersion { get; set; } = new(1, 3, 1);
+        public Version CurrentVersion { get; set; } = new(1, 4, 1);
         public Version? LatestVersion { get; set; }
         public string TagName { get; set; } = "";
         public string ReleaseName { get; set; } = "";
@@ -28,7 +29,7 @@ namespace VirtualController.Services
     {
         public const string DefaultRepoOwner = "sanrockk2995";
         public const string DefaultRepoName = "Virtual-Controller";
-        public static readonly Version CurrentAppVersion = new(1, 3, 1);
+        public static readonly Version CurrentAppVersion = new(1, 4, 1);
 
         private readonly HttpClient _httpClient;
         private readonly string _repoOwner;
@@ -47,7 +48,7 @@ namespace VirtualController.Services
             {
                 Timeout = TimeSpan.FromSeconds(8)
             };
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("VirtualController-Updater", "1.3.1"));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("VirtualController-Updater", "1.4.1"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             return client;
         }
@@ -56,7 +57,34 @@ namespace VirtualController.Services
         {
             try
             {
-                var asm = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+                var asm = Assembly.GetEntryAssembly() ?? typeof(UpdateChecker).Assembly;
+
+                // 1. Try InformationalVersionAttribute
+                var infoAttr = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+                if (infoAttr != null && !string.IsNullOrWhiteSpace(infoAttr.InformationalVersion))
+                {
+                    var parsed = ParseVersion(infoAttr.InformationalVersion);
+                    if (parsed != null && (parsed.Major > 0 || parsed.Minor > 0 || parsed.Build > 0))
+                    {
+                        return parsed;
+                    }
+                }
+
+                // 2. Try FileVersionInfo
+                if (!string.IsNullOrEmpty(asm.Location) && File.Exists(asm.Location))
+                {
+                    var fvi = FileVersionInfo.GetVersionInfo(asm.Location);
+                    if (!string.IsNullOrEmpty(fvi.ProductVersion))
+                    {
+                        var parsed = ParseVersion(fvi.ProductVersion);
+                        if (parsed != null && (parsed.Major > 0 || parsed.Minor > 0 || parsed.Build > 0))
+                        {
+                            return parsed;
+                        }
+                    }
+                }
+
+                // 3. Try Assembly.GetName().Version
                 var ver = asm.GetName().Version;
                 if (ver != null && (ver.Major > 0 || ver.Minor > 0 || ver.Build > 0))
                 {
@@ -174,6 +202,11 @@ namespace VirtualController.Services
             if (string.IsNullOrWhiteSpace(tag)) return null;
 
             string cleaned = tag.Trim().TrimStart('v', 'V');
+            int plusIndex = cleaned.IndexOf('+');
+            if (plusIndex > 0)
+            {
+                cleaned = cleaned.Substring(0, plusIndex);
+            }
             int dashIndex = cleaned.IndexOf('-');
             if (dashIndex > 0)
             {

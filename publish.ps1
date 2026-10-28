@@ -47,6 +47,9 @@ Write-Host "Publishing VirtualController to /dist (win-x64)..." -ForegroundColor
     -r win-x64 `
     --self-contained false `
     -p:PublishSingleFile=false `
+    -p:Version=1.4.1 `
+    -p:AssemblyVersion=1.4.1.0 `
+    -p:FileVersion=1.4.1.0 `
     -o $distDir
 
 if ($LASTEXITCODE -ne 0) {
