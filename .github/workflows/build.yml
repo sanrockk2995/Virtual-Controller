@@ -78,13 +78,14 @@ jobs:
           ## VirtualController ${{ env.RELEASE_TAG }}
           
           ### What's New
+          - **Fix Assembly Version Stamping**: Injected release semver into MSBuild compilation and sanitized git commit hashes in version parser, resolving false update notifications.
           - **GitHub Releases Auto-Update Checker**: Automatic update check on startup and manual check from Settings with full release notes and direct download links.
           - **Customizable Emergency Kill-Switch Hotkey**: Fully configurable global hotkey (e.g. `Ctrl + Alt + F10`, `Ctrl + Shift + F12`, `F11`...) with interactive recording in Settings.
           - **Physical Keyboard Input Blocking**: Selectively swallows mapped physical keys in games to eliminate dual-input collisions.
           - **Anti-Stuck Key Engine**: Ensures seamless key-down / key-up transitions with zero stuck keys.
           - **Safety Whitelists**: Full protection for emergency hotkey, Windows shortcuts (`Alt + Tab`, `Ctrl + Shift + Esc`), and system keys.
           - **Runtime Bilingual Localization**: Instant switching between Vietnamese 🇻🇳 and English 🇬🇧.
-          - **Comprehensive Test Suite**: 71/71 unit tests passed.
+          - **Comprehensive Test Suite**: 73/73 unit tests passed.
         draft: false
         prerelease: false
       env:
