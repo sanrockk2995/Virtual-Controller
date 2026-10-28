@@ -71,15 +71,14 @@ jobs:
         body: |
           ## VirtualController ${{ env.RELEASE_TAG }}
           
-          ### What's Changed
-          - **Advanced Mouse-to-Gamepad Translation**: Native rate-of-turn velocity modeling with high-resolution delta-time ($\Delta t$) calibration.
-          - **Windows Raw Input Capture**: Added `RawInputReceiver` utilizing `WM_INPUT` with `RIDEV_INPUTSINK` on a dedicated message-only window thread, bypassing cursor bounds and screen edge clipping.
-          - **Anti-Deadzone (Initial Deflection)**: Baseline offset injection to overcome in-game stick deadzones.
-          - **Response Curves**: Added support for Linear, Delay (quadratic ease-in), Aggressive (square-root snap), Smooth (cubic Hermite smoothstep), and Instant curves.
-          - **Stick Geometry Normalization**: Toggle between Radial circular clamping and Square circle-to-square projection for full diagonal saturation.
-          - **Independent Sensitivity**: Configurable X and Y sensitivity axes.
-          - **WPF UI Updates**: Extended `AnalogSettingsView` with sliders, response curve selector, geometry mode toggle, and "Reset to Defaults".
-          - **Automated CI/CD**: Full unit test coverage (42/42 tests passing) and automated release pipeline.
+          ### What's New in v1.3.0
+          - **Physical Keyboard Input Blocking (Chặn phím bàn phím vật lý)**: Eliminates dual-input collision in games by selectively swallowing mapped keys (`W, A, S, D, Space, Shift, E, Q...`) via low-level hook (`WH_KEYBOARD_LL`).
+          - **Anti-Stuck Key Engine**: Precise down/up state tracking ensures no keys get stuck in-game when toggling blocking or during focus transitions.
+          - **Safety Whitelists**: Full protection for emergency kill-switch (`Ctrl + Alt + F10`), Windows task navigation (`Alt + Tab`, `Ctrl + Shift + Esc`), and system keys (`LWin`, `RWin`).
+          - **UI Quick-Toggle & Settings**: Added keyboard blocking toggle directly on the Dashboard and persistent configuration in Settings.
+          - **Runtime Bilingual Localization**: Seamless on-the-fly switching between Vietnamese 🇻🇳 and English 🇬🇧.
+          - **Advanced Mouse-to-Stick Translator**: Windows Raw Input (`WM_INPUT`), anti-deadzone, 5 response curves, radial/square geometry.
+          - **Comprehensive Automated CI/CD**: 51/51 unit tests passed.
         draft: false
         prerelease: false
       env:
