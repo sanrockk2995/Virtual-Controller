@@ -92,6 +92,12 @@ namespace VirtualController.App.Views
                 TxtBlockStatus.Foreground = (Brush)FindResource("TextSecondaryBrush");
                 BtnToggleBlock.Content = LocalizationService.GetString("Dash_BtnEnable", "Enable");
             }
+
+            // Emergency hotkey display
+            if (TxtDashboardHotkey != null && App.Settings != null)
+            {
+                TxtDashboardHotkey.Text = string.IsNullOrWhiteSpace(App.Settings.Hotkey) ? "Ctrl + Alt + F10" : App.Settings.Hotkey;
+            }
         }
 
         private void BtnToggleBlock_Click(object sender, RoutedEventArgs e)

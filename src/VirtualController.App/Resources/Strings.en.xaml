@@ -116,6 +116,9 @@
     <sys:String x:Key="Dash_BlockKeyboardOff">Keyboard Blocking: OFF</sys:String>
     <sys:String x:Key="Settings_HotkeyTitle">Emergency &amp; Toggle Hotkey</sys:String>
     <sys:String x:Key="Settings_HotkeyDesc">Global system hook hotkey: press anywhere to instantly freeze/disable virtual gamepad and release all inputs.</sys:String>
+    <sys:String x:Key="Settings_BtnChangeHotkey">Change Hotkey</sys:String>
+    <sys:String x:Key="Settings_BtnResetHotkey">Reset Default</sys:String>
+    <sys:String x:Key="Settings_HotkeyListening">Listening... (Press new combo or ESC to cancel)</sys:String>
     <sys:String x:Key="Settings_DriverHealth">Driver &amp; System Health</sys:String>
     <sys:String x:Key="Settings_DriverViGEm">Virtual Controller Driver (ViGEmBus):</sys:String>
     <sys:String x:Key="Settings_BtnRecheck">Re-Check Driver Status</sys:String>

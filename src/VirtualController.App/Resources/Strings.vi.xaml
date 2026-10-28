@@ -116,6 +116,9 @@
     <sys:String x:Key="Dash_BlockKeyboardOff">Chặn phím vật lý: TẮT</sys:String>
     <sys:String x:Key="Settings_HotkeyTitle">Phím tắt khẩn cấp &amp; Bật/Tắt nhanh</sys:String>
     <sys:String x:Key="Settings_HotkeyDesc">Phím tắt hook hệ thống: nhấn bất kỳ lúc nào để ngắt ngay tay cầm và nhả mọi phím.</sys:String>
+    <sys:String x:Key="Settings_BtnChangeHotkey">Đổi phím tắt</sys:String>
+    <sys:String x:Key="Settings_BtnResetHotkey">Mặc định</sys:String>
+    <sys:String x:Key="Settings_HotkeyListening">Đang lắng nghe... (Nhấn tổ hợp phím mới hoặc ESC để hủy)</sys:String>
     <sys:String x:Key="Settings_DriverHealth">Tình trạng Driver &amp; Hệ thống</sys:String>
     <sys:String x:Key="Settings_DriverViGEm">Driver tay cầm ảo (ViGEmBus):</sys:String>
     <sys:String x:Key="Settings_BtnRecheck">Kiểm tra lại Driver</sys:String>

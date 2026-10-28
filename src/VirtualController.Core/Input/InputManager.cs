@@ -37,6 +37,17 @@ namespace VirtualController.Input
             }
         }
 
+        public HotkeyDefinition EmergencyHotkey
+        {
+            get => _hookManager.EmergencyHotkey;
+            set => _hookManager.EmergencyHotkey = value;
+        }
+
+        public void SetEmergencyHotkey(string hotkeyText)
+        {
+            EmergencyHotkey = HotkeyDefinition.Parse(hotkeyText);
+        }
+
         public event EventHandler<ControllerState>? StateUpdated;
         public event EventHandler<bool>? EnabledChanged;
 

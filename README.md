@@ -177,9 +177,9 @@ Bộ dịch `MouseToStickTranslator` chuyển đổi vi sai chuột thành góc 
 - **System Tray:** Đóng ứng dụng sẽ thu nhỏ xuống khay đồng hồ, giữ nguyên tay cầm ảo đang chạy ngầm trong game. Nhấn chuột phải vào icon tray để mở menu thao tác nhanh.
 - **Tổ hợp phím khẩn cấp (Emergency Kill-Switch):**
   ```text
-  Ctrl + Alt + F10
+  Ctrl + Alt + F10 (Mặc định - có thể tùy chỉnh tự do trong tab Cài đặt)
   ```
-  Nhấn tổ hợp này bất kỳ lúc nào để ngắt kết nối ảo, nhả toàn bộ các nút và reset cần analog về tâm ngay tức khắc.
+  Nhấn tổ hợp này bất kỳ lúc nào để ngắt kết nối ảo, nhả toàn bộ các nút và reset cần analog về tâm ngay tức khắc. Người dùng có thể đổi sang phím bất kỳ (ví dụ: `Ctrl + Shift + F12`, `F11`, `Alt + Q`...).
 - **Thu hồi driver an toàn:** Tự động giải phóng cổng ảo khỏi Windows Device Manager khi thoát chương trình.
 
 ---
@@ -446,9 +446,9 @@ The `MouseToStickTranslator` computes stick displacement from relative mouse mot
 - **System Tray Integration:** Closing the main window minimizes the app to the notification area, maintaining active emulation in the background. Right-click the tray icon for quick access.
 - **Emergency Kill-Switch Hotkey:**
   ```text
-  Ctrl + Alt + F10
+  Ctrl + Alt + F10 (Default - fully customizable in Settings tab)
   ```
-  Triggers a global failsafe that immediately unplugs the virtual controller, releases all depressed buttons, and centers all thumbsticks.
+  Triggers a global failsafe that immediately unplugs the virtual controller, releases all depressed buttons, and centers all thumbsticks. Can be rebound to any shortcut (e.g. `Ctrl + Shift + F12`, `F11`, `Alt + Q`...).
 - **Clean Process Tear-Down:** Safely disposes of the virtual USB device handle during application shutdown or crash events via `AppDomain.ProcessExit`.
 
 ---

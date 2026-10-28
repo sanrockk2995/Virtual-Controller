@@ -53,9 +53,20 @@
                     <TextBlock Text="{DynamicResource Settings_HotkeyTitle}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
                     <Border Background="#16161A" CornerRadius="6" Padding="12">
                         <StackPanel>
-                            <TextBlock Text="Ctrl + Alt + F10" FontSize="15" FontWeight="Bold" Foreground="#38BDF8"/>
-                            <TextBlock Text="{DynamicResource Settings_HotkeyDesc}" 
-                                       FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="TxtHotkeyDisplay" Text="Ctrl + Alt + F10" FontSize="15" FontWeight="Bold" Foreground="#38BDF8" VerticalAlignment="Center"/>
+                                <Button Grid.Column="1" x:Name="BtnChangeHotkey" Content="{DynamicResource Settings_BtnChangeHotkey}" Height="28" Padding="10,0" Margin="8,0,0,0"
+                                        Background="{StaticResource AccentBlueBrush}" FontSize="11" Click="BtnChangeHotkey_Click"/>
+                                <Button Grid.Column="2" x:Name="BtnResetHotkey" Content="{DynamicResource Settings_BtnResetHotkey}" Height="28" Padding="10,0" Margin="6,0,0,0"
+                                        Background="#334155" FontSize="11" Click="BtnResetHotkey_Click"/>
+                            </Grid>
+                            <TextBlock x:Name="TxtHotkeyHint" Text="{DynamicResource Settings_HotkeyDesc}" 
+                                       FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>

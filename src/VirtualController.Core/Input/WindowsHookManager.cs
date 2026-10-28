@@ -130,6 +130,11 @@ namespace VirtualController.Input
         /// </summary>
         public bool BlockPhysicalKeyboard { get; set; } = false;
 
+        /// <summary>
+        /// Configurable emergency kill-switch hotkey definition. Defaults to Ctrl + Alt + F10.
+        /// </summary>
+        public HotkeyDefinition EmergencyHotkey { get; set; } = new(true, true, false, 0x79, "F10");
+
         public event Action? EmergencyDisableRequested;
         public event Action? ToggleRequested;
 
@@ -296,18 +301,12 @@ namespace VirtualController.Input
                     if (keyName == "LeftCtrl" || keyName == "RightCtrl") _inputState.SetKey("Ctrl", isDown);
                     if (keyName == "LeftAlt" || keyName == "RightAlt") _inputState.SetKey("Alt", isDown);
 
-                    // Check Emergency Hotkey: Ctrl + Alt + F10
-                    if (isDown && vkCode == 0x79) // VK_F10 = 0x79
+                    // Check Emergency Hotkey
+                    if (isDown && EmergencyHotkey != null && EmergencyHotkey.Matches(vkCode, vk => (GetAsyncKeyState(vk) & 0x8000) != 0))
                     {
-                        bool isCtrl = (GetAsyncKeyState(0x11) & 0x8000) != 0; // VK_CONTROL
-                        bool isAlt = (GetAsyncKeyState(0x12) & 0x8000) != 0;  // VK_MENU
-
-                        if (isCtrl && isAlt)
-                        {
-                            AppLogger.Info("Emergency Hotkey detected (Ctrl + Alt + F10)!");
-                            EmergencyDisableRequested?.Invoke();
-                            ToggleRequested?.Invoke();
-                        }
+                        AppLogger.Info($"Emergency Hotkey detected ({EmergencyHotkey})!");
+                        EmergencyDisableRequested?.Invoke();
+                        ToggleRequested?.Invoke();
                     }
 
                     // Keyboard input blocking logic: suppress message from passing to target windows
@@ -334,8 +333,8 @@ namespace VirtualController.Input
             // If Ctrl is held, allow Escape (0x1B) through
             if (vkCode == 0x1B && ((GetAsyncKeyState(0x11) & 0x8000) != 0)) return false;
 
-            // Safety whitelist: NEVER block F10 if Ctrl and Alt are down (emergency combo)
-            if (vkCode == 0x79 && ((GetAsyncKeyState(0x11) & 0x8000) != 0) && ((GetAsyncKeyState(0x12) & 0x8000) != 0)) return false;
+            // Safety whitelist: NEVER block Emergency Hotkey
+            if (EmergencyHotkey != null && EmergencyHotkey.Matches(vkCode, vk => (GetAsyncKeyState(vk) & 0x8000) != 0)) return false;
 
             lock (_blockingLock)
             {

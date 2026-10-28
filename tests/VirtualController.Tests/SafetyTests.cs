@@ -84,5 +84,61 @@ namespace VirtualController.Tests
             Assert.Equal(0.0, mock.LastState.LeftTrigger);
             Assert.Equal(0.0, mock.LastState.LeftThumbX);
         }
+
+        [Theory]
+        [InlineData("Ctrl + Alt + F10", true, true, false, 0x79, "F10")]
+        [InlineData("Ctrl + Shift + F12", true, false, true, 0x7B, "F12")]
+        [InlineData("F11", false, false, false, 0x7A, "F11")]
+        [InlineData("Alt + Q", false, true, false, 0x51, "Q")]
+        public void HotkeyDefinition_Parse_ValidStrings_ParsedCorrectly(
+            string text, bool expectedCtrl, bool expectedAlt, bool expectedShift, int expectedVk, string expectedName)
+        {
+            var hotkey = VirtualController.Input.HotkeyDefinition.Parse(text);
+
+            Assert.Equal(expectedCtrl, hotkey.RequireCtrl);
+            Assert.Equal(expectedAlt, hotkey.RequireAlt);
+            Assert.Equal(expectedShift, hotkey.RequireShift);
+            Assert.Equal(expectedVk, hotkey.KeyVk);
+            Assert.Equal(expectedName, hotkey.KeyName);
+            Assert.Equal(text, hotkey.ToString());
+        }
+
+        [Fact]
+        public void HotkeyDefinition_Matches_EvaluatesCorrectModifiers()
+        {
+            var hotkey = new VirtualController.Input.HotkeyDefinition(true, true, false, 0x79, "F10");
+
+            // Matches when Ctrl and Alt are down and key is F10
+            Assert.True(hotkey.Matches(0x79, vk => vk == 0x11 || vk == 0x12));
+
+            // Fails if key is different
+            Assert.False(hotkey.Matches(0x78, vk => vk == 0x11 || vk == 0x12));
+
+            // Fails if Ctrl is missing
+            Assert.False(hotkey.Matches(0x79, vk => vk == 0x12));
+
+            // Fails if Alt is missing
+            Assert.False(hotkey.Matches(0x79, vk => vk == 0x11));
+
+            // Fails if unexpected Shift is down
+            Assert.False(hotkey.Matches(0x79, vk => vk == 0x11 || vk == 0x12 || vk == 0x10));
+        }
+
+        [Fact]
+        public void InputManager_SetEmergencyHotkey_UpdatesHookManagerDefinition()
+        {
+            var mock = new MockVirtualController();
+            var pm = new VirtualController.Profiles.ProfileManager();
+            using var inputManager = new VirtualController.Input.InputManager(mock, pm);
+
+            inputManager.SetEmergencyHotkey("Ctrl + Shift + F12");
+
+            Assert.NotNull(inputManager.EmergencyHotkey);
+            Assert.True(inputManager.EmergencyHotkey.RequireCtrl);
+            Assert.False(inputManager.EmergencyHotkey.RequireAlt);
+            Assert.True(inputManager.EmergencyHotkey.RequireShift);
+            Assert.Equal(0x7B, inputManager.EmergencyHotkey.KeyVk);
+            Assert.Equal("Ctrl + Shift + F12", inputManager.EmergencyHotkey.ToString());
+        }
     }
 }
