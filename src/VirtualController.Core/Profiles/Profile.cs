@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VirtualController.Profiles
 {
@@ -24,6 +25,8 @@ namespace VirtualController.Profiles
         /// Key: Physical Input, Value: Virtual Controller Button.
         /// </summary>
         public Dictionary<string, string> ExtraMappings { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+        public List<MacroDefinition> Macros { get; set; } = new();
 
         public static Profile CreateDefaultProfile()
         {
@@ -64,7 +67,15 @@ namespace VirtualController.Profiles
                 LeftStick = this.LeftStick.Clone(),
                 RightStick = this.RightStick.Clone(),
                 Buttons = new Dictionary<string, string>(this.Buttons, StringComparer.OrdinalIgnoreCase),
-                ExtraMappings = new Dictionary<string, string>(this.ExtraMappings, StringComparer.OrdinalIgnoreCase)
+                ExtraMappings = new Dictionary<string, string>(this.ExtraMappings, StringComparer.OrdinalIgnoreCase),
+                Macros = this.Macros != null
+                    ? this.Macros.Select(m =>
+                    {
+                        var mc = m.Clone();
+                        mc.Name = m.Name;
+                        return mc;
+                    }).ToList()
+                    : new List<MacroDefinition>()
             };
         }
 
@@ -122,6 +133,20 @@ namespace VirtualController.Profiles
                 foreach (var physical in ExtraMappings.Keys)
                 {
                     AddIfKeyboard(physical);
+                }
+            }
+
+            // Macros
+            if (Macros != null)
+            {
+                foreach (var macro in Macros)
+                {
+                    if (macro != null && macro.IsEnabled &&
+                        !string.IsNullOrWhiteSpace(macro.TriggerInput) &&
+                        !macro.TriggerInput.Equals("Unassigned", StringComparison.OrdinalIgnoreCase))
+                    {
+                        AddIfKeyboard(macro.TriggerInput);
+                    }
                 }
             }
 

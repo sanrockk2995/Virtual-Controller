@@ -28,12 +28,13 @@ Hệ điều hành Windows và trò chơi nhận diện thiết bị như một 
 2. [Kiến trúc hệ thống](#2-kiến-trúc-hệ-thống)
 3. [Profile mặc định (Default Controls)](#3-profile-mặc-định-default-controls)
 4. [Thuật toán dịch chuyển Chuột sang Cần Analog (Mouse-to-Stick)](#4-thuật-toán-dịch-chuyển-chuột-sang-cần-analog-mouse-to-stick)
-5. [Giao diện người dùng (WPF GUI)](#5-giao-diện-người-dùng-wpf-gui)
-6. [Bảo vệ an toàn: Tray & Phím tắt khẩn cấp](#6-bảo-vệ-an-toàn-tray--phím-tắt-khẩn-cấp)
-7. [Hướng dẫn cài đặt Driver ViGEmBus](#7-hướng-dẫn-cài-đặt-driver-vigembus)
-8. [Hướng dẫn Build, Test & Chạy](#8-hướng-dẫn-build-test--chạy)
-9. [Cấu trúc mã nguồn](#9-cấu-trúc-mã-nguồn)
-10. [Giấy phép (License)](#10-giấy-phép-license)
+5. [Hệ thống Macro & Combo Tay cầm](#5-hệ-thống-macro--combo-tay-cầm)
+6. [Giao diện người dùng (WPF GUI)](#6-giao-diện-người-dùng-wpf-gui)
+7. [Bảo vệ an toàn: Tray & Phím tắt khẩn cấp](#7-bảo-vệ-an-toàn-tray--phím-tắt-khẩn-cấp)
+8. [Hướng dẫn cài đặt Driver ViGEmBus](#8-hướng-dẫn-cài-đặt-driver-vigembus)
+9. [Hướng dẫn Build, Test & Chạy](#9-hướng-dẫn-build-test--chạy)
+10. [Cấu trúc mã nguồn](#10-cấu-trúc-mã-nguồn)
+11. [Giấy phép (License)](#11-giấy-phép-license)
 
 ---
 
@@ -49,12 +50,18 @@ Hệ điều hành Windows và trò chơi nhận diện thiết bị như một 
   - **Bộ lọc nhiễu (Noise Gate) & Làm mượt (Exponential Smoothing):** Lọc rung lắc chuột ở tốc độ cực thấp và làm êm chuyển động.
   - **Tùy chọn tắt cần gạt (`None / Vô hiệu hóa`):** Cho phép tắt hoàn toàn tín hiệu cần gạt phải hoặc trái khi dùng chuột, giữ cần gạt luôn ở tâm $(0.0, 0.0)$ để tránh xoay camera ngoài ý muốn khi chỉ gán nút chuột cho chức năng khác.
   - **Chặn phím bàn phím vật lý (Keyboard Input Blocking):** Ngăn chặn cửa sổ game nhận trùng lặp các phím vật lý đã được gán (W, A, S, D, Space, Shift, E, Q...), giải quyết triệt để hiện tượng xung đột điều khiển kép (dual-input). Tích hợp thuật toán chống kẹt phím thông minh và tự động whitelist bảo toàn phím khẩn cấp (`Ctrl + Alt + F10`) cùng các phím điều hướng hệ thống (`Alt + Tab`, `LWin`, `RWin`, `Ctrl + Shift + Esc`).
+- **Hệ thống Macro & Combo Tay cầm Chuyên sâu (Advanced Macro & Combo System):**
+  - **3 Chế độ thực thi linh hoạt:** Chạy 1 lần (*Play Once*), Lặp liên tục khi giữ phím (*Repeat While Held / Turbo*), và Bật/Tắt lặp tự động (*Toggle Loop*).
+  - **Tổ hợp đa nút & Thao tác Cần Analog:** Gộp nhiều nút tay cầm trong một bước (ví dụ: `LB + RB` Chiêu cuối), kết hợp các hướng cần gạt analog (ví dụ: `LS_Up + B` Lộn nhào né đòn), và tạo chuỗi đòn đánh đa bước (`X -> X -> Y` Melee Combo).
+  - **Bộ ghi Macro Trực tiếp (Live Macro Recorder):** Ghi lại nhịp bấm phím và độ trễ mili-giây theo thời gian thực với độ chính xác cao.
+  - **Bộ Mẫu Gaming dựng sẵn (Built-in Presets):** 6 cấu hình nạp sẵn 1-click: Rapid Fire RT, Ultimate Combo, Melee Combo, Dodge Roll, Auto Bunny Hop, Auto Sprint.
+  - **Tích hợp Chặn Phím Bàn Phím Vật Lý:** Tự động đưa phím kích hoạt macro vào danh sách chặn khi tính năng chặn phím vật lý hoạt động, ngăn phím macro bị rò rỉ vào game.
 - **Hỗ trợ Đa ngôn ngữ Runtime (Localization):** Chuyển đổi linh hoạt giữa **Tiếng Việt 🇻🇳** và **Tiếng Anh 🇬🇧** trực tiếp trong cài đặt, cập nhật giao diện ngay lập tức mà không cần khởi động lại ứng dụng.
 - **Quản lý Profile toàn diện:** Lưu trữ, xuất (Export), nhập (Import), tạo mới và nhân bản profile cấu hình dưới dạng JSON.
 - **Trình kiểm tra trực quan thời gian thực (Controller Tester):** Màn hình mô phỏng phản hồi tay cầm thời gian thực với tọa độ cần analog và độ nhạy trigger.
 - **Khay hệ thống & Hotkey an toàn:** Chạy ngầm tại System Tray, phím nóng khẩn cấp `Ctrl + Alt + F10` (tùy biến tự do trong Cài đặt) ngắt tín hiệu tay cầm ngay lập tức.
 - **Tự động kiểm tra Cập nhật (GitHub Releases Auto-Update):** Tự động phát hiện phiên bản mới khi khởi động hoặc kiểm tra thủ công, hiển thị chi tiết Release Notes và liên kết tải file ZIP trực tiếp.
-- **CI/CD Tự Động:** Tích hợp GitHub Actions tự động kiểm thử 71 bộ test và đóng gói bản phát hành release x64.
+- **CI/CD Tự Động:** Tích hợp GitHub Actions tự động kiểm thử 76 bộ test và đóng gói bản phát hành release x64.
 
 ---
 
@@ -81,6 +88,7 @@ Hệ điều hành Windows và trò chơi nhận diện thiết bị như một 
                │  - Key-to-Button & Trigger Binding Engine              │
                │  - MouseToStickTranslator (Velocity, Curves, Geometry) │
                │  - Independent Left/Right Stick Source (None/Mouse/KB) │
+               │  - MacroEngine & Recorder (Tick-based State Machine)   │
                └───────────────────────────┬────────────────────────────┘
                                            │
                                            ▼
@@ -160,20 +168,62 @@ Bộ dịch `MouseToStickTranslator` chuyển đổi vi sai chuột thành góc 
 
 ---
 
-### 5. Giao diện người dùng (WPF GUI)
+### 5. Hệ thống Macro & Combo Tay cầm
+
+Virtual Controller tích hợp engine thực thi macro xác định theo nhịp tick đồng bộ (`MacroEngine`), cho phép tự động hóa chuỗi thao tác nút bấm và cần analog với độ trễ chuẩn xác từng mili-giây.
+
+#### Các tính năng trọng tâm:
+
+1. **3 Chế độ thực thi (Execution Modes):**
+   - **Chạy 1 lần (Play Once):** Kích hoạt chuỗi bước một lần duy nhất khi nhấn phím (bắt sườn lên - *rising edge*). Phù hợp tối đa cho combo tuyệt chiêu, né đòn hoặc nạp đạn nhanh.
+   - **Lặp liên tục khi giữ phím (Repeat While Held / Turbo):** Tự động lặp lại chuỗi thao tác liên tục chừng nào phím kích hoạt còn được giữ, và dừng ngay khi nhả phím (bắt sườn xuống - *falling edge*). Tùy chỉnh tham số **Độ trễ lặp (Loop Delay)** giữa các vòng. Tối ưu cho chế độ bắn nhanh liên thanh (Rapid Fire RT) hoặc nhảy liên tục (Auto Bunny Hop).
+   - **Bật/Tắt lặp tự động (Toggle Loop):** Nhấn phím lần thứ nhất để bật chế độ tự động lặp vô hạn trong nền; nhấn lại lần thứ hai để ngắt chu kỳ ngay lập tức. Hoàn hảo cho chạy nhanh liên tục (Auto Sprint) hoặc giữ nút rảnh tay dài hạn.
+
+2. **Tổ hợp Đa nút & Thao tác Cần Analog (Multi-Button Combos & Stick Actions):**
+   - **Tổ hợp nhiều nút trong một bước:** Cho phép gộp đồng thời nhiều nút ảo trong cùng một bước duy nhất (ví dụ: nhấn đồng thời `LB + RB` để tung Chiêu Cuối - Ultimate Skill).
+   - **Tích hợp hướng cần gạt Analog:** Hỗ trợ trực tiếp các hướng cần gạt trái/phải (`LS_Up`, `LS_Down`, `LS_Left`, `LS_Right`, `RS_Up`, `RS_Down`, `RS_Left`, `RS_Right`) kết hợp với nút bấm (ví dụ: đẩy cần tiến `LS_Up + B` để thực hiện động tác Lộn nhào né đòn - Dodge Roll Forward).
+   - **4 Loại thao tác đa dạng trong từng bước:**
+     - `Tap` (Nhấn & Nhả): Giữ nút trong khoảng thời gian `DurationMs` rồi nhả ra và chờ `DelayAfterMs`.
+     - `PressDown / Hold` (Giữ nút): Nhấn đè nút và duy trì trạng thái qua các bước tiếp theo.
+     - `ReleaseUp` (Nhả nút): Nhả nút đang được giữ đè.
+     - `Wait` (Nghỉ / Chờ): Chờ một khoảng thời gian trước khi chuyển sang bước tiếp theo.
+   - **Chuỗi đòn đánh phức tạp:** Dễ dàng lập trình các chuỗi combo đòn đánh có nhịp điệu chính xác như `X -> X -> Y` (Melee Combo).
+
+3. **Bộ ghi Macro Trực tiếp (Live Macro Recorder):**
+   - Ghi lại các thao tác bấm nút ảo và độ trễ thực tế theo thời gian thực (real-time recording) nhờ đồng hồ hiệu năng cao (`Stopwatch`).
+   - Tự động đo đạc chính xác thời gian giữ nút (`DurationMs`) và khoảng cách giữa các lần bấm (`DelayAfterMs`), hoặc có thể chọn chế độ chuẩn hóa thời gian cố định (Fixed Timing).
+
+4. **Bộ Mẫu Gaming Dựng sẵn (Built-in Gaming Presets):**
+   - Cung cấp sẵn 6 mẫu macro phổ biến trong game, nạp nhanh chỉ với 1 cú click:
+     - **Rapid Fire RT (Turbo Shoot):** Bắn liên thanh nhấp nhả cò RT siêu tốc (Hold 35ms, Delay 35ms, Loop Delay 10ms, Chế độ: Repeat While Held).
+     - **Ultimate Skill (LB + RB):** Nhấn đồng thời 2 nút vai LB + RB (Duration 80ms, Chế độ: Play Once).
+     - **Melee Combo (X -> X -> Y):** Chuỗi cận chiến gồm 2 đòn đánh nhẹ tiếp nối 1 đòn đánh mạnh (Chế độ: Play Once).
+     - **Dodge Roll Forward (LS_Up + B):** Đẩy cần trái tiến lên trước kết hợp nút B để né đòn né đạn (Chế độ: Play Once).
+     - **Auto Bunny Hop (Turbo A):** Nhấp nhả nút nhảy A liên tục khi giữ phím (Hold 45ms, Delay 45ms, Chế độ: Repeat While Held).
+     - **Auto Sprint Hold (LS):** Bật/tắt giữ nút nhấn cần gạt trái `LS` để chạy nhanh liên tục (Chế độ: Toggle Loop).
+
+5. **Tích hợp Chặn Phím Bàn Phím Vật Lý (Physical Keyboard Blocking Integration):**
+   - Khi tính năng "Chặn phím bàn phím vật lý" (Physical Keyboard Blocking) được kích hoạt, phím kích hoạt macro (`TriggerInput`) sẽ tự động được thêm vào danh sách chặn của Low-Level Keyboard Hook (`WH_KEYBOARD_LL`).
+   - Ngăn chặn hoàn toàn hiện tượng phím kích hoạt macro (ví dụ: `V`, `Z`, `G`, `CapsLock`...) bị lọt ký tự vào trò chơi, loại bỏ hoàn toàn xung đột điều khiển kép (dual-input).
+   - Tuyệt đối an toàn: Tự động bảo toàn phím khẩn cấp (`Ctrl + Alt + F10`) và các tổ hợp phím hệ thống Windows (`Alt + Tab`, `Win`, `Ctrl + Shift + Esc`).
+
+---
+
+### 6. Giao diện người dùng (WPF GUI)
 
 1. **Tổng quan (Dashboard):** Hiển thị trạng thái kết nối tay cầm, nút Bật/Tắt (Enable/Disable), chọn hồ sơ nhanh và phím tắt kiểm tra.
 2. **Gán nút (Button Mapping):** Ma trận gán phím chi tiết, nhận diện phím bấm vật lý tự động khi nhấn phím.
 3. **Cần gạt (Analog Settings):**
    - Chọn nguồn tín hiệu độc lập: `Bàn phím (WASD)`, `Chuột`, hoặc `Không (Vô hiệu hóa)`.
    - Điều chỉnh thanh trượt: Sensitivity X/Y, Deadzone, Anti-Deadzone, Response Curve, Geometry, Smoothing, Invert X/Y.
-4. **Kiểm tra tay cầm (Controller Tester):** Giám sát trực tiếp chuyển động 2 cần analog, lực bóp cò LT/RT và phản hồi toàn bộ các nút bấm.
-5. **Hồ sơ (Profiles):** Quản lý lưu/xóa/đổi tên profile, nhập file `.json` hoặc xuất file để chia sẻ cho game thủ khác.
-6. **Cài đặt (Settings):** Khởi động cùng Windows, khởi động thu nhỏ, tự động kết nối, chuyển đổi ngôn ngữ (Tiếng Việt / English) và nút kiểm tra cài đặt Driver ViGEmBus.
+4. **Macro & Combo:** Thiết lập chuỗi nút bấm, cấu hình chế độ chạy (Play Once, Repeat While Held, Toggle Loop), ghi trực tiếp (Live Recorder) và áp dụng mẫu có sẵn (Presets).
+5. **Kiểm tra tay cầm (Controller Tester):** Giám sát trực tiếp chuyển động 2 cần analog, lực bóp cò LT/RT và phản hồi toàn bộ các nút bấm.
+6. **Hồ sơ (Profiles):** Quản lý lưu/xóa/đổi tên profile, nhập file `.json` hoặc xuất file để chia sẻ cho game thủ khác.
+7. **Cài đặt (Settings):** Khởi động cùng Windows, khởi động thu nhỏ, tự động kết nối, chuyển đổi ngôn ngữ (Tiếng Việt / English) và nút kiểm tra cài đặt Driver ViGEmBus.
 
 ---
 
-### 6. Bảo vệ an toàn: Tray & Phím tắt khẩn cấp
+### 7. Bảo vệ an toàn: Tray & Phím tắt khẩn cấp
 
 - **System Tray:** Đóng ứng dụng sẽ thu nhỏ xuống khay đồng hồ, giữ nguyên tay cầm ảo đang chạy ngầm trong game. Nhấn chuột phải vào icon tray để mở menu thao tác nhanh.
 - **Tổ hợp phím khẩn cấp (Emergency Kill-Switch):**
@@ -185,7 +235,7 @@ Bộ dịch `MouseToStickTranslator` chuyển đổi vi sai chuột thành góc 
 
 ---
 
-### 7. Hướng dẫn cài đặt Driver ViGEmBus
+### 8. Hướng dẫn cài đặt Driver ViGEmBus
 
 Ứng dụng yêu cầu driver **ViGEmBus (Virtual Gamepad Emulation Bus)** để tạo tay cầm ảo.
 
@@ -200,7 +250,7 @@ Bộ dịch `MouseToStickTranslator` chuyển đổi vi sai chuột thành góc 
 
 ---
 
-### 8. Hướng dẫn Build, Test & Chạy
+### 9. Hướng dẫn Build, Test & Chạy
 
 #### Yêu cầu môi trường
 - Hệ điều hành: Windows 10 / Windows 11 (64-bit).
@@ -208,7 +258,7 @@ Bộ dịch `MouseToStickTranslator` chuyển đổi vi sai chuột thành góc 
 
 #### Sử dụng PowerShell Scripts (Nhanh nhất)
 ```powershell
-# 1. Chạy kiểm thử tự động 44 unit tests
+# 1. Chạy kiểm thử tự động 76 unit tests
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 
 # 2. Xuất bản ứng dụng độc lập vào thư mục dist/
@@ -228,7 +278,7 @@ dotnet publish src/VirtualController.App/VirtualController.App.csproj -c Release
 
 ---
 
-### 9. Cấu trúc mã nguồn
+### 10. Cấu trúc mã nguồn
 
 ```text
 Virtual-controller/
@@ -244,6 +294,8 @@ Virtual-controller/
 │   │   ├── Core/
 │   │   │   ├── ControllerState.cs    # Trạng thái dữ liệu tay cầm Xbox 360
 │   │   │   ├── InputState.cs         # Bộ đệm trạng thái phím & delta chuột an toàn luồng
+│   │   │   ├── MacroEngine.cs        # Engine thực thi macro theo state machine & tick-based timing
+│   │   │   ├── MacroRecorder.cs      # Bộ ghi macro thời gian thực (Live Recorder)
 │   │   │   └── MappingEngine.cs      # Engine ánh xạ phím & điều phối analog
 │   │   ├── Input/
 │   │   │   ├── WindowsHookManager.cs # Low-level Windows Hooks (WH_KEYBOARD_LL, WH_MOUSE_LL)
@@ -253,6 +305,8 @@ Virtual-controller/
 │   │   ├── Profiles/
 │   │   │   ├── Profile.cs            # Định nghĩa model hồ sơ cấu hình
 │   │   │   ├── StickConfig.cs        # Cấu hình cần gạt (Curves, Deadzone, Geometry, None/Mouse/KB)
+│   │   │   ├── MacroDefinition.cs    # Model định nghĩa Macro, Step, Action Types & Execution Modes
+│   │   │   ├── MacroPresets.cs       # Danh sách 6 mẫu macro gaming dựng sẵn
 │   │   │   └── ProfileManager.cs     # Quản lý CRUD và lưu file profile
 │   │   ├── VirtualController/
 │   │   │   ├── IVirtualController.cs # Interface trừu tượng hóa tay cầm ảo
@@ -269,9 +323,10 @@ Virtual-controller/
 │       ├── Services/
 │       │   ├── LocalizationService.cs# Dịch vụ tráo đổi ngôn ngữ runtime
 │       │   └── TrayService.cs        # Xử lý khay hệ thống System Tray
-│       └── Views/                    # Các màn hình chức năng (Dashboard, Mapping, Analog...)
+│       └── Views/                    # Các màn hình chức năng (Dashboard, Mapping, Analog, Macro...)
+│           └── MacroViewModels.cs    # ViewModel điều phối danh sách & trạng thái Macro
 ├── tests/
-│   └── VirtualController.Tests/      # 44 bộ Unit Tests tự động
+│   └── VirtualController.Tests/      # 76 bộ Unit Tests tự động
 ├── build.ps1                         # Script build & test tự động
 ├── publish.ps1                       # Script đóng gói ứng dụng
 └── run.ps1                           # Script kiểm tra driver & chạy ứng dụng
@@ -279,7 +334,7 @@ Virtual-controller/
 
 ---
 
-### 10. Giấy phép (License)
+### 11. Giấy phép (License)
 
 Dự án được phân phối dưới giấy phép **MIT License**. Xem chi tiết tại file [LICENSE](LICENSE).
 
@@ -298,12 +353,13 @@ Windows and games detect the device as an authentic physical Xbox 360 controller
 2. [System Architecture](#2-system-architecture)
 3. [Default Keybindings](#3-default-keybindings)
 4. [Mouse-to-Analog Stick Translation Algorithm](#4-mouse-to-analog-stick-translation-algorithm)
-5. [User Interface (WPF GUI)](#5-user-interface-wpf-gui)
-6. [Safety Controls: System Tray & Emergency Kill-Switch](#6-safety-controls-system-tray--emergency-kill-switch)
-7. [ViGEmBus Driver Installation](#7-vigembus-driver-installation)
-8. [Build, Test & Run Guide](#8-build-test--run-guide)
-9. [Source Code Structure](#9-source-code-structure)
-10. [License](#10-license)
+5. [Gamepad Macro & Combo System](#5-gamepad-macro--combo-system)
+6. [User Interface (WPF GUI)](#6-user-interface-wpf-gui)
+7. [Safety Controls: System Tray & Emergency Kill-Switch](#7-safety-controls-system-tray--emergency-kill-switch)
+8. [ViGEmBus Driver Installation](#8-vigembus-driver-installation)
+9. [Build, Test & Run Guide](#9-build-test--run-guide)
+10. [Source Code Structure](#10-source-code-structure)
+11. [License](#11-license)
 
 ---
 
@@ -319,12 +375,18 @@ Windows and games detect the device as an authentic physical Xbox 360 controller
   - **Noise Gate & Exponential Smoothing:** Filters micro-jitter at low speeds while maintaining responsive flick tracking.
   - **Independent Stick Input Disabling (`None`):** Allows completely disabling the Right Stick or Left Stick while using the mouse, locking the axis at neutral $(0.0, 0.0)$ to prevent accidental camera rotation when using mouse buttons for actions.
   - **Physical Keyboard Input Blocking:** Eliminates dual-input conflicts by selectively swallowing mapped physical keys (W, A, S, D, Space, Shift, E, Q...) via low-level hook (`WH_KEYBOARD_LL`) so the game only receives virtual Xbox 360 controller telemetry. Features a robust anti-stuck key state machine and safety whitelists for emergency hotkeys (`Ctrl + Alt + F10`) and Windows system navigation (`Alt + Tab`, `LWin`, `RWin`, `Ctrl + Shift + Esc`).
+- **Advanced Gamepad Macro & Combo System:**
+  - **3 Execution Modes:** Play Once (single sequence execution), Repeat While Held / Turbo (continuous looping while held), and Toggle Loop (background loop on/off toggle).
+  - **Multi-Button Combos & Analog Stick Actions:** Group multiple buttons in a single step (e.g. `LB + RB` Ultimate Skill), blend directional stick deflections (e.g. `LS_Up + B` Dodge Roll Forward), and sequence complex combat strings (`X -> X -> Y` Melee Combo).
+  - **Live Macro Recorder:** High-precision real-time recording of controller button presses and millisecond delays backed by high-resolution timers.
+  - **Built-in Gaming Presets:** 6 instant one-click presets: Rapid Fire RT, Ultimate Combo, Melee Combo, Dodge Roll, Auto Bunny Hop, and Auto Sprint.
+  - **Physical Keyboard Blocking Integration:** Macro trigger keys are automatically intercepted and swallowed by the low-level hook when Keyboard Blocking is active, preventing key leaks into games.
 - **Runtime UI Localization:** Seamless on-the-fly switching between **Tiếng Việt 🇻🇳** and **English 🇬🇧** without restarting the application.
 - **Robust Profile Management:** Create, clone, rename, delete, import, and export profiles serialized as clean JSON files.
 - **Real-Time Controller Tester:** Visual diagnostic view showing real-time thumbstick coordinates, trigger pressures, and button presses.
 - **System Tray & Emergency Kill-Switch:** Minimizes to the notification area; customizable failsafe shortcut (defaults to `Ctrl + Alt + F10`) releases all inputs immediately.
 - **Automatic GitHub Releases Update Checker:** Proactively checks for new releases on startup or on-demand from Settings, presenting release notes and direct download links.
-- **Automated CI/CD Pipeline:** Fully configured GitHub Actions workflow running 71 automated unit tests and publishing standalone win-x64 release packages.
+- **Automated CI/CD Pipeline:** Fully configured GitHub Actions workflow running 76 automated unit tests and publishing standalone win-x64 release packages.
 
 ---
 
@@ -351,6 +413,7 @@ Windows and games detect the device as an authentic physical Xbox 360 controller
                │  - Key-to-Button & Trigger Binding Engine              │
                │  - MouseToStickTranslator (Velocity, Curves, Geometry) │
                │  - Independent Left/Right Stick Source (None/Mouse/KB) │
+               │  - MacroEngine & Recorder (Tick-based State Machine)   │
                └───────────────────────────┬────────────────────────────┘
                                            │
                                            ▼
@@ -430,20 +493,62 @@ The `MouseToStickTranslator` computes stick displacement from relative mouse mot
 
 ---
 
-### 5. User Interface (WPF GUI)
+### 5. Gamepad Macro & Combo System
+
+Virtual Controller features a high-performance, deterministic macro state machine engine (`MacroEngine`) running synchronously with the input polling loop, delivering millisecond-precise execution cadence and comprehensive automation for any PC or Steam game.
+
+#### Core Capabilities:
+
+1. **3 Execution Modes:**
+   - **Play Once (Chạy 1 lần):** Executes the entire sequence once upon detecting the trigger keypress (rising edge). Perfect for discrete skill combinations, dodge roll evasions, or quick weapon swap cancels.
+   - **Repeat While Held / Turbo (Lặp liên tục khi giữ phím):** Loops the sequence continuously as long as the trigger key remains depressed, immediately releasing when the key is released (falling edge). Configurable inter-cycle **Loop Delay (ms)** ensures tunable fire rates. Ideal for Rapid Fire RT semi-auto weapons or Auto Bunny Hop.
+   - **Toggle Loop (Bật/Tắt lặp tự động):** Press once to initiate continuous background cycling; press again to disengage immediately. Optimal for fatigue-free Auto Sprint or long-duration background holding.
+
+2. **Multi-Button Combos & Stick Actions:**
+   - **Simultaneous Multi-Button Combinations:** Any step can group multiple virtual controller buttons together (e.g. simultaneous `LB + RB` to cast an Ultimate Skill with a single keystroke).
+   - **Directional Stick Actions:** Full support for Left and Right thumbstick directional deflections (`LS_Up`, `LS_Down`, `LS_Left`, `LS_Right`, `RS_Up`, `RS_Down`, `RS_Left`, `RS_Right`) blended with button inputs (e.g. `LS_Up + B` for directional Dodge Roll Forward).
+   - **4 Discrete Step Types:**
+     - `Tap`: Press and release button(s) with custom `DurationMs` and follow-up `DelayAfterMs`.
+     - `PressDown / Hold`: Depresses and maintains button state across subsequent steps.
+     - `ReleaseUp`: Releases previously held button(s).
+     - `Wait`: Dedicated delay interval before advancing to the next step.
+   - **Melee Combo Sequencing:** Seamlessly author multi-stage strike sequences like `X -> X -> Y` (Melee Combo) with millisecond-exact timings.
+
+3. **Live Macro Recorder:**
+   - Capture controller button inputs and timings in real time backed by high-resolution Windows performance counters (`Stopwatch`).
+   - Automatically records human button press durations (`DurationMs`) and inter-press intervals (`DelayAfterMs`), with optional Fixed Timing normalization for metered execution.
+
+4. **Built-in Gaming Presets:**
+   - Deploy 6 battle-tested presets instantly with a single click:
+     - **Rapid Fire RT (Turbo Shoot):** High-cadence semi-auto trigger cycling (Tap RT 35ms / delay 35ms, 10ms loop delay, Mode: Repeat While Held).
+     - **Ultimate Skill (LB + RB):** Simultaneous dual bumper activation (Duration 80ms, Mode: Play Once).
+     - **Melee Combo (X -> X -> Y):** Classic light-light-heavy melee strike sequence (Mode: Play Once).
+     - **Dodge Roll Forward (LS_Up + B):** Forward stick deflection combined with button B dodge (Mode: Play Once).
+     - **Auto Bunny Hop (Turbo A):** Rapid rhythmic jump cycling with button `A` (Hold 45ms, Delay 45ms, Mode: Repeat While Held).
+     - **Auto Sprint Hold (LS):** Hands-free continuous sprint activation via Left Thumbstick click toggle (Mode: Toggle Loop).
+
+5. **Physical Keyboard Blocking Integration:**
+   - When **Physical Keyboard Blocking** is enabled, all configured macro trigger keys (`TriggerInput`) are automatically registered into the low-level keyboard hook (`WH_KEYBOARD_LL`) swallow table.
+   - Prevents physical macro trigger keys (e.g. `V`, `Z`, `G`, `CapsLock`...) from leaking raw keyboard events into games, eliminating dual-input conflicts and unintentional in-game chat or menu popups.
+   - Fully safe: Whitelists emergency kill-switch shortcuts (`Ctrl + Alt + F10`) and essential Windows navigation hotkeys (`Alt + Tab`, `LWin`, `RWin`, `Ctrl + Shift + Esc`).
+
+---
+
+### 6. User Interface (WPF GUI)
 
 1. **Dashboard:** Connection status indicator, Enable/Disable controller toggle, active profile selector, and quick test button.
 2. **Button Mapping:** Grid layout for mapping physical keys and mouse buttons to Xbox 360 inputs with auto-key-detection.
 3. **Analog Settings:**
    - Choose input source: `Keyboard (WASD)`, `Mouse`, or `None (Disabled)`.
    - Sliders for Sensitivity X/Y, Deadzone, Anti-Deadzone, Response Curve selector, Stick Geometry toggle, Smoothing, and Axis Inversion.
-4. **Controller Tester:** Real-time visual feedback showing stick displacement coordinates, trigger progress bars, and button states.
-5. **Profiles Manager:** Create, duplicate, rename, delete, import, and export profile `.json` files.
-6. **Settings:** Toggle start with Windows, start minimized, auto-enable, switch runtime UI language (Tiếng Việt / English), and 1-click ViGEmBus installer.
+4. **Macro & Combo:** Configure automated controller sequences, select from 3 execution modes (Play Once, Repeat While Held, Toggle Loop), record real-time inputs with Live Recorder, and load instant presets.
+5. **Controller Tester:** Real-time visual feedback showing stick displacement coordinates, trigger progress bars, and button states.
+6. **Profiles Manager:** Create, duplicate, rename, delete, import, and export profile `.json` files.
+7. **Settings:** Toggle start with Windows, start minimized, auto-enable, switch runtime UI language (Tiếng Việt / English), and 1-click ViGEmBus installer.
 
 ---
 
-### 6. Safety Controls: System Tray & Emergency Kill-Switch
+### 7. Safety Controls: System Tray & Emergency Kill-Switch
 
 - **System Tray Integration:** Closing the main window minimizes the app to the notification area, maintaining active emulation in the background. Right-click the tray icon for quick access.
 - **Emergency Kill-Switch Hotkey:**
@@ -455,7 +560,7 @@ The `MouseToStickTranslator` computes stick displacement from relative mouse mot
 
 ---
 
-### 7. ViGEmBus Driver Installation
+### 8. ViGEmBus Driver Installation
 
 The application requires the open-source **ViGEmBus (Virtual Gamepad Emulation Bus)** kernel driver.
 
@@ -470,7 +575,7 @@ The application requires the open-source **ViGEmBus (Virtual Gamepad Emulation B
 
 ---
 
-### 8. Build, Test & Run Guide
+### 9. Build, Test & Run Guide
 
 #### Prerequisites
 - Windows 10 or Windows 11 (64-bit).
@@ -478,7 +583,7 @@ The application requires the open-source **ViGEmBus (Virtual Gamepad Emulation B
 
 #### PowerShell Automation (Recommended)
 ```powershell
-# 1. Build and run all 44 unit tests
+# 1. Build and run all 76 unit tests
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 
 # 2. Publish standalone binary to dist/
@@ -498,7 +603,7 @@ dotnet publish src/VirtualController.App/VirtualController.App.csproj -c Release
 
 ---
 
-### 9. Source Code Structure
+### 10. Source Code Structure
 
 ```text
 Virtual-controller/
@@ -514,6 +619,8 @@ Virtual-controller/
 │   │   ├── Core/
 │   │   │   ├── ControllerState.cs    # Normalized Xbox 360 controller state container
 │   │   │   ├── InputState.cs         # Thread-safe keyboard key & mouse delta buffer
+│   │   │   ├── MacroEngine.cs        # Deterministic tick-based macro state machine engine
+│   │   │   ├── MacroRecorder.cs      # Real-time macro recording engine
 │   │   │   └── MappingEngine.cs      # Core mapping & stick dispatch engine
 │   │   ├── Input/
 │   │   │   ├── WindowsHookManager.cs # Low-level Windows hooks (WH_KEYBOARD_LL, WH_MOUSE_LL)
@@ -523,6 +630,8 @@ Virtual-controller/
 │   │   ├── Profiles/
 │   │   │   ├── Profile.cs            # Profile serialization model
 │   │   │   ├── StickConfig.cs        # Analog stick configuration model (Curves, Geometry...)
+│   │   │   ├── MacroDefinition.cs    # Macro, step, action type & execution mode model
+│   │   │   ├── MacroPresets.cs       # Built-in collection of 6 gaming macro presets
 │   │   │   └── ProfileManager.cs     # Profile persistence & file operations
 │   │   ├── VirtualController/
 │   │   │   ├── IVirtualController.cs # Virtual controller abstraction interface
@@ -539,9 +648,10 @@ Virtual-controller/
 │       ├── Services/
 │       │   ├── LocalizationService.cs# Runtime language dictionary switcher
 │       │   └── TrayService.cs        # System tray icon and context menu service
-│       └── Views/                    # UI Views (Dashboard, Mapping, Analog, Tester, Settings)
+│       └── Views/                    # UI Views (Dashboard, Mapping, Analog, Macro...)
+│           └── MacroViewModels.cs    # Macro list and state inspector ViewModels
 ├── tests/
-│   └── VirtualController.Tests/      # 44 automated unit tests
+│   └── VirtualController.Tests/      # 76 automated unit tests
 ├── build.ps1                         # PowerShell automated build and test runner
 ├── publish.ps1                       # PowerShell standalone publication script
 └── run.ps1                           # PowerShell pre-flight driver check and launcher
@@ -549,6 +659,6 @@ Virtual-controller/
 
 ---
 
-### 10. License
+### 11. License
 
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for complete details.

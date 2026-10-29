@@ -199,6 +199,14 @@ namespace VirtualController.Input
             }
         }
 
+        public void NotifyProfileUpdated()
+        {
+            if (BlockPhysicalKeyboard)
+            {
+                UpdateBlockedKeysFromActiveProfile();
+            }
+        }
+
         public void UpdateBlockedKeysFromActiveProfile()
         {
             try

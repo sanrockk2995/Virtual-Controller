@@ -10,6 +10,7 @@
     <sys:String x:Key="Nav_Analog">Analog Configuration</sys:String>
     <sys:String x:Key="Nav_Tester">Controller Live Test</sys:String>
     <sys:String x:Key="Nav_Profiles">Profiles</sys:String>
+    <sys:String x:Key="Nav_Macro">Macro &amp; Combo</sys:String>
     <sys:String x:Key="Nav_Settings">Settings &amp; Driver</sys:String>
     <sys:String x:Key="Status_Active">Active (Connected)</sys:String>
     <sys:String x:Key="Status_Disabled">Disabled</sys:String>
@@ -144,5 +145,41 @@
     <sys:String x:Key="Settings_UpdateLatest">You are running the latest version.</sys:String>
     <sys:String x:Key="Settings_UpdateAvailable">New version available:</sys:String>
     <sys:String x:Key="Settings_UpdateFailed">Failed to check for updates (Network error or API limit).</sys:String>
+
+    <!-- Macro & Combo Studio -->
+    <sys:String x:Key="Macro_Title">Macro &amp; Combo Studio</sys:String>
+    <sys:String x:Key="Macro_Subtitle">Automate controller button sequences, Rapid Fire (Turbo), and skill combos with millisecond precision</sys:String>
+    <sys:String x:Key="Macro_ListHeader">Macro List</sys:String>
+    <sys:String x:Key="Macro_BtnNew">+ New</sys:String>
+    <sys:String x:Key="Macro_BtnPreset">⚡ Presets</sys:String>
+    <sys:String x:Key="Macro_BtnDuplicate">Duplicate</sys:String>
+    <sys:String x:Key="Macro_BtnDelete">Delete</sys:String>
+    <sys:String x:Key="Macro_BtnSave">Save Macros</sys:String>
+    <sys:String x:Key="Macro_EditorHeader">Macro Inspector &amp; Step Sequence</sys:String>
+    <sys:String x:Key="Macro_Name">Macro Name:</sys:String>
+    <sys:String x:Key="Macro_Trigger">Trigger Key:</sys:String>
+    <sys:String x:Key="Macro_BtnRebind">Bind Key</sys:String>
+    <sys:String x:Key="Macro_Mode">Execution Mode:</sys:String>
+    <sys:String x:Key="Macro_Enabled">Enable this Macro</sys:String>
+    <sys:String x:Key="Macro_LoopDelay">Loop Delay (ms):</sys:String>
+    <sys:String x:Key="Macro_ModeOnce">Play Once</sys:String>
+    <sys:String x:Key="Macro_ModeHold">Repeat While Held (Turbo)</sys:String>
+    <sys:String x:Key="Macro_ModeToggle">Toggle Continuous Loop</sys:String>
+    <sys:String x:Key="Macro_AddStepTitle">Add Action Step to Sequence</sys:String>
+    <sys:String x:Key="Macro_StepType">Action Type:</sys:String>
+    <sys:String x:Key="Macro_StepTap">Press &amp; Release (Tap)</sys:String>
+    <sys:String x:Key="Macro_StepHold">Hold Button Down</sys:String>
+    <sys:String x:Key="Macro_StepRelease">Release Button</sys:String>
+    <sys:String x:Key="Macro_StepWait">Wait / Delay Only</sys:String>
+    <sys:String x:Key="Macro_SelectButtons">Select Controller Buttons (multi-select for Combos):</sys:String>
+    <sys:String x:Key="Macro_Duration">Hold (ms):</sys:String>
+    <sys:String x:Key="Macro_DelayAfter">Delay After (ms):</sys:String>
+    <sys:String x:Key="Macro_BtnAddStep">+ Add Step</sys:String>
+    <sys:String x:Key="Macro_BtnRecord">⏺ Live Record</sys:String>
+    <sys:String x:Key="Macro_BtnStopRecord">⏹ Stop Recording</sys:String>
+    <sys:String x:Key="Macro_BtnClearSteps">Clear Steps</sys:String>
+    <sys:String x:Key="Macro_StepsHeader">Step Sequence Timeline:</sys:String>
+    <sys:String x:Key="Macro_SavedSuccess">Macro settings saved successfully.</sys:String>
+    <sys:String x:Key="Macro_Tip">Tip: Select multiple buttons (e.g. LB + RB) in a single step for simultaneous combos, or use 'Presets' for instant Rapid Fire.</sys:String>
 
 </ResourceDictionary>

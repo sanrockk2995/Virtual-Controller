@@ -44,6 +44,10 @@
                             Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
 
+                    <Button x:Name="NavMacro" Content="{DynamicResource Nav_Macro}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
+                            Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
+                            BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>
+
                     <Button x:Name="NavAnalog" Content="{DynamicResource Nav_Analog}" Style="{x:Null}" Height="40" Margin="0,0,0,6" 
                             Background="Transparent" Foreground="#A0A0AB" FontWeight="SemiBold" HorizontalContentAlignment="Left" Padding="14,0" 
                             BorderThickness="0" Cursor="Hand" Click="NavButton_Click"/>

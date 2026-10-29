@@ -10,6 +10,7 @@
     <sys:String x:Key="Nav_Analog">Cấu hình Analog</sys:String>
     <sys:String x:Key="Nav_Tester">Kiểm tra tay cầm</sys:String>
     <sys:String x:Key="Nav_Profiles">Cấu hình (Profiles)</sys:String>
+    <sys:String x:Key="Nav_Macro">Macro &amp; Combo</sys:String>
     <sys:String x:Key="Nav_Settings">Cài đặt &amp; Driver</sys:String>
     <sys:String x:Key="Status_Active">Đang hoạt động (Đã kết nối)</sys:String>
     <sys:String x:Key="Status_Disabled">Đã tắt</sys:String>
@@ -144,5 +145,41 @@
     <sys:String x:Key="Settings_UpdateLatest">Bạn đang sử dụng phiên bản mới nhất.</sys:String>
     <sys:String x:Key="Settings_UpdateAvailable">Có bản cập nhật mới khả dụng:</sys:String>
     <sys:String x:Key="Settings_UpdateFailed">Không thể kiểm tra cập nhật (Lỗi mạng hoặc giới hạn API).</sys:String>
+
+    <!-- Macro & Combo Studio -->
+    <sys:String x:Key="Macro_Title">Thiết lập Macro &amp; Combo</sys:String>
+    <sys:String x:Key="Macro_Subtitle">Tự động hóa chuỗi nút bấm, Rapid Fire (Turbo) và tổ hợp phím kỹ năng với độ trễ mili-giây</sys:String>
+    <sys:String x:Key="Macro_ListHeader">Danh sách Macro</sys:String>
+    <sys:String x:Key="Macro_BtnNew">+ Tạo mới</sys:String>
+    <sys:String x:Key="Macro_BtnPreset">⚡ Mẫu có sẵn</sys:String>
+    <sys:String x:Key="Macro_BtnDuplicate">Nhân bản</sys:String>
+    <sys:String x:Key="Macro_BtnDelete">Xóa</sys:String>
+    <sys:String x:Key="Macro_BtnSave">Lưu cài đặt Macro</sys:String>
+    <sys:String x:Key="Macro_EditorHeader">Chi tiết &amp; Chuỗi bước thực thi</sys:String>
+    <sys:String x:Key="Macro_Name">Tên Macro:</sys:String>
+    <sys:String x:Key="Macro_Trigger">Phím kích hoạt:</sys:String>
+    <sys:String x:Key="Macro_BtnRebind">Gán phím</sys:String>
+    <sys:String x:Key="Macro_Mode">Chế độ chạy:</sys:String>
+    <sys:String x:Key="Macro_Enabled">Kích hoạt Macro này</sys:String>
+    <sys:String x:Key="Macro_LoopDelay">Độ trễ lặp (ms):</sys:String>
+    <sys:String x:Key="Macro_ModeOnce">Chạy 1 lần (Play Once)</sys:String>
+    <sys:String x:Key="Macro_ModeHold">Lặp khi giữ phím (Turbo / Hold)</sys:String>
+    <sys:String x:Key="Macro_ModeToggle">Bật / Tắt lặp liên tục (Toggle)</sys:String>
+    <sys:String x:Key="Macro_AddStepTitle">Thêm bước thao tác vào chuỗi</sys:String>
+    <sys:String x:Key="Macro_StepType">Loại thao tác:</sys:String>
+    <sys:String x:Key="Macro_StepTap">Nhấn &amp; Nhả (Tap)</sys:String>
+    <sys:String x:Key="Macro_StepHold">Giữ nút (Hold Down)</sys:String>
+    <sys:String x:Key="Macro_StepRelease">Nhả nút (Release Up)</sys:String>
+    <sys:String x:Key="Macro_StepWait">Chờ thời gian (Wait)</sys:String>
+    <sys:String x:Key="Macro_SelectButtons">Chọn nút tay cầm (có thể chọn nhiều nút để tạo Combo):</sys:String>
+    <sys:String x:Key="Macro_Duration">Giữ (ms):</sys:String>
+    <sys:String x:Key="Macro_DelayAfter">Nghỉ sau (ms):</sys:String>
+    <sys:String x:Key="Macro_BtnAddStep">+ Thêm bước</sys:String>
+    <sys:String x:Key="Macro_BtnRecord">⏺ Ghi trực tiếp</sys:String>
+    <sys:String x:Key="Macro_BtnStopRecord">⏹ Dừng ghi</sys:String>
+    <sys:String x:Key="Macro_BtnClearSteps">Xóa hết bước</sys:String>
+    <sys:String x:Key="Macro_StepsHeader">Danh sách các bước theo thứ tự:</sys:String>
+    <sys:String x:Key="Macro_SavedSuccess">Đã lưu cấu hình Macro thành công.</sys:String>
+    <sys:String x:Key="Macro_Tip">Mẹo: Bạn có thể chọn nhiều nút (ví dụ LB + RB) trong cùng 1 bước để tung chiêu cuối hoặc dùng nút 'Mẫu có sẵn' để tạo nhanh Rapid Fire.</sys:String>
 
 </ResourceDictionary>

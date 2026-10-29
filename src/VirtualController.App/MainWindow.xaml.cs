@@ -22,6 +22,7 @@ namespace VirtualController.App
 
         private readonly DashboardView _dashboardView;
         private readonly MappingEditorView _mappingEditorView;
+        private readonly MacroEditorView _macroEditorView;
         private readonly AnalogSettingsView _analogSettingsView;
         private readonly ControllerTesterView _controllerTesterView;
         private readonly ProfilesView _profilesView;
@@ -49,6 +50,7 @@ namespace VirtualController.App
             _controllerTesterView = new ControllerTesterView(_inputManager);
             _dashboardView = new DashboardView(_inputManager, _profileManager, _controller, () => SelectNavigation(NavTester, _controllerTesterView));
             _mappingEditorView = new MappingEditorView(_profileManager);
+            _macroEditorView = new MacroEditorView(_profileManager, _inputManager);
             _analogSettingsView = new AnalogSettingsView(_profileManager);
             _profilesView = new ProfilesView(_profileManager);
             _settingsView = new SettingsView(_settings);
@@ -67,6 +69,7 @@ namespace VirtualController.App
             {
                 if (btn == NavDashboard) SelectNavigation(btn, _dashboardView);
                 else if (btn == NavMapping) SelectNavigation(btn, _mappingEditorView);
+                else if (btn == NavMacro) SelectNavigation(btn, _macroEditorView);
                 else if (btn == NavAnalog) SelectNavigation(btn, _analogSettingsView);
                 else if (btn == NavTester) SelectNavigation(btn, _controllerTesterView);
                 else if (btn == NavProfiles) SelectNavigation(btn, _profilesView);
@@ -76,7 +79,7 @@ namespace VirtualController.App
 
         private void SelectNavigation(Button activeBtn, UserControl view)
         {
-            Button[] allNavButtons = { NavDashboard, NavMapping, NavAnalog, NavTester, NavProfiles, NavSettings };
+            Button[] allNavButtons = { NavDashboard, NavMapping, NavMacro, NavAnalog, NavTester, NavProfiles, NavSettings };
 
             foreach (var b in allNavButtons)
             {
@@ -91,6 +94,7 @@ namespace VirtualController.App
 
             if (view is DashboardView dv) dv.RefreshData();
             if (view is MappingEditorView mv) mv.LoadMappingsFromProfile();
+            if (view is MacroEditorView mcv) mcv.LoadMacrosFromProfile();
             if (view is AnalogSettingsView av) av.LoadSettingsFromProfile();
             if (view is ProfilesView pv) pv.RefreshUI();
         }

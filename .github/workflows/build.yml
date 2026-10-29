@@ -33,7 +33,7 @@ jobs:
     - name: Build solution
       shell: pwsh
       run: |
-        $rawTag = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.4.1" }
+        $rawTag = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.5.0" }
         $semVer = $rawTag.TrimStart('v', 'V')
         dotnet build VirtualController.sln --configuration Release --no-restore -p:Version=$semVer -p:AssemblyVersion=$semVer.0 -p:FileVersion=$semVer.0
 
@@ -43,7 +43,7 @@ jobs:
     - name: Publish application
       shell: pwsh
       run: |
-        $rawTag = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.4.1" }
+        $rawTag = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.5.0" }
         $semVer = $rawTag.TrimStart('v', 'V')
         dotnet publish src/VirtualController.App/VirtualController.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=false -p:Version=$semVer -p:AssemblyVersion=$semVer.0 -p:FileVersion=$semVer.0 -o dist/VirtualController
         New-Item -ItemType Directory -Path dist/VirtualController/profiles -Force | Out-Null
@@ -55,7 +55,7 @@ jobs:
     - name: Package Release ZIP
       shell: pwsh
       run: |
-        $version = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.1.0" }
+        $version = if ($env:GITHUB_REF -like "refs/tags/v*") { $env:GITHUB_REF.Substring(10) } else { "v1.5.0" }
         $zipName = "VirtualController-$version-win-x64.zip"
         Compress-Archive -Path "dist/VirtualController/*" -DestinationPath $zipName -Force
         "RELEASE_ZIP=$zipName" | Out-File -FilePath $env:GITHUB_ENV -Append
@@ -78,14 +78,12 @@ jobs:
           ## VirtualController ${{ env.RELEASE_TAG }}
           
           ### What's New
-          - **Fix Assembly Version Stamping**: Injected release semver into MSBuild compilation and sanitized git commit hashes in version parser, resolving false update notifications.
-          - **GitHub Releases Auto-Update Checker**: Automatic update check on startup and manual check from Settings with full release notes and direct download links.
-          - **Customizable Emergency Kill-Switch Hotkey**: Fully configurable global hotkey (e.g. `Ctrl + Alt + F10`, `Ctrl + Shift + F12`, `F11`...) with interactive recording in Settings.
-          - **Physical Keyboard Input Blocking**: Selectively swallows mapped physical keys in games to eliminate dual-input collisions.
-          - **Anti-Stuck Key Engine**: Ensures seamless key-down / key-up transitions with zero stuck keys.
-          - **Safety Whitelists**: Full protection for emergency hotkey, Windows shortcuts (`Alt + Tab`, `Ctrl + Shift + Esc`), and system keys.
-          - **Runtime Bilingual Localization**: Instant switching between Vietnamese 🇻🇳 and English 🇬🇧.
-          - **Comprehensive Test Suite**: 73/73 unit tests passed.
+          - **Controller Macro & Combo Studio**: Full 125Hz deterministic macro engine supporting `Play Once`, `Repeat While Held (Turbo / Rapid Fire)`, and `Toggle Loop` execution modes.
+          - **Multi-Button Combos & Stick Actions**: Combine multiple controller buttons (`LB + RB`, `X + A`) and directional stick deflections (`LS_Up`, `RS_Right`, etc.) in a single macro step with millisecond hold and delay precision.
+          - **Live Macro Recorder**: Real-time macro recording that captures button press durations and inter-step delays automatically.
+          - **Built-in Gaming Presets**: Instant 1-click templates for *Rapid Fire RT*, *Ultimate Skill (LB + RB)*, *Melee Combo (X -> X -> Y)*, *Dodge Roll (LS_Up + B)*, *Auto Bunny Hop*, and *Auto Sprint*.
+          - **Physical Keyboard Blocking Integration**: Active macro trigger keys are automatically swallowed from games when Physical Keyboard Blocking is enabled.
+          - **Comprehensive Test Suite**: 90/90 unit tests passed.
         draft: false
         prerelease: false
       env:

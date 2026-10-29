@@ -14,7 +14,10 @@ namespace VirtualController.Core
     {
         private readonly MouseToStickTranslator _leftTranslator = new();
         private readonly MouseToStickTranslator _rightTranslator = new();
+        private readonly MacroEngine _macroEngine = new();
         private long _lastTimestamp;
+
+        public MacroEngine MacroEngine => _macroEngine;
 
         /// <summary>
         /// Transforms raw physical input into an Xbox 360 controller state.
@@ -61,6 +64,8 @@ namespace VirtualController.Core
 
             // 3. Process Buttons and Triggers
             ProcessButtons(input, profile, output);
+
+            _macroEngine.Update(input, profile.Macros, output, dt);
 
             return output;
         }
@@ -197,6 +202,41 @@ namespace VirtualController.Core
                 case "DPADDOWN": output.DPadDown = active; break;
                 case "DPADLEFT": output.DPadLeft = active; break;
                 case "DPADRIGHT": output.DPadRight = active; break;
+
+                // Stick Directions
+                case "LS_UP":
+                case "LSUP":
+                    if (active) output.LeftThumbY = 1.0;
+                    break;
+                case "LS_DOWN":
+                case "LSDOWN":
+                    if (active) output.LeftThumbY = -1.0;
+                    break;
+                case "LS_LEFT":
+                case "LSLEFT":
+                    if (active) output.LeftThumbX = -1.0;
+                    break;
+                case "LS_RIGHT":
+                case "LSRIGHT":
+                    if (active) output.LeftThumbX = 1.0;
+                    break;
+
+                case "RS_UP":
+                case "RSUP":
+                    if (active) output.RightThumbY = 1.0;
+                    break;
+                case "RS_DOWN":
+                case "RSDOWN":
+                    if (active) output.RightThumbY = -1.0;
+                    break;
+                case "RS_LEFT":
+                case "RSLEFT":
+                    if (active) output.RightThumbX = -1.0;
+                    break;
+                case "RS_RIGHT":
+                case "RSRIGHT":
+                    if (active) output.RightThumbX = 1.0;
+                    break;
             }
         }
 
@@ -205,6 +245,7 @@ namespace VirtualController.Core
             _lastTimestamp = 0;
             _leftTranslator.Reset();
             _rightTranslator.Reset();
+            _macroEngine.Reset();
         }
     }
 }

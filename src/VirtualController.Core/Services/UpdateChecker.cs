@@ -14,7 +14,7 @@ namespace VirtualController.Services
     public class UpdateInfo
     {
         public bool IsUpdateAvailable { get; set; }
-        public Version CurrentVersion { get; set; } = new(1, 4, 1);
+        public Version CurrentVersion { get; set; } = new(1, 5, 0);
         public Version? LatestVersion { get; set; }
         public string TagName { get; set; } = "";
         public string ReleaseName { get; set; } = "";
@@ -29,7 +29,7 @@ namespace VirtualController.Services
     {
         public const string DefaultRepoOwner = "sanrockk2995";
         public const string DefaultRepoName = "Virtual-Controller";
-        public static readonly Version CurrentAppVersion = new(1, 4, 1);
+        public static readonly Version CurrentAppVersion = new(1, 5, 0);
 
         private readonly HttpClient _httpClient;
         private readonly string _repoOwner;
@@ -48,7 +48,7 @@ namespace VirtualController.Services
             {
                 Timeout = TimeSpan.FromSeconds(8)
             };
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("VirtualController-Updater", "1.4.1"));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("VirtualController-Updater", "1.5.0"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             return client;
         }
